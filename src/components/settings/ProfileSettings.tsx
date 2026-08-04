@@ -17,8 +17,10 @@ export function ProfileSettings() {
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [companyLogoUrl, setCompanyLogoUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -27,9 +29,41 @@ export function ProfileSettings() {
         setFullName(data.full_name || "");
         setCompany(data.company || "");
         setAvatarUrl(data.avatar_url || "");
+        setCompanyLogoUrl(data.company_logo_url || "");
       }
     });
   }, [user]);
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"];
+    if (!allowedTypes.includes(file.type)) {
+      toast({ title: "Invalid file type", description: "Please upload a JPEG, PNG, GIF, WebP, or SVG image.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast({ title: "File too large", description: "Logo must be under 2 MB.", variant: "destructive" });
+      return;
+    }
+
+    setUploadingLogo(true);
+    const path = `company-logos/${user.id}/logo.${file.name.split('.').pop()}`;
+    const { error: uploadError } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
+    if (uploadError) {
+      toast({ title: "Upload failed", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
+      setUploadingLogo(false);
+      return;
+    }
+    const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
+    const url = `${publicUrl}?t=${Date.now()}`;
+    await supabase.from("profiles").update({ company_logo_url: url }).eq("user_id", user.id);
+    setCompanyLogoUrl(url);
+    queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
+    setUploadingLogo(false);
+    toast({ title: "Company logo updated" });
+  };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
