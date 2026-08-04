@@ -58,7 +58,7 @@ export function ProfileSettings() {
     }
     const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
     const url = `${publicUrl}?t=${Date.now()}`;
-    await supabase.from("profiles").update({ company_logo_url: url }).eq("user_id", user.id);
+    await supabase.from("profiles").upsert({ user_id: user.id, company_logo_url: url }, { onConflict: "user_id" });
     setCompanyLogoUrl(url);
     queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
     setUploadingLogo(false);
@@ -89,7 +89,7 @@ export function ProfileSettings() {
     }
     const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
     const url = `${publicUrl}?t=${Date.now()}`;
-    await supabase.from("profiles").update({ avatar_url: url }).eq("user_id", user.id);
+    await supabase.from("profiles").upsert({ user_id: user.id, avatar_url: url }, { onConflict: "user_id" });
     setAvatarUrl(url);
     queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
     setUploading(false);
@@ -99,7 +99,7 @@ export function ProfileSettings() {
   const handleSave = async () => {
     if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("profiles").update({ full_name: fullName, company, company_logo_url: companyLogoUrl }).eq("user_id", user.id);
+    const { error } = await supabase.from("profiles").upsert({ user_id: user.id, full_name: fullName, company, company_logo_url: companyLogoUrl }, { onConflict: "user_id" });
     setSaving(false);
     if (error) toast({ title: "Error", description: sanitizeErrorMessage(error.message), variant: "destructive" });
     else {
