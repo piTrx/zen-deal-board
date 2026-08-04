@@ -99,7 +99,7 @@ export function ProfileSettings() {
   const handleSave = async () => {
     if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("profiles").update({ full_name: fullName, company }).eq("user_id", user.id);
+    const { error } = await supabase.from("profiles").update({ full_name: fullName, company, company_logo_url: companyLogoUrl }).eq("user_id", user.id);
     setSaving(false);
     if (error) toast({ title: "Error", description: sanitizeErrorMessage(error.message), variant: "destructive" });
     else {
