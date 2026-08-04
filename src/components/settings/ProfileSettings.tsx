@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera } from "lucide-react";
+import { Loader2, Camera, Building2 } from "lucide-react";
 import { sanitizeErrorMessage } from "@/lib/sanitize";
 import { useQueryClient } from "@tanstack/react-query";
 
