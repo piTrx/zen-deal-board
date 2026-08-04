@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera } from "lucide-react";
+import { Loader2, Camera, Building2 } from "lucide-react";
 import { sanitizeErrorMessage } from "@/lib/sanitize";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -17,8 +17,10 @@ export function ProfileSettings() {
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [companyLogoUrl, setCompanyLogoUrl] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -27,9 +29,41 @@ export function ProfileSettings() {
         setFullName(data.full_name || "");
         setCompany(data.company || "");
         setAvatarUrl(data.avatar_url || "");
+        setCompanyLogoUrl(data.company_logo_url || "");
       }
     });
   }, [user]);
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"];
+    if (!allowedTypes.includes(file.type)) {
+      toast({ title: "Invalid file type", description: "Please upload a JPEG, PNG, GIF, WebP, or SVG image.", variant: "destructive" });
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      toast({ title: "File too large", description: "Logo must be under 2 MB.", variant: "destructive" });
+      return;
+    }
+
+    setUploadingLogo(true);
+    const path = `company-logos/${user.id}/logo.${file.name.split('.').pop()}`;
+    const { error: uploadError } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
+    if (uploadError) {
+      toast({ title: "Upload failed", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
+      setUploadingLogo(false);
+      return;
+    }
+    const { data: { publicUrl } } = supabase.storage.from("avatars").getPublicUrl(path);
+    const url = `${publicUrl}?t=${Date.now()}`;
+    await supabase.from("profiles").update({ company_logo_url: url }).eq("user_id", user.id);
+    setCompanyLogoUrl(url);
+    queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
+    setUploadingLogo(false);
+    toast({ title: "Company logo updated" });
+  };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,7 +99,7 @@ export function ProfileSettings() {
   const handleSave = async () => {
     if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("profiles").update({ full_name: fullName, company }).eq("user_id", user.id);
+    const { error } = await supabase.from("profiles").update({ full_name: fullName, company, company_logo_url: companyLogoUrl }).eq("user_id", user.id);
     setSaving(false);
     if (error) toast({ title: "Error", description: sanitizeErrorMessage(error.message), variant: "destructive" });
     else {
@@ -100,7 +134,40 @@ export function ProfileSettings() {
         </div>
         <div className="space-y-2">
           <Label>Company</Label>
-          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} />
+          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} placeholder="e.g. Acme Inc." />
+        </div>
+        <div className="space-y-2">
+          <Label>Company Logo</Label>
+          <p className="text-xs text-muted-foreground -mt-1">Shown in the sidebar instead of the default logo.</p>
+          <div className="flex items-center gap-4">
+            <div className="relative group h-14 w-14 rounded-lg border flex items-center justify-center overflow-hidden bg-muted">
+              {companyLogoUrl ? (
+                <img src={companyLogoUrl} alt="Company logo" className="h-full w-full object-contain" />
+              ) : (
+                <Building2 className="h-6 w-6 text-muted-foreground" />
+              )}
+              <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                {uploadingLogo ? <Loader2 className="h-5 w-5 animate-spin text-white" /> : <Camera className="h-5 w-5 text-white" />}
+                <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} disabled={uploadingLogo} />
+              </label>
+            </div>
+            {companyLogoUrl && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={async () => {
+                  if (!user) return;
+                  await supabase.from("profiles").update({ company_logo_url: null }).eq("user_id", user.id);
+                  setCompanyLogoUrl("");
+                  queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
+                  toast({ title: "Logo removed" });
+                }}
+              >
+                Remove
+              </Button>
+            )}
+          </div>
         </div>
         <div className="space-y-2">
           <Label>Email</Label>
