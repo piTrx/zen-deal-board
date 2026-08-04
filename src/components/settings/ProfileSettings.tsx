@@ -134,7 +134,40 @@ export function ProfileSettings() {
         </div>
         <div className="space-y-2">
           <Label>Company</Label>
-          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} />
+          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} placeholder="e.g. Acme Inc." />
+        </div>
+        <div className="space-y-2">
+          <Label>Company Logo</Label>
+          <p className="text-xs text-muted-foreground -mt-1">Shown in the sidebar instead of the default logo.</p>
+          <div className="flex items-center gap-4">
+            <div className="relative group h-14 w-14 rounded-lg border flex items-center justify-center overflow-hidden bg-muted">
+              {companyLogoUrl ? (
+                <img src={companyLogoUrl} alt="Company logo" className="h-full w-full object-contain" />
+              ) : (
+                <Building2 className="h-6 w-6 text-muted-foreground" />
+              )}
+              <label className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                {uploadingLogo ? <Loader2 className="h-5 w-5 animate-spin text-white" /> : <Camera className="h-5 w-5 text-white" />}
+                <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} disabled={uploadingLogo} />
+              </label>
+            </div>
+            {companyLogoUrl && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={async () => {
+                  if (!user) return;
+                  await supabase.from("profiles").update({ company_logo_url: null }).eq("user_id", user.id);
+                  setCompanyLogoUrl("");
+                  queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
+                  toast({ title: "Logo removed" });
+                }}
+              >
+                Remove
+              </Button>
+            )}
+          </div>
         </div>
         <div className="space-y-2">
           <Label>Email</Label>
