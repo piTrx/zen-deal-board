@@ -62,9 +62,13 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader className="p-4">
         <NavLink to="/" className="flex items-center gap-2">
-          <DMark className="h-7 w-7 text-sidebar-foreground" />
+          {companyLogo ? (
+            <img src={companyLogo} alt={`${appName} logo`} className="h-7 w-7 object-contain" />
+          ) : (
+            <DMark className="h-7 w-7 text-sidebar-foreground" />
+          )}
           <span className="text-lg font-bold tracking-tight text-sidebar-foreground">
-            Dealflow
+            {appName}
           </span>
         </NavLink>
       </SidebarHeader>
