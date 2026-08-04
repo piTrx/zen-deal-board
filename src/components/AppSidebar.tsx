@@ -49,11 +49,14 @@ export function AppSidebar() {
   const { data: profile } = useQuery({
     queryKey: ["profile-sidebar", user?.id],
     queryFn: async () => {
-      const { data } = await supabase.from("profiles").select("avatar_url, full_name").eq("user_id", user!.id).single();
+      const { data } = await supabase.from("profiles").select("avatar_url, full_name, company, company_logo_url").eq("user_id", user!.id).single();
       return data;
     },
     enabled: !!user,
   });
+
+  const appName = profile?.company || "Dealflow";
+  const companyLogo = profile?.company_logo_url;
 
   return (
     <Sidebar>
