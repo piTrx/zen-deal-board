@@ -47,7 +47,14 @@ export default function Auth() {
     );
   }
 
-  if (session) return <Navigate to="/dashboard" replace />;
+  if (session) {
+    const pendingInvite = sessionStorage.getItem("pending_invite");
+    if (pendingInvite) {
+      sessionStorage.removeItem("pending_invite");
+      return <Navigate to={`/invite/${pendingInvite}`} replace />;
+    }
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
