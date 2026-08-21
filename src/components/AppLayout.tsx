@@ -8,10 +8,11 @@ import { AppSidebar } from "./AppSidebar";
 import { GlobalSearch } from "./GlobalSearch";
 import { ThemeToggle } from "./ThemeToggle";
 import { NotificationCenter } from "./NotificationCenter";
+import { EmailNotConfirmed } from "./EmailNotConfirmed";
 import { Loader2 } from "lucide-react";
 
 export function AppLayout() {
-  const { session, loading } = useAuth();
+  const { session, user, loading } = useAuth();
   const { data: onboardingStatus, isLoading: onboardingLoading } = useOnboardingStatus();
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
 
