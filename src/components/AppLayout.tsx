@@ -26,6 +26,10 @@ export function AppLayout() {
 
   if (!session) return <Navigate to="/auth" replace />;
 
+  if (user && !user.email_confirmed_at && !user.confirmed_at) {
+    return <EmailNotConfirmed />;
+  }
+
   if (onboardingStatus?.needsOnboarding && !onboardingDismissed) {
     return <OnboardingWizard onComplete={() => setOnboardingDismissed(true)} />;
   }
