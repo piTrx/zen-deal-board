@@ -20,6 +20,7 @@ import Settings from "./pages/Settings";
 import DataImportExport from "./pages/DataImportExport";
 import Tasks from "./pages/Tasks";
 import CalendarView from "./pages/CalendarView";
+import AcceptInvite from "./pages/AcceptInvite";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/invite/:token" element={<AcceptInvite />} />
               <Route element={<AppLayout />}>
                 <Route path="/dashboard" element={<Index />} />
                 <Route path="/pipeline" element={<Pipeline />} />
