@@ -47,7 +47,12 @@ export default function Auth() {
     );
   }
 
+  const nextParam = new URLSearchParams(window.location.search).get("next");
+  const safeNext = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : null;
+  const postAuthUrl = safeNext ? window.location.origin + safeNext : window.location.origin;
+
   if (session) {
+    if (safeNext) return <Navigate to={safeNext} replace />;
     const pendingInvite = sessionStorage.getItem("pending_invite");
     if (pendingInvite) {
       sessionStorage.removeItem("pending_invite");
@@ -81,7 +86,7 @@ export default function Auth() {
           password: data.password,
           options: {
             data: { full_name: data.fullName },
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: postAuthUrl,
           },
         });
         if (error) throw error;
@@ -245,7 +250,7 @@ export default function Auth() {
             className="w-full"
             onClick={async () => {
               const { error } = await lovable.auth.signInWithOAuth("google", {
-                redirect_uri: window.location.origin,
+                redirect_uri: postAuthUrl,
               });
               if (error) {
                 toast({ title: "Error", description: String(error), variant: "destructive" });
