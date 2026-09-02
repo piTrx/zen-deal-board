@@ -15,6 +15,13 @@
       "when": 1788339207335,
       "tag": "0001_move_rls_helpers_to_private_schema",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788339257846,
+      "tag": "0002_wrap_definer_rpcs_with_invoker_functions",
+      "breakpoints": true
     }
   ]
 }
