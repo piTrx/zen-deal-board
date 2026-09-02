@@ -8,6 +8,13 @@
       "when": 1788339122056,
       "tag": "0000_restrict_security_definer_execute",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788339207335,
+      "tag": "0001_move_rls_helpers_to_private_schema",
+      "breakpoints": true
     }
   ]
 }

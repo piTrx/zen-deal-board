@@ -589,17 +589,6 @@ export type Database = {
           team_name: string
         }[]
       }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_team_member: {
-        Args: { _target_user_id: string; _user_id: string }
-        Returns: boolean
-      }
       seed_default_pipeline: { Args: { p_user_id: string }; Returns: string }
     }
     Enums: {
