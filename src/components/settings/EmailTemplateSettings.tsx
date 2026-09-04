@@ -32,11 +32,11 @@ export function EmailTemplateSettings() {
     if (!user) return;
     if (editing) {
       updateTemplate.mutate({ id: editing.id, name, subject, body }, {
-        onSuccess: () => { toast({ title: "Template updated" }); setDialogOpen(false); },
+        onSuccess: () => { toast({ title: "Plantilla actualizada" }); setDialogOpen(false); },
       });
     } else {
       createTemplate.mutate({ user_id: user.id, name, subject, body }, {
-        onSuccess: () => { toast({ title: "Template created" }); setDialogOpen(false); },
+        onSuccess: () => { toast({ title: "Plantilla creada" }); setDialogOpen(false); },
       });
     }
   };
@@ -80,8 +80,8 @@ export function EmailTemplateSettings() {
                         <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => deleteTemplate.mutate(t.id)}>Delete</AlertDialogAction>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => deleteTemplate.mutate(t.id)}>Eliminar</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
@@ -109,7 +109,7 @@ export function EmailTemplateSettings() {
               <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={6} placeholder="Email body content..." />
             </div>
             <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setDialogOpen(false)}>Cancelar</Button>
               <Button onClick={handleSave} disabled={!name || !subject || !body}>
                 {editing ? "Update" : "Create"}
               </Button>

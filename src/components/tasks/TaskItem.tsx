@@ -36,7 +36,7 @@ export function TaskItem({ task, onClick }: TaskItemProps) {
         {task.description && <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{task.description}</p>}
         <div className="flex items-center gap-2 mt-1.5 flex-wrap">
           <Badge variant="outline" className={`text-[10px] ${priorityColors[task.priority] || ""}`}>
-            {task.priority}
+            {task.priority === "high" ? "alta" : task.priority === "medium" ? "media" : "baja"}
           </Badge>
           {task.due_date && (
             <span className={`flex items-center gap-1 text-[11px] ${overdue ? "text-destructive font-medium" : "text-muted-foreground"}`}>

@@ -127,29 +127,29 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                   <Select value={editPriority} onValueChange={setEditPriority}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="low">Low</SelectItem>
-                      <SelectItem value="medium">Medium</SelectItem>
-                      <SelectItem value="high">High</SelectItem>
+                      <SelectItem value="low">Baja</SelectItem>
+                      <SelectItem value="medium">Media</SelectItem>
+                      <SelectItem value="high">Alta</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Link to deal</Label>
+                <Label>Vincular a oferta</Label>
                 <Select value={editDealId} onValueChange={setEditDealId}>
-                  <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Ninguna" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">None</SelectItem>
+                    <SelectItem value="none">Ninguna</SelectItem>
                     {deals?.map((d) => <SelectItem key={d.id} value={d.id}>{d.title}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label>Link to contact</Label>
+                <Label>Vincular a contacto</Label>
                 <Select value={editContactId} onValueChange={setEditContactId}>
-                  <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder="Ninguno" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">None</SelectItem>
+                    <SelectItem value="none">Ninguno</SelectItem>
                     {contacts?.map((c) => <SelectItem key={c.id} value={c.id}>{c.first_name} {c.last_name}</SelectItem>)}
                   </SelectContent>
                 </Select>
@@ -158,7 +158,7 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                 <Button onClick={handleSave} disabled={updateTask.isPending}>
                   <Save className="h-4 w-4 mr-1" /> Save
                 </Button>
-                <Button variant="ghost" onClick={() => setEditing(false)}>Cancel</Button>
+                <Button variant="ghost" onClick={() => setEditing(false)}>Cancelar</Button>
               </div>
             </div>
           ) : (
@@ -227,8 +227,8 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                     <AlertDialogDescription>This will permanently delete "{task.title}" and cannot be undone.</AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>

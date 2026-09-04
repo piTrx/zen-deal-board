@@ -40,11 +40,11 @@ export function ProfileSettings() {
 
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/svg+xml"];
     if (!allowedTypes.includes(file.type)) {
-      toast({ title: "Invalid file type", description: "Please upload a JPEG, PNG, GIF, WebP, or SVG image.", variant: "destructive" });
+      toast({ title: "Tipo de archivo no válido", description: "Sube una imagen JPEG, PNG, GIF, WebP o SVG.", variant: "destructive" });
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
-      toast({ title: "File too large", description: "Logo must be under 2 MB.", variant: "destructive" });
+      toast({ title: "Archivo demasiado grande", description: "El logo debe pesar menos de 2 MB.", variant: "destructive" });
       return;
     }
 
@@ -52,7 +52,7 @@ export function ProfileSettings() {
     const path = `company-logos/${user.id}/logo.${file.name.split('.').pop()}`;
     const { error: uploadError } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
     if (uploadError) {
-      toast({ title: "Upload failed", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
+      toast({ title: "Error al subir", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
       setUploadingLogo(false);
       return;
     }
@@ -62,7 +62,7 @@ export function ProfileSettings() {
     setCompanyLogoUrl(url);
     queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
     setUploadingLogo(false);
-    toast({ title: "Company logo updated" });
+    toast({ title: "Logo de la empresa actualizado" });
   };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,11 +71,11 @@ export function ProfileSettings() {
 
     const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
-      toast({ title: "Invalid file type", description: "Please upload a JPEG, PNG, GIF, or WebP image.", variant: "destructive" });
+      toast({ title: "Tipo de archivo no válido", description: "Sube una imagen JPEG, PNG, GIF o WebP.", variant: "destructive" });
       return;
     }
     if (file.size > 2 * 1024 * 1024) {
-      toast({ title: "File too large", description: "Avatar must be under 2 MB.", variant: "destructive" });
+      toast({ title: "Archivo demasiado grande", description: "El avatar debe pesar menos de 2 MB.", variant: "destructive" });
       return;
     }
 
@@ -83,7 +83,7 @@ export function ProfileSettings() {
     const path = `${user.id}/avatar.${file.name.split('.').pop()}`;
     const { error: uploadError } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
     if (uploadError) {
-      toast({ title: "Upload failed", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
+      toast({ title: "Error al subir", description: sanitizeErrorMessage(uploadError.message), variant: "destructive" });
       setUploading(false);
       return;
     }
@@ -93,7 +93,7 @@ export function ProfileSettings() {
     setAvatarUrl(url);
     queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
     setUploading(false);
-    toast({ title: "Avatar updated" });
+    toast({ title: "Avatar actualizado" });
   };
 
   const handleSave = async () => {
@@ -103,7 +103,7 @@ export function ProfileSettings() {
     setSaving(false);
     if (error) toast({ title: "Error", description: sanitizeErrorMessage(error.message), variant: "destructive" });
     else {
-      toast({ title: "Profile updated" });
+      toast({ title: "Perfil actualizado" });
       queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
     }
   };
@@ -122,27 +122,27 @@ export function ProfileSettings() {
           </label>
         </div>
         <div>
-          <p className="font-medium">{fullName || "Your Name"}</p>
+          <p className="font-medium">{fullName || "Tu nombre"}</p>
           <p className="text-sm text-muted-foreground">{user?.email}</p>
         </div>
       </div>
 
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label>Full Name</Label>
+          <Label>Nombre completo</Label>
           <Input value={fullName} onChange={(e) => setFullName(e.target.value)} maxLength={100} />
         </div>
         <div className="space-y-2">
-          <Label>Company</Label>
-          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} placeholder="e.g. Acme Inc." />
+          <Label>Empresa</Label>
+          <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} placeholder="p. ej. Acme S.A." />
         </div>
         <div className="space-y-2">
-          <Label>Company Logo</Label>
-          <p className="text-xs text-muted-foreground -mt-1">Shown in the sidebar instead of the default logo.</p>
+          <Label>Logo de la empresa</Label>
+          <p className="text-xs text-muted-foreground -mt-1">Se muestra en la barra lateral en lugar del logo por defecto.</p>
           <div className="flex items-center gap-4">
             <div className="relative group h-14 w-14 rounded-lg border flex items-center justify-center overflow-hidden bg-muted">
               {companyLogoUrl ? (
-                <img src={companyLogoUrl} alt="Company logo" className="h-full w-full object-contain" />
+                <img src={companyLogoUrl} alt="Logo de la empresa" className="h-full w-full object-contain" />
               ) : (
                 <Building2 className="h-6 w-6 text-muted-foreground" />
               )}
@@ -161,20 +161,20 @@ export function ProfileSettings() {
                   await supabase.from("profiles").update({ company_logo_url: null }).eq("user_id", user.id);
                   setCompanyLogoUrl("");
                   queryClient.invalidateQueries({ queryKey: ["profile-sidebar"] });
-                  toast({ title: "Logo removed" });
+                  toast({ title: "Logo eliminado" });
                 }}
               >
-                Remove
+                Eliminar
               </Button>
             )}
           </div>
         </div>
         <div className="space-y-2">
-          <Label>Email</Label>
+          <Label>Correo electrónico</Label>
           <Input value={user?.email || ""} disabled />
         </div>
         <Button className="w-full sm:w-auto" onClick={handleSave} disabled={saving}>
-          {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save Changes"}
+          {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Guardar cambios"}
         </Button>
       </div>
     </div>

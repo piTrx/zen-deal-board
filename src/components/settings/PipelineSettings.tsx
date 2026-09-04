@@ -37,7 +37,7 @@ export function PipelineSettings() {
     });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Stage added" });
+      toast({ title: "Etapa añadida" });
       setNewStageName("");
       invalidateStages();
     }
@@ -47,7 +47,7 @@ export function PipelineSettings() {
     const { error } = await supabase.from("pipeline_stages").delete().eq("id", id);
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Stage removed" });
+      toast({ title: "Etapa eliminada" });
       invalidateStages();
     }
   };
@@ -65,7 +65,7 @@ export function PipelineSettings() {
       .eq("id", id);
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Stage renamed" });
+      toast({ title: "Etapa renombrada" });
       setEditingId(null);
       invalidateStages();
     }
@@ -106,10 +106,10 @@ export function PipelineSettings() {
     const results = await Promise.all(promises);
     const hasError = results.find((r) => r.error);
     if (hasError) {
-      toast({ title: "Error reordering", description: hasError.error?.message, variant: "destructive" });
+      toast({ title: "Error al reordenar", description: hasError.error?.message, variant: "destructive" });
       invalidateStages(); // revert on error
     } else {
-      toast({ title: "Stages reordered" });
+      toast({ title: "Etapas reordenadas" });
       invalidateStages();
     }
   };
@@ -119,7 +119,7 @@ export function PipelineSettings() {
     const { error } = await supabase.rpc("seed_default_pipeline", { p_user_id: user.id });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Pipeline created" });
+      toast({ title: "Embudo creado" });
       queryClient.invalidateQueries({ queryKey: ["pipelines", "pipeline_stages"] });
     }
   };
@@ -127,8 +127,8 @@ export function PipelineSettings() {
   if (!pipeline) {
     return (
       <div className="space-y-4">
-        <p className="text-muted-foreground">No pipeline found. Create one to get started.</p>
-        <Button onClick={handleCreatePipeline}>Create default pipeline</Button>
+        <p className="text-muted-foreground">No se ha encontrado ningún embudo. Crea uno para empezar.</p>
+        <Button onClick={handleCreatePipeline}>Crear embudo por defecto</Button>
       </div>
     );
   }
@@ -136,8 +136,8 @@ export function PipelineSettings() {
   return (
     <div className="space-y-6 max-w-md">
       <div>
-        <h3 className="text-sm font-semibold mb-1">Pipeline stages</h3>
-        <p className="text-xs text-muted-foreground mb-3">Drag to reorder. Changes reflect on the pipeline page.</p>
+        <h3 className="text-sm font-semibold mb-1">Etapas del embudo</h3>
+        <p className="text-xs text-muted-foreground mb-3">Arrastra para reordenar. Los cambios se reflejan en la página del embudo.</p>
         <div className="space-y-2">
           {stages?.map((stage, index) => (
             <div
@@ -188,7 +188,7 @@ export function PipelineSettings() {
       </div>
 
       <div className="flex flex-col gap-2 sm:flex-row">
-        <Input value={newStageName} onChange={(e) => setNewStageName(e.target.value)} placeholder="New stage name" className="flex-1" />
+        <Input value={newStageName} onChange={(e) => setNewStageName(e.target.value)} placeholder="Nombre de la nueva etapa" className="flex-1" />
         <input type="color" value={newStageColor} onChange={(e) => setNewStageColor(e.target.value)} className="h-10 w-10 rounded cursor-pointer" />
         <Button onClick={handleAddStage} size="icon"><Plus className="h-4 w-4" /></Button>
       </div>
