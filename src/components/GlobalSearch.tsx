@@ -79,28 +79,28 @@ export function GlobalSearch() {
         onClick={() => setOpen(true)}
       >
         <Search className="h-4 w-4" />
-        <span className="hidden sm:inline">Search...</span>
+        <span className="hidden sm:inline">Buscar...</span>
         <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           ⌘K
         </kbd>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="Search deals, contacts, companies, tasks..."
+          placeholder="Buscar ofertas, contactos, empresas, tareas..."
           value={query}
           onValueChange={setQuery}
         />
         <CommandList>
           {query.trim() && !hasResults && (
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>No se han encontrado resultados.</CommandEmpty>
           )}
           {!query.trim() && (
             <div className="py-6 text-center text-sm text-muted-foreground">
-              Start typing to search across your CRM...
+              Empieza a escribir para buscar en tu CRM...
             </div>
           )}
           {deals.length > 0 && (
-            <CommandGroup heading="Deals">
+            <CommandGroup heading="Ofertas">
               {deals.map((d) => (
                 <CommandItem key={d.id} value={`deal-${d.id}`} onSelect={() => handleSelect("deals", d.id)}>
                   <Kanban className="mr-2 h-4 w-4" />
@@ -110,7 +110,7 @@ export function GlobalSearch() {
             </CommandGroup>
           )}
           {contacts.length > 0 && (
-            <CommandGroup heading="Contacts">
+            <CommandGroup heading="Contactos">
               {contacts.map((c) => (
                 <CommandItem key={c.id} value={`contact-${c.id}`} onSelect={() => handleSelect("contacts", c.id)}>
                   <Users className="mr-2 h-4 w-4" />
@@ -121,7 +121,7 @@ export function GlobalSearch() {
             </CommandGroup>
           )}
           {companies.length > 0 && (
-            <CommandGroup heading="Companies">
+            <CommandGroup heading="Empresas">
               {companies.map((co) => (
                 <CommandItem key={co.id} value={`company-${co.id}`} onSelect={() => handleSelect("companies", co.id)}>
                   <Building2 className="mr-2 h-4 w-4" />
@@ -132,7 +132,7 @@ export function GlobalSearch() {
             </CommandGroup>
           )}
           {activities.length > 0 && (
-            <CommandGroup heading="Activities">
+            <CommandGroup heading="Actividades">
               {activities.map((a) => (
                 <CommandItem key={a.id} value={`activity-${a.id}`} onSelect={() => handleSelect("activities", a.id)}>
                   <Activity className="mr-2 h-4 w-4" />
@@ -143,7 +143,7 @@ export function GlobalSearch() {
             </CommandGroup>
           )}
           {tasks.length > 0 && (
-            <CommandGroup heading="Tasks">
+            <CommandGroup heading="Tareas">
               {tasks.map((t: any) => (
                 <CommandItem key={t.id} value={`task-${t.id}`} onSelect={() => handleSelect("tasks", t.id)}>
                   <CheckSquare className="mr-2 h-4 w-4" />

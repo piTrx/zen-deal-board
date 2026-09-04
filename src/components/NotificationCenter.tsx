@@ -42,16 +42,16 @@ export function NotificationCenter() {
       </PopoverTrigger>
       <PopoverContent className="w-80 p-0" align="end">
         <div className="flex items-center justify-between border-b px-4 py-3">
-          <h4 className="text-sm font-semibold">Notifications</h4>
+          <h4 className="text-sm font-semibold">Notificaciones</h4>
           {unreadCount > 0 && (
             <Button variant="ghost" size="sm" className="text-xs h-7" onClick={() => markAllRead.mutate()}>
-              <Check className="h-3 w-3 mr-1" /> Mark all read
+              <Check className="h-3 w-3 mr-1" /> Marcar todo como leído
             </Button>
           )}
         </div>
         <ScrollArea className="max-h-80">
           {!notifications?.length ? (
-            <p className="text-sm text-muted-foreground text-center py-8">No notifications yet.</p>
+            <p className="text-sm text-muted-foreground text-center py-8">Aún no hay notificaciones.</p>
           ) : (
             <div className="divide-y">
               {notifications.map((n) => (

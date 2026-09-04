@@ -43,7 +43,7 @@ export function LogActivityDialog({ open, onOpenChange, defaultDealId, defaultCo
       },
       {
         onSuccess: () => {
-          toast({ title: "Activity logged" });
+          toast({ title: "Actividad registrada" });
           onOpenChange(false);
           setTitle(""); setDescription(""); setType("note");
         },
@@ -56,38 +56,38 @@ export function LogActivityDialog({ open, onOpenChange, defaultDealId, defaultCo
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Log Activity</DialogTitle>
+            <DialogTitle>Registrar actividad</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label>Type</Label>
+              <Label>Tipo</Label>
               <Select value={type} onValueChange={(v: any) => setType(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="call">📞 Call</SelectItem>
-                  <SelectItem value="email">📧 Email</SelectItem>
-                  <SelectItem value="meeting">📅 Meeting</SelectItem>
-                  <SelectItem value="note">📝 Note</SelectItem>
+                  <SelectItem value="call">📞 Llamada</SelectItem>
+                  <SelectItem value="email">📧 Correo</SelectItem>
+                  <SelectItem value="meeting">📅 Reunión</SelectItem>
+                  <SelectItem value="note">📝 Nota</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label>Title *</Label>
+                <Label>Título *</Label>
                 <Button type="button" variant="ghost" size="sm" className="h-7 text-xs" onClick={() => setTemplatePickerOpen(true)}>
-                  <FileText className="h-3 w-3 mr-1" /> Use Template
+                  <FileText className="h-3 w-3 mr-1" /> Usar plantilla
                 </Button>
               </div>
-              <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Follow-up call" required />
+              <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="p. ej. Llamada de seguimiento" required />
             </div>
             <div className="space-y-2">
-              <Label>Description</Label>
+              <Label>Descripción</Label>
               <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} />
             </div>
             <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
               <Button type="submit" disabled={createActivity.isPending}>
-                {createActivity.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Log Activity"}
+                {createActivity.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Registrar actividad"}
               </Button>
             </div>
           </form>

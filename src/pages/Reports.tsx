@@ -52,14 +52,14 @@ export default function Reports() {
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Reports" description="Pipeline analytics and performance metrics." />
+      <PageBanner title="Informes" description="Analítica del embudo y métricas de rendimiento." />
 
       <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
         {[
-          { label: "Total Deals", value: String(totalStats?.totalDeals || 0) },
-          { label: "Pipeline Value", value: formatCurrency(totalStats?.totalValue || 0) },
-          { label: "Avg Deal Size", value: formatCurrency(totalStats?.avgValue || 0) },
-          { label: "Win Rate", value: `${winRateData?.rate || 0}%` },
+          { label: "Ofertas totales", value: String(totalStats?.totalDeals || 0) },
+          { label: "Valor del embudo", value: formatCurrency(totalStats?.totalValue || 0) },
+          { label: "Tamaño medio de oferta", value: formatCurrency(totalStats?.avgValue || 0) },
+          { label: "Tasa de éxito", value: `${winRateData?.rate || 0}%` },
         ].map((s) => (
           <Card key={s.label}>
             <CardHeader className="pb-2">
@@ -74,7 +74,7 @@ export default function Reports() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle>Deals by Stage</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Ofertas por etapa</CardTitle></CardHeader>
           <CardContent>
             {stagesLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={260}>
@@ -94,7 +94,7 @@ export default function Reports() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>Value by Stage</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Valor por etapa</CardTitle></CardHeader>
           <CardContent>
             {stagesLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={260}>
@@ -116,7 +116,7 @@ export default function Reports() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle>Wins vs Lost</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Ganadas vs. perdidas</CardTitle></CardHeader>
           <CardContent>
             {winRateLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={280}>
@@ -138,7 +138,7 @@ export default function Reports() {
                     <Cell fill={wonStageColor} />
                     <Cell fill={lostStageColor} />
                   </Pie>
-                  <Tooltip formatter={(v: number, name: string) => [`${v} deals`, name]} />
+                  <Tooltip formatter={(v: number, name: string) => [`${v} ofertas`, name]} />
                   <Legend
                     wrapperStyle={{ fontSize: 12 }}
                     formatter={(value: string, entry: any) => {
@@ -156,7 +156,7 @@ export default function Reports() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>Revenue Share by Stage</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Distribución de ingresos por etapa</CardTitle></CardHeader>
           <CardContent>
             {stagesLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={280}>

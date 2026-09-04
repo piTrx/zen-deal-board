@@ -45,11 +45,11 @@ function Pill({ children }: { children: React.ReactNode }) {
 }
 
 const DEAL_NOTIFICATIONS = [
-  { company: "Arcline", amount: "€48,000", time: "just now" },
-  { company: "Vantage Co", amount: "€32,500", time: "2m ago" },
-  { company: "Helix Labs", amount: "€67,200", time: "5m ago" },
-  { company: "Northpeak", amount: "€21,000", time: "8m ago" },
-  { company: "Stratos Inc", amount: "€55,800", time: "12m ago" },
+  { company: "Arcline", amount: "€48,000", time: "justo ahora" },
+  { company: "Vantage Co", amount: "€32,500", time: "hace 2m" },
+  { company: "Helix Labs", amount: "€67,200", time: "hace 5m" },
+  { company: "Northpeak", amount: "€21,000", time: "hace 8m" },
+  { company: "Stratos Inc", amount: "€55,800", time: "hace 12m" },
 ];
 
 function StackedNotifications() {
@@ -147,7 +147,7 @@ function StackedNotifications() {
               {/* Orange left bar — inset & rounded */}
               <div className="absolute left-1.5 top-2 bottom-2 w-1 rounded-full bg-orange-500" />
               <div className="min-w-0 p-3 pl-6">
-                  <p className="text-[11px] text-muted-foreground">Deal closed · Won · {time}</p>
+                  <p className="text-[11px] text-muted-foreground">Trato cerrado · Ganado · {time}</p>
                   <p className="truncate text-sm font-semibold">{company} — {amount}</p>
               </div>
             </div>
@@ -186,12 +186,12 @@ export default function Landing() {
         <div className="flex items-center gap-3">
           <Link to="/auth">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Sign in
+              Iniciar sesión
             </Button>
           </Link>
           <Link to="/auth">
             <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-5">
-              Start now
+              Empezar ahora
             </Button>
           </Link>
         </div>
@@ -209,15 +209,15 @@ export default function Landing() {
                 <span className="font-bold text-xl tracking-tight text-foreground">Dealflow</span>
               </div>
               <h1 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.08] mb-6 text-balance">
-                Close more deals<br />with less busywork
+                Cierra más tratos<br />con menos trabajo tedioso
               </h1>
               <p className="text-lg text-muted-foreground max-w-lg mb-10 leading-relaxed">
-                Dealflow is a single-tenant CRM your team will actually use. Track deals, forecast revenue, and spend time selling — not filling out fields.
+                Dealflow es un CRM de un solo inquilino que tu equipo realmente usará. Haz seguimiento de tratos, prevé ingresos y dedica tiempo a vender, no a rellenar campos.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4">
                 <Link to="/auth">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold px-8 h-12">
-                    Get started free
+                    Empieza gratis
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Button>
                 </Link>
@@ -228,7 +228,7 @@ export default function Landing() {
             {/* Right — Hero image with deal UI overlay */}
             <div className="relative">
               <div className="rounded-2xl aspect-[4/3] overflow-hidden relative">
-                <img src={heroDealImg} alt="Two professionals closing a deal" className="w-full h-full object-cover" />
+                <img src={heroDealImg} alt="Dos profesionales cerrando un trato" className="w-full h-full object-cover" />
                 {/* Gradient overlay for contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
               </div>
@@ -251,7 +251,7 @@ export default function Landing() {
                   <circle cx="155" cy="12" r="3.5" fill="hsl(170 50% 45%)" />
                 </svg>
                 <div>
-                  <p className="text-xs text-muted-foreground">Pipeline value</p>
+                  <p className="text-xs text-muted-foreground">Valor del pipeline</p>
                   <p className="text-lg font-semibold">€284,500</p>
                 </div>
               </div>
@@ -264,9 +264,9 @@ export default function Landing() {
       <section className="relative z-[2] overflow-hidden rounded-t-[2rem] -mt-8 bg-surface-mint">
         <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-20 pb-28 md:pt-28 md:pb-36">
           <div className="max-w-7xl mx-auto">
-            <Pill>Designed for high-touch sales teams</Pill>
+            <Pill>Diseñado para equipos de ventas de alto contacto</Pill>
             <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight mb-16 max-w-lg mt-5 text-balance">
-              Everything you need. Nothing you don't.
+              Todo lo que necesitas. Nada que no.
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -280,19 +280,19 @@ export default function Landing() {
                     <rect x="44" y="42" width="28" height="28" rx="7" fill="hsl(170,30%,88%)" />
                     <rect x="49" y="50" width="18" height="4" rx="2" fill="hsl(170,15%,15%)" opacity="0.5" />
                     <rect x="49" y="58" width="10" height="4" rx="2" fill="hsl(170,15%,15%)" opacity="0.25" />
-                    <text x="57" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Import</text>
+                    <text x="57" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Importar</text>
 
                     <rect x="103" y="25" width="75" height="75" rx="12" fill="white" />
                     <rect x="118" y="48" width="45" height="6" rx="3" fill="hsl(170,30%,88%)" />
                     <rect x="118" y="48" width="30" height="6" rx="3" fill="hsl(170,15%,15%)" opacity="0.25" />
                     <rect x="118" y="60" width="45" height="6" rx="3" fill="hsl(170,30%,88%)" />
                     <rect x="118" y="60" width="38" height="6" rx="3" fill="hsl(170,15%,15%)" opacity="0.15" />
-                    <text x="140" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Configure</text>
+                    <text x="140" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Configurar</text>
 
                     <rect x="186" y="25" width="75" height="75" rx="12" fill="white" />
                     <circle cx="223" cy="55" r="14" fill="hsl(170,30%,88%)" />
                     <path d="M216 55 L221 60 L231 50" stroke="hsl(170,15%,15%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <text x="223" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Ready</text>
+                    <text x="223" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Listo</text>
 
                     {/* Bottom pipeline bar */}
                     <rect x="40" y="120" width="200" height="50" rx="12" fill="white" />
@@ -302,8 +302,8 @@ export default function Landing() {
                     <rect x="56" y="152" width="120" height="4" rx="2" fill="hsl(170,30%,88%)" />
                   </svg>
                 </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">5-minute setup</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">Import contacts, define your stages, start tracking. No consultants, no config theater.</p>
+                <h3 className="font-sans font-semibold text-lg mb-2">Configuración en 5 minutos</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Importa contactos, define tus etapas y empieza a hacer seguimiento. Sin consultores ni configuraciones interminables.</p>
               </div>
 
               {/* Card 2 — Team-first design */}
@@ -340,8 +340,8 @@ export default function Landing() {
                     <rect x="93" y="166" width="82" height="26" rx="8" fill="white" opacity="0.35" />
                   </svg>
                 </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">Team-first design</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">See who's working what, spot stalled deals, keep everyone moving — without the micromanagement.</p>
+                <h3 className="font-sans font-semibold text-lg mb-2">Diseño pensado para equipos</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Ve quién trabaja en qué, detecta tratos estancados y mantén a todos avanzando, sin microgestión.</p>
               </div>
 
               {/* Card 3 — Forecasts */}
@@ -373,16 +373,16 @@ export default function Landing() {
                     <circle cx="251" cy="20" r="4" fill="hsl(170,15%,15%)" opacity="0.55" />
 
                     {/* X-axis labels */}
-                    <text x="76" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Jan</text>
+                    <text x="76" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Ene</text>
                     <text x="111" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Feb</text>
                     <text x="146" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Mar</text>
-                    <text x="181" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Apr</text>
+                    <text x="181" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Abr</text>
                     <text x="216" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">May</text>
                     <text x="251" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Jun</text>
                   </svg>
                 </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">Forecasts that hold up</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">Weighted pipeline and probability scoring that doesn't require a rev-ops hire to trust.</p>
+                <h3 className="font-sans font-semibold text-lg mb-2">Previsiones fiables</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Pipeline ponderado y puntuación de probabilidad en las que puedes confiar sin contratar a un especialista en rev-ops.</p>
               </div>
             </div>
           </div>
@@ -397,16 +397,16 @@ export default function Landing() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Stats */}
               <div>
-                <Pill>Early results</Pill>
+                <Pill>Primeros resultados</Pill>
                 <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight mb-10 mt-5 text-balance">
-                  Teams that use their CRM close more.
+                  Los equipos que usan su CRM cierran más.
                 </h2>
                 <div className="grid grid-cols-2 gap-8">
                   {[
-                    { stat: "34%", label: "Faster deal velocity" },
-                    { stat: "2.4×", label: "More logged activities" },
-                    { stat: "< 5 min", label: "Average setup time" },
-                    { stat: "91%", label: "Weekly active usage" },
+                    { stat: "34%", label: "Mayor velocidad de cierre" },
+                    { stat: "2.4×", label: "Más actividades registradas" },
+                    { stat: "< 5 min", label: "Tiempo medio de configuración" },
+                    { stat: "91%", label: "Uso activo semanal" },
                   ].map((item) => (
                     <div key={item.label}>
                       <p className="font-sans text-3xl md:text-4xl font-bold text-primary mb-1">
@@ -428,13 +428,13 @@ export default function Landing() {
                     </svg>
                   </div>
                   <p className="text-lg text-foreground leading-relaxed mb-8 text-balance">
-                    We tried three CRMs before Dealflow. This is the first one my reps didn't abandon by week two.
+                    Probamos tres CRMs antes de Dealflow. Es el primero que mi equipo no abandonó a la segunda semana.
                   </p>
                   <div className="flex items-center gap-3">
                     <img src={jamieAvatar} alt="Jamie Reeves" className="h-10 w-10 rounded-full object-cover" />
                     <div>
                       <p className="text-sm font-semibold">Jamie Reeves</p>
-                      <p className="text-xs text-muted-foreground">VP Sales, Arcline Systems</p>
+                      <p className="text-xs text-muted-foreground">VP de Ventas, Arcline Systems</p>
                     </div>
                   </div>
                 </div>
@@ -449,14 +449,14 @@ export default function Landing() {
         <div className="relative z-10 px-6 md:px-12 lg:px-20 py-20 md:py-28">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="font-sans text-3xl md:text-5xl font-bold tracking-tight mb-5 text-background text-balance">
-              Your pipeline deserves better than a spreadsheet.
+              Tu pipeline merece algo mejor que una hoja de cálculo.
             </h2>
             <p className="text-background/60 text-lg mb-10 max-w-xl mx-auto text-balance">
-              Free for small teams. Ready in minutes. No procurement process required.
+              Gratis para equipos pequeños. Listo en minutos. Sin procesos de compra complicados.
             </p>
             <Link to="/auth">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold px-10 h-12">
-                Start closing deals
+                Empieza a cerrar tratos
                 <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             </Link>
@@ -472,8 +472,8 @@ export default function Landing() {
             <span className="font-bold text-sm tracking-tight text-background">Dealflow</span>
           </div>
           <div className="flex gap-8 text-sm text-background/50">
-            <Link to="/auth" className="hover:text-background transition-colors">Sign in</Link>
-            <a href="mailto:hello@dealflow.com" className="hover:text-background transition-colors">Contact</a>
+            <Link to="/auth" className="hover:text-background transition-colors">Iniciar sesión</Link>
+            <a href="mailto:hello@dealflow.com" className="hover:text-background transition-colors">Contacto</a>
           </div>
           <p className="text-xs text-background/40">© {new Date().getFullYear()} Dealflow</p>
         </div>

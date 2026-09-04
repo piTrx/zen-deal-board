@@ -59,7 +59,7 @@ export default function Pipeline() {
     const { error } = await supabase.rpc("seed_default_pipeline", { p_user_id: user.id });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Pipeline created!" });
+      toast({ title: "¡Embudo creado!" });
       window.location.reload();
     }
   };
@@ -70,10 +70,10 @@ export default function Pipeline() {
     return (
       <div className="flex flex-col items-center justify-center py-24">
         <Kanban className="h-16 w-16 text-muted-foreground/40 mb-4" />
-        <h2 className="text-2xl font-bold mb-2">No Pipeline Yet</h2>
-        <p className="text-muted-foreground mb-6">Create your first pipeline to start tracking deals.</p>
+        <h2 className="text-2xl font-bold mb-2">Todavía no hay un embudo</h2>
+        <p className="text-muted-foreground mb-6">Crea tu primer embudo para empezar a hacer seguimiento de ofertas.</p>
         <Button onClick={handleCreatePipeline} size="lg">
-          <Plus className="h-5 w-5 mr-2" /> Create Pipeline
+          <Plus className="h-5 w-5 mr-2" /> Crear embudo
         </Button>
       </div>
     );
@@ -81,9 +81,9 @@ export default function Pipeline() {
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Pipeline" description="Drag deals across stages to update progress.">
+      <PageBanner title="Embudo" description="Arrastra las ofertas entre etapas para actualizar el progreso.">
         <Button className="w-full sm:w-auto" onClick={() => { setCreateStageId(stages?.[0]?.id); setCreateOpen(true); }}>
-          <Plus className="h-4 w-4 mr-2" /> Create Deal
+          <Plus className="h-4 w-4 mr-2" /> Crear oferta
         </Button>
       </PageBanner>
 

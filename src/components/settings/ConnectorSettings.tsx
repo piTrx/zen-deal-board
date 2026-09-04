@@ -5,26 +5,26 @@ import { Plug, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 const connectors = [
-  { id: "hubspot", name: "HubSpot", description: "CRM platform for sales, marketing, and customer service." },
-  { id: "slack", name: "Slack", description: "Send messages and interact with Slack workspaces." },
-  { id: "google_calendar", name: "Google Calendar", description: "Create and manage Google Calendar events." },
-  { id: "telegram", name: "Telegram", description: "Messaging platform with Bot API for automated interactions." },
-  { id: "elevenlabs", name: "ElevenLabs", description: "AI voice generation, text-to-speech, and speech-to-text." },
-  { id: "firecrawl", name: "Firecrawl", description: "AI-powered scraper, search, and retrieval tool." },
-  { id: "perplexity", name: "Perplexity", description: "AI-powered search and answer engine." },
-  { id: "bigquery", name: "BigQuery", description: "Query and analyze data in BigQuery." },
+  { id: "hubspot", name: "HubSpot", description: "Plataforma CRM para ventas, marketing y atención al cliente." },
+  { id: "slack", name: "Slack", description: "Envía mensajes e interactúa con espacios de trabajo de Slack." },
+  { id: "google_calendar", name: "Google Calendar", description: "Crea y gestiona eventos de Google Calendar." },
+  { id: "telegram", name: "Telegram", description: "Plataforma de mensajería con API de bots para interacciones automatizadas." },
+  { id: "elevenlabs", name: "ElevenLabs", description: "Generación de voz con IA, texto a voz y voz a texto." },
+  { id: "firecrawl", name: "Firecrawl", description: "Herramienta de rastreo, búsqueda y recuperación con IA." },
+  { id: "perplexity", name: "Perplexity", description: "Motor de búsqueda y respuestas con IA." },
+  { id: "bigquery", name: "BigQuery", description: "Consulta y analiza datos en BigQuery." },
 ];
 
 export function ConnectorSettings() {
   const handleConnect = (name: string) => {
-    toast.info(`To connect ${name}, go to Project Settings → Connectors in Lovable.`);
+    toast.info(`Para conectar ${name}, ve a Ajustes del proyecto → Conectores en Lovable.`);
   };
 
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
         <p className="text-sm text-muted-foreground">
-          Extend your CRM with external integrations. Connect third-party services to automate workflows and sync data.
+          Amplía tu CRM con integraciones externas. Conecta servicios de terceros para automatizar flujos de trabajo y sincronizar datos.
         </p>
       </div>
 
@@ -34,13 +34,13 @@ export function ConnectorSettings() {
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base">{c.name}</CardTitle>
-                <Badge variant="outline" className="text-xs">Available</Badge>
+                <Badge variant="outline" className="text-xs">Disponible</Badge>
               </div>
               <CardDescription className="text-xs">{c.description}</CardDescription>
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="outline" size="sm" className="w-full" onClick={() => handleConnect(c.name)}>
-                <Plug className="h-3.5 w-3.5 mr-1" /> Connect
+                <Plug className="h-3.5 w-3.5 mr-1" /> Conectar
               </Button>
             </CardContent>
           </Card>
@@ -49,7 +49,7 @@ export function ConnectorSettings() {
 
       <div className="flex items-start gap-2 rounded-md border border-muted p-3 text-sm text-muted-foreground">
         <ExternalLink className="h-4 w-4 mt-0.5 shrink-0" />
-        <span>Connectors are managed through Lovable's integration platform. Click "Connect" on any service to get started.</span>
+        <span>Los conectores se gestionan a través de la plataforma de integraciones de Lovable. Haz clic en "Conectar" en cualquier servicio para empezar.</span>
       </div>
     </div>
   );

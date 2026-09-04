@@ -10,18 +10,18 @@ export default function Settings() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold">Settings</h1>
-        <p className="text-muted-foreground mt-1">Manage your account and pipeline configuration.</p>
+        <h1 className="text-2xl md:text-3xl font-bold">Ajustes</h1>
+        <p className="text-muted-foreground mt-1">Gestiona tu cuenta y la configuración del embudo.</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
         <TabsList className="flex flex-wrap h-auto">
-          <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
-          <TabsTrigger value="team">Team</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          <TabsTrigger value="templates">Email Templates</TabsTrigger>
-          <TabsTrigger value="connectors">Connectors</TabsTrigger>
+          <TabsTrigger value="profile">Perfil</TabsTrigger>
+          <TabsTrigger value="pipeline">Embudo</TabsTrigger>
+          <TabsTrigger value="team">Equipo</TabsTrigger>
+          <TabsTrigger value="notifications">Notificaciones</TabsTrigger>
+          <TabsTrigger value="templates">Plantillas de correo</TabsTrigger>
+          <TabsTrigger value="connectors">Conectores</TabsTrigger>
         </TabsList>
 
         <TabsContent value="profile"><ProfileSettings /></TabsContent>

@@ -54,14 +54,14 @@ export default function Forecast() {
   });
 
   const summaryCards = [
-    { label: "Weighted Forecast", value: formatCurrency(data?.totalWeighted || 0), icon: TrendingUp, color: "hsl(var(--stage-prospect))" },
-    { label: "Total Pipeline", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
-    { label: "Deals in Forecast", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
+    { label: "Previsión ponderada", value: formatCurrency(data?.totalWeighted || 0), icon: TrendingUp, color: "hsl(var(--stage-prospect))" },
+    { label: "Embudo total", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
+    { label: "Ofertas en previsión", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
   ];
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Forecast" description="Revenue projections based on your pipeline." />
+      <PageBanner title="Previsión" description="Proyecciones de ingresos basadas en tu embudo." />
 
       <div className="grid gap-4 sm:grid-cols-3">
         {summaryCards.map((s) => (
@@ -81,7 +81,7 @@ export default function Forecast() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="h-5 w-5" /> Monthly Revenue Projection
+            <BarChart3 className="h-5 w-5" /> Proyección de ingresos mensual
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -93,7 +93,7 @@ export default function Forecast() {
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)} k€`} />
                 <Tooltip formatter={(v: number) => formatCurrency(v)} />
-                <Bar dataKey="weighted" name="Weighted" fill="hsl(245, 58%, 51%)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="weighted" name="Ponderado" fill="hsl(245, 58%, 51%)" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="total" name="Total" fill="hsl(220, 16%, 83%)" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>

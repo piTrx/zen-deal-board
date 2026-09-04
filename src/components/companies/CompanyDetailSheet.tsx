@@ -42,13 +42,13 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
   const handleSave = () => {
     updateCompany.mutate(
       { id: company.id, name: editName, industry: editIndustry || null, website: editWebsite || null },
-      { onSuccess: () => { toast({ title: "Company updated" }); setEditing(false); } }
+      { onSuccess: () => { toast({ title: "Empresa actualizada" }); setEditing(false); } }
     );
   };
 
   const handleDelete = () => {
     deleteCompany.mutate(company.id, {
-      onSuccess: () => { toast({ title: "Company deleted" }); onOpenChange(false); },
+      onSuccess: () => { toast({ title: "Empresa eliminada" }); onOpenChange(false); },
     });
   };
 
@@ -58,10 +58,10 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
         {/* Toolbar */}
         <div className="sticky top-0 z-10 border-b bg-background">
           <div className="flex items-center justify-end gap-1 px-4 py-2 border-b border-border/50">
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditing(!editing)} title={editing ? "Cancel editing" : "Edit"}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditing(!editing)} title={editing ? "Cancelar edición" : "Editar"}>
               {editing ? <X className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)} title="Close">
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)} title="Cerrar">
               <X className="h-4 w-4" />
             </Button>
           </div>
@@ -74,22 +74,22 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
           {editing ? (
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>Name</Label>
+                <Label>Nombre</Label>
                 <Input value={editName} onChange={(e) => setEditName(e.target.value)} />
               </div>
               <div className="space-y-2">
-                <Label>Industry</Label>
+                <Label>Sector</Label>
                 <Input value={editIndustry} onChange={(e) => setEditIndustry(e.target.value)} />
               </div>
               <div className="space-y-2">
-                <Label>Website</Label>
+                <Label>Sitio web</Label>
                 <Input value={editWebsite} onChange={(e) => setEditWebsite(e.target.value)} />
               </div>
               <div className="flex gap-2">
                 <Button onClick={handleSave} disabled={updateCompany.isPending}>
-                  <Save className="h-4 w-4 mr-1" /> Save
+                  <Save className="h-4 w-4 mr-1" /> Guardar
                 </Button>
-                <Button variant="ghost" onClick={() => setEditing(false)}>Cancel</Button>
+                <Button variant="ghost" onClick={() => setEditing(false)}>Cancelar</Button>
               </div>
             </div>
           ) : (
@@ -112,11 +112,11 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
               <div className="space-y-2 text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-3.5 w-3.5" />
-                  <span>Created {format(new Date(company.created_at), "MMM d, yyyy 'at' h:mm a")}</span>
+                  <span>Creada el {format(new Date(company.created_at), "d MMM yyyy 'a las' HH:mm")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-3.5 w-3.5" />
-                  <span>Updated {format(new Date(company.updated_at), "MMM d, yyyy 'at' h:mm a")}</span>
+                  <span>Actualizada el {format(new Date(company.updated_at), "d MMM yyyy 'a las' HH:mm")}</span>
                 </div>
               </div>
             </div>
@@ -126,10 +126,10 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
 
           <div>
             <h4 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Users className="h-4 w-4" /> Contacts ({linkedContacts.length})
+              <Users className="h-4 w-4" /> Contactos ({linkedContacts.length})
             </h4>
             {linkedContacts.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No contacts linked to this company.</p>
+              <p className="text-sm text-muted-foreground">No hay contactos vinculados a esta empresa.</p>
             ) : (
               <div className="space-y-2">
                 {linkedContacts.map((c) => (
@@ -147,19 +147,19 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" size="sm">
-                <Trash2 className="h-4 w-4 mr-1" /> Delete Company
+                <Trash2 className="h-4 w-4 mr-1" /> Eliminar empresa
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete company?</AlertDialogTitle>
+                <AlertDialogTitle>¿Eliminar empresa?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This will permanently delete "{company.name}" and cannot be undone.
+                  Esto eliminará "{company.name}" de forma permanente y no se puede deshacer.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

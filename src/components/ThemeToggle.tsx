@@ -12,7 +12,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={cycle} title={`Theme: ${theme}`}>
+    <Button variant="ghost" size="icon" onClick={cycle} title={`Tema: ${theme}`}>
       {theme === "dark" ? (
         <Moon className="h-4 w-4" />
       ) : theme === "light" ? (

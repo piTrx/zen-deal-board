@@ -67,13 +67,13 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
         tags: editTags ? editTags.split(",").map((t) => t.trim()).filter(Boolean) : [],
         notes: editNotes || null,
       },
-      { onSuccess: () => { toast({ title: "Contact updated" }); setEditing(false); } }
+      { onSuccess: () => { toast({ title: "Contacto actualizado" }); setEditing(false); } }
     );
   };
 
   const handleDelete = () => {
     deleteContact.mutate(contact.id, {
-      onSuccess: () => { toast({ title: "Contact deleted" }); onOpenChange(false); },
+      onSuccess: () => { toast({ title: "Contacto eliminado" }); onOpenChange(false); },
     });
   };
 
@@ -83,10 +83,10 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
         {/* Toolbar */}
         <div className="sticky top-0 z-10 border-b bg-background">
           <div className="flex items-center justify-end gap-1 px-4 py-2 border-b border-border/50">
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditing(!editing)} title={editing ? "Cancel editing" : "Edit"}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditing(!editing)} title={editing ? "Cancelar edición" : "Editar"}>
               {editing ? <X className="h-4 w-4" /> : <Pencil className="h-4 w-4" />}
             </Button>
-            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)} title="Close">
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenChange(false)} title="Cerrar">
               <X className="h-4 w-4" />
             </Button>
           </div>
@@ -99,17 +99,17 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
           {editing ? (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2"><Label>First Name</Label><Input value={editFirstName} onChange={(e) => setEditFirstName(e.target.value)} /></div>
-                <div className="space-y-2"><Label>Last Name</Label><Input value={editLastName} onChange={(e) => setEditLastName(e.target.value)} /></div>
+                <div className="space-y-2"><Label>Nombre</Label><Input value={editFirstName} onChange={(e) => setEditFirstName(e.target.value)} /></div>
+                <div className="space-y-2"><Label>Apellidos</Label><Input value={editLastName} onChange={(e) => setEditLastName(e.target.value)} /></div>
               </div>
-              <div className="space-y-2"><Label>Email</Label><Input type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} /></div>
-              <div className="space-y-2"><Label>Phone</Label><Input value={editPhone} onChange={(e) => setEditPhone(e.target.value)} /></div>
-              <div className="space-y-2"><Label>Position</Label><Input value={editPosition} onChange={(e) => setEditPosition(e.target.value)} /></div>
-              <div className="space-y-2"><Label>Tags (comma-separated)</Label><Input value={editTags} onChange={(e) => setEditTags(e.target.value)} placeholder="e.g. decision-maker, technical" /></div>
-              <div className="space-y-2"><Label>Notes</Label><RichTextEditor value={editNotes} onChange={setEditNotes} rows={4} /></div>
+              <div className="space-y-2"><Label>Correo</Label><Input type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} /></div>
+              <div className="space-y-2"><Label>Teléfono</Label><Input value={editPhone} onChange={(e) => setEditPhone(e.target.value)} /></div>
+              <div className="space-y-2"><Label>Cargo</Label><Input value={editPosition} onChange={(e) => setEditPosition(e.target.value)} /></div>
+              <div className="space-y-2"><Label>Etiquetas (separadas por comas)</Label><Input value={editTags} onChange={(e) => setEditTags(e.target.value)} placeholder="p. ej. decisor, técnico" /></div>
+              <div className="space-y-2"><Label>Notas</Label><RichTextEditor value={editNotes} onChange={setEditNotes} rows={4} /></div>
               <div className="flex gap-2">
-                <Button onClick={handleSave} disabled={updateContact.isPending}><Save className="h-4 w-4 mr-1" /> Save</Button>
-                <Button variant="ghost" onClick={() => setEditing(false)}>Cancel</Button>
+                <Button onClick={handleSave} disabled={updateContact.isPending}><Save className="h-4 w-4 mr-1" /> Guardar</Button>
+                <Button variant="ghost" onClick={() => setEditing(false)}>Cancelar</Button>
               </div>
             </div>
           ) : (
@@ -144,7 +144,7 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
               </div>
               {(contact as any).notes && (
                 <div className="text-sm">
-                  <div className="flex items-center gap-1.5 mb-1"><FileText className="h-4 w-4 text-muted-foreground" /><span className="text-muted-foreground">Notes</span></div>
+                  <div className="flex items-center gap-1.5 mb-1"><FileText className="h-4 w-4 text-muted-foreground" /><span className="text-muted-foreground">Notas</span></div>
                   <p className="whitespace-pre-wrap">{(contact as any).notes}</p>
                 </div>
               )}
@@ -154,11 +154,11 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
               <div className="space-y-2 text-xs text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <Calendar className="h-3.5 w-3.5" />
-                  <span>Created {format(new Date(contact.created_at), "MMM d, yyyy 'at' h:mm a")}</span>
+                  <span>Creado el {format(new Date(contact.created_at), "d MMM yyyy 'a las' HH:mm")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-3.5 w-3.5" />
-                  <span>Updated {format(new Date(contact.updated_at), "MMM d, yyyy 'at' h:mm a")}</span>
+                  <span>Actualizado el {format(new Date(contact.updated_at), "d MMM yyyy 'a las' HH:mm")}</span>
                 </div>
               </div>
             </div>
@@ -169,13 +169,13 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
           {/* Tasks Section */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-sm font-semibold">Tasks</h4>
+              <h4 className="text-sm font-semibold">Tareas</h4>
               <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => setTaskDialogOpen(true)}>
-                <Plus className="h-3 w-3 mr-1" /> Add Task
+                <Plus className="h-3 w-3 mr-1" /> Añadir tarea
               </Button>
             </div>
             {!tasks?.length ? (
-              <p className="text-sm text-muted-foreground">No tasks linked.</p>
+              <p className="text-sm text-muted-foreground">No hay tareas vinculadas.</p>
             ) : (
               <div className="space-y-2">{tasks.map((t) => <TaskItem key={t.id} task={t} />)}</div>
             )}
@@ -184,15 +184,15 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
           <Separator />
 
           <div>
-            <h4 className="text-sm font-semibold mb-3">Activity History</h4>
+            <h4 className="text-sm font-semibold mb-3">Historial de actividad</h4>
             {contactActivities.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No activities yet.</p>
+              <p className="text-sm text-muted-foreground">Aún no hay actividades.</p>
             ) : (
               <div className="space-y-3">
                 {contactActivities.map((a) => (
                   <div key={a.id} className="text-sm">
                     <p className="font-medium">{a.title}</p>
-                    <p className="text-xs text-muted-foreground">{a.type} · {formatRelativeDate(a.created_at)}</p>
+                    <p className="text-xs text-muted-foreground">{{ call: "Llamada", email: "Correo", meeting: "Reunión", note: "Nota" }[a.type]} · {formatRelativeDate(a.created_at)}</p>
                   </div>
                 ))}
               </div>
@@ -203,16 +203,16 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
 
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" size="sm"><Trash2 className="h-4 w-4 mr-1" /> Delete Contact</Button>
+              <Button variant="destructive" size="sm"><Trash2 className="h-4 w-4 mr-1" /> Eliminar contacto</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Delete contact?</AlertDialogTitle>
-                <AlertDialogDescription>This will permanently delete {contact.first_name} {contact.last_name} and cannot be undone.</AlertDialogDescription>
+                <AlertDialogTitle>¿Eliminar contacto?</AlertDialogTitle>
+                <AlertDialogDescription>Esto eliminará a {contact.first_name} {contact.last_name} de forma permanente y no se puede deshacer.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

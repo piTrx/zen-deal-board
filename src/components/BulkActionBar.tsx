@@ -14,13 +14,13 @@ export function BulkActionBar({ count, onDelete, onClear, deleting, children }: 
 
   return (
     <div className="fixed bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 flex flex-wrap items-center gap-2 sm:gap-3 rounded-lg border bg-background px-4 py-3 shadow-lg">
-      <span className="text-sm font-medium">{count} selected</span>
+      <span className="text-sm font-medium">{count} seleccionados</span>
       <Button variant="destructive" size="sm" onClick={onDelete} disabled={deleting}>
-        <Trash2 className="h-4 w-4 mr-1" /> Delete
+        <Trash2 className="h-4 w-4 mr-1" /> Eliminar
       </Button>
       {children}
       <Button variant="ghost" size="sm" onClick={onClear}>
-        <X className="h-4 w-4 mr-1" /> Clear
+        <X className="h-4 w-4 mr-1" /> Limpiar
       </Button>
     </div>
   );

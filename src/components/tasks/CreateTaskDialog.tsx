@@ -88,20 +88,20 @@ export function CreateTaskDialog({ open, onOpenChange, defaultDealId, defaultCon
               <Select value={priority} onValueChange={setPriority}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="low">Low</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="low">Baja</SelectItem>
+                  <SelectItem value="medium">Media</SelectItem>
+                  <SelectItem value="high">Alta</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           {!defaultDealId && (
             <div className="space-y-2">
-              <Label>Link to Deal</Label>
+              <Label>Vincular a oferta</Label>
               <Select value={dealId} onValueChange={setDealId}>
-                <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="Ninguna" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="none">Ninguna</SelectItem>
                   {deals?.map((d) => <SelectItem key={d.id} value={d.id}>{d.title}</SelectItem>)}
                 </SelectContent>
               </Select>
@@ -109,18 +109,18 @@ export function CreateTaskDialog({ open, onOpenChange, defaultDealId, defaultCon
           )}
           {!defaultContactId && (
             <div className="space-y-2">
-              <Label>Link to Contact</Label>
+              <Label>Vincular a contacto</Label>
               <Select value={contactId} onValueChange={setContactId}>
-                <SelectTrigger><SelectValue placeholder="None" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="Ninguno" /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="none">Ninguno</SelectItem>
                   {contacts?.map((c) => <SelectItem key={c.id} value={c.id}>{c.first_name} {c.last_name}</SelectItem>)}
                 </SelectContent>
               </Select>
             </div>
           )}
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
             <Button type="submit" disabled={createTask.isPending}>
               {createTask.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create Task"}
             </Button>

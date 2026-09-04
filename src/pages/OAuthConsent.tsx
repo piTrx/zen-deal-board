@@ -23,7 +23,7 @@ export default function OAuthConsent() {
   useEffect(() => {
     let active = true;
     (async () => {
-      if (!authorizationId) return setError("Missing authorization_id");
+      if (!authorizationId) return setError("Falta authorization_id");
       const { data: sess } = await supabase.auth.getSession();
       if (!sess.session) {
         const next = window.location.pathname + window.location.search;
@@ -57,7 +57,7 @@ export default function OAuthConsent() {
     const target = data?.redirect_url ?? data?.redirect_to;
     if (!target) {
       setBusy(false);
-      return setError("No redirect returned by the authorization server.");
+      return setError("El servidor de autorización no devolvió una redirección.");
     }
     window.location.href = target;
   }
@@ -68,34 +68,34 @@ export default function OAuthConsent() {
         {error ? (
           <>
             <CardHeader>
-              <CardTitle>Could not load this request</CardTitle>
+              <CardTitle>No se pudo cargar esta solicitud</CardTitle>
               <CardDescription>{error}</CardDescription>
             </CardHeader>
             <CardContent>
               <Button variant="outline" onClick={() => (window.location.href = "/dashboard")}>
-                Back to the app
+                Volver a la aplicación
               </Button>
             </CardContent>
           </>
         ) : !details ? (
           <CardContent className="flex items-center justify-center gap-2 py-12 text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading…
+            <Loader2 className="h-4 w-4 animate-spin" /> Cargando…
           </CardContent>
         ) : (
           <>
             <CardHeader>
-              <CardTitle>Connect {details.client?.name ?? "an app"} to your account</CardTitle>
+              <CardTitle>Conectar {details.client?.name ?? "una app"} a tu cuenta</CardTitle>
               <CardDescription>
-                This lets {details.client?.name ?? "the client"} read and create CRM data as you. You can revoke access
-                at any time.
+                Esto permite que {details.client?.name ?? "la aplicación"} lea y cree datos del CRM en tu nombre. Puedes revocar el acceso
+                en cualquier momento.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
               <Button variant="outline" disabled={busy} onClick={() => decide(false)}>
-                Deny
+                Denegar
               </Button>
               <Button disabled={busy} onClick={() => decide(true)}>
-                {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "Approve"}
+                {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : "Aprobar"}
               </Button>
             </CardContent>
           </>
