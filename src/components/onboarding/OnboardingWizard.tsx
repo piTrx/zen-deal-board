@@ -75,7 +75,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
       const { error: stagesError } = await supabase.from("pipeline_stages").insert(stageInserts);
       if (stagesError) throw stagesError;
 
-      toast({ title: "¡Todo listo! 🎉", description: "Tu embudo ya está preparado." });
+      toast({ title: "¡Todo listo! 🎉", description: "Tu pipeline ya está preparado." });
       onComplete();
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });
@@ -121,7 +121,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
                 <Kanban className="h-7 w-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl">Personaliza tu embudo</CardTitle>
+              <CardTitle className="text-2xl">Personaliza tu pipeline</CardTitle>
               <CardDescription>Configura tus etapas de ventas. Podrás cambiarlas más adelante.</CardDescription>
             </>
           )}
@@ -206,7 +206,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               </Button>
             ) : (
               <Button onClick={handleFinish} disabled={submitting}>
-                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Lanzar embudo <ArrowRight className="h-4 w-4 ml-1" /></>}
+                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Lanzar pipeline <ArrowRight className="h-4 w-4 ml-1" /></>}
               </Button>
             )}
           </div>

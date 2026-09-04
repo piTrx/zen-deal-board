@@ -32,7 +32,7 @@ import { DMark } from "@/components/DMark";
 
 const mainNav = [
   { title: "Panel", icon: LayoutDashboard, to: "/dashboard" },
-  { title: "Embudo", icon: Kanban, to: "/pipeline" },
+  { title: "Pipeline", icon: Kanban, to: "/pipeline" },
   { title: "Contactos", icon: Users, to: "/contacts" },
   { title: "Empresas", icon: Building2, to: "/companies" },
   { title: "Actividades", icon: Activity, to: "/activities" },

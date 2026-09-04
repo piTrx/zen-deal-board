@@ -119,7 +119,7 @@ export function PipelineSettings() {
     const { error } = await supabase.rpc("seed_default_pipeline", { p_user_id: user.id });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else {
-      toast({ title: "Embudo creado" });
+      toast({ title: "Pipeline creado" });
       queryClient.invalidateQueries({ queryKey: ["pipelines", "pipeline_stages"] });
     }
   };
@@ -127,8 +127,8 @@ export function PipelineSettings() {
   if (!pipeline) {
     return (
       <div className="space-y-4">
-        <p className="text-muted-foreground">No se ha encontrado ningún embudo. Crea uno para empezar.</p>
-        <Button onClick={handleCreatePipeline}>Crear embudo por defecto</Button>
+        <p className="text-muted-foreground">No se ha encontrado ningún pipeline. Crea uno para empezar.</p>
+        <Button onClick={handleCreatePipeline}>Crear pipeline por defecto</Button>
       </div>
     );
   }
@@ -136,8 +136,8 @@ export function PipelineSettings() {
   return (
     <div className="space-y-6 max-w-md">
       <div>
-        <h3 className="text-sm font-semibold mb-1">Etapas del embudo</h3>
-        <p className="text-xs text-muted-foreground mb-3">Arrastra para reordenar. Los cambios se reflejan en la página del embudo.</p>
+        <h3 className="text-sm font-semibold mb-1">Etapas del pipeline</h3>
+        <p className="text-xs text-muted-foreground mb-3">Arrastra para reordenar. Los cambios se reflejan en la página del pipeline.</p>
         <div className="space-y-2">
           {stages?.map((stage, index) => (
             <div

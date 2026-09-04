@@ -23,10 +23,10 @@ export function KanbanBoard({ stages, deals, onDealClick, onAddDeal }: KanbanBoa
       { id: dealId, stage_id: stageId },
       {
         onSuccess: () => {
-          toast({ title: "Deal movido", description: `Movido a ${targetStage?.name || "nueva etapa"}` });
+          toast({ title: "Oferta movida", description: `Movido a ${targetStage?.name || "nueva etapa"}` });
         },
         onError: () => {
-          toast({ title: "Error", description: "No se pudo mover el deal", variant: "destructive" });
+          toast({ title: "Error", description: "No se pudo mover la oferta", variant: "destructive" });
         },
       }
     );

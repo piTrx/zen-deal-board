@@ -135,7 +135,7 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Vincular a deal</Label>
+                <Label>Vincular a oferta</Label>
                 <Select value={editDealId} onValueChange={setEditDealId}>
                   <SelectTrigger><SelectValue placeholder="Ninguna" /></SelectTrigger>
                   <SelectContent>
@@ -187,7 +187,7 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                 {task.deals && (
                   <div className="flex items-center gap-2">
                     <LinkIcon className="h-4 w-4 text-muted-foreground shrink-0" />
-                    <span className="text-muted-foreground">Deal:</span>
+                    <span className="text-muted-foreground">Oferta:</span>
                     <span>{task.deals.title}</span>
                   </div>
                 )}
