@@ -32,7 +32,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
   const [newStageName, setNewStageName] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const teamSizes = ["Just me", "2-5", "6-15", "16-50", "50+"];
+  const teamSizes = ["Solo yo", "2-5", "6-15", "16-50", "50+"];
 
   const handleRemoveStage = (idx: number) => {
     if (stages.length <= 2) return;
@@ -75,7 +75,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
       const { error: stagesError } = await supabase.from("pipeline_stages").insert(stageInserts);
       if (stagesError) throw stagesError;
 
-      toast({ title: "You're all set! 🎉", description: "Your pipeline is ready to go." });
+      toast({ title: "¡Todo listo! 🎉", description: "Tu embudo ya está preparado." });
       onComplete();
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });
@@ -103,8 +103,8 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
                 <Building2 className="h-7 w-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl">Tell us about your company</CardTitle>
-              <CardDescription>We'll use this to personalize your experience.</CardDescription>
+              <CardTitle className="text-2xl">Cuéntanos sobre tu empresa</CardTitle>
+              <CardDescription>Lo usaremos para personalizar tu experiencia.</CardDescription>
             </>
           )}
           {step === 2 && (
@@ -112,8 +112,8 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
                 <Users className="h-7 w-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl">How big is your team?</CardTitle>
-              <CardDescription>This helps us tailor the right features.</CardDescription>
+              <CardTitle className="text-2xl">¿Qué tamaño tiene tu equipo?</CardTitle>
+              <CardDescription>Esto nos ayuda a adaptar las funciones adecuadas.</CardDescription>
             </>
           )}
           {step === 3 && (
@@ -121,8 +121,8 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
                 <Kanban className="h-7 w-7 text-primary" />
               </div>
-              <CardTitle className="text-2xl">Customize your pipeline</CardTitle>
-              <CardDescription>Set up your sales stages. You can always change these later.</CardDescription>
+              <CardTitle className="text-2xl">Personaliza tu embudo</CardTitle>
+              <CardDescription>Configura tus etapas de ventas. Podrás cambiarlas más adelante.</CardDescription>
             </>
           )}
         </CardHeader>
@@ -131,12 +131,12 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           {step === 1 && (
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="company">Company Name</Label>
+                <Label htmlFor="company">Nombre de la empresa</Label>
                 <Input
                   id="company"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Acme Inc."
+                  placeholder="ej. Acme S.L."
                   autoFocus
                 />
               </div>
@@ -180,7 +180,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
                 <Input
                   value={newStageName}
                   onChange={(e) => setNewStageName(e.target.value)}
-                  placeholder="Add custom stage..."
+                  placeholder="Añadir etapa personalizada..."
                   onKeyDown={(e) => e.key === "Enter" && handleAddStage()}
                 />
                 <Button variant="outline" size="icon" onClick={handleAddStage}>
@@ -194,7 +194,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
           <div className="flex justify-between mt-8">
             {step > 1 ? (
               <Button variant="ghost" onClick={() => setStep(step - 1)}>
-                <ArrowLeft className="h-4 w-4 mr-1" /> Back
+                <ArrowLeft className="h-4 w-4 mr-1" /> Atrás
               </Button>
             ) : (
               <div />
@@ -202,11 +202,11 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
 
             {step < 3 ? (
               <Button onClick={() => setStep(step + 1)}>
-                Next <ArrowRight className="h-4 w-4 ml-1" />
+                Siguiente <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             ) : (
               <Button onClick={handleFinish} disabled={submitting}>
-                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Launch Pipeline <ArrowRight className="h-4 w-4 ml-1" /></>}
+                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <>Lanzar embudo <ArrowRight className="h-4 w-4 ml-1" /></>}
               </Button>
             )}
           </div>

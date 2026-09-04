@@ -63,7 +63,7 @@ export default function DataImportExport() {
     if (!file) return;
 
     if (file.size > MAX_CSV_SIZE) {
-      toast({ title: "File too large", description: "CSV file must be under 1 MB.", variant: "destructive" });
+      toast({ title: "Archivo demasiado grande", description: "El archivo CSV debe pesar menos de 1 MB.", variant: "destructive" });
       return;
     }
 
@@ -72,7 +72,7 @@ export default function DataImportExport() {
       const text = event.target?.result as string;
       const lines = text.split("\n").map((line) => line.split(",").map((cell) => cell.trim().replace(/^"|"$/g, "")));
       if (lines.length < 2) {
-        toast({ title: "Invalid CSV", description: "File must have headers and at least one row.", variant: "destructive" });
+        toast({ title: "CSV no válido", description: "El archivo debe tener cabeceras y al menos una fila.", variant: "destructive" });
         return;
       }
       setCsvHeaders(lines[0]);
@@ -128,7 +128,7 @@ export default function DataImportExport() {
         }
       } else {
         if (!pipeline || !stages?.length) {
-          toast({ title: "No pipeline", description: "Create a pipeline first.", variant: "destructive" });
+          toast({ title: "Sin embudo", description: "Crea primero un embudo.", variant: "destructive" });
           setImporting(false);
           return;
         }
@@ -170,17 +170,17 @@ export default function DataImportExport() {
       }
 
       setImportResult({ success, errors });
-      toast({ title: "Import complete", description: `${success} imported, ${errors} errors.` });
+      toast({ title: "Importación completada", description: `${success} importados, ${errors} errores.` });
     } catch {
-      toast({ title: "Import failed", variant: "destructive" });
+      toast({ title: "Error al importar", variant: "destructive" });
     } finally {
       setImporting(false);
     }
   };
 
   const handleExportContacts = () => {
-    if (!contacts?.length) { toast({ title: "No contacts to export" }); return; }
-    const headers = ["First Name", "Last Name", "Email", "Phone", "Position", "Company", "Tags"];
+    if (!contacts?.length) { toast({ title: "No hay contactos para exportar" }); return; }
+    const headers = ["Nombre", "Apellidos", "Correo electrónico", "Teléfono", "Cargo", "Empresa", "Etiquetas"];
     const rows = contacts.map((c) => [
       c.first_name, c.last_name, c.email || "", c.phone || "", c.position || "",
       c.companies?.name || "", (c.tags || []).join(";"),
@@ -189,8 +189,8 @@ export default function DataImportExport() {
   };
 
   const handleExportDeals = () => {
-    if (!deals?.length) { toast({ title: "No deals to export" }); return; }
-    const headers = ["Title", "Company", "Contact", "Value", "Probability", "Close Date", "Stage", "Notes"];
+    if (!deals?.length) { toast({ title: "No hay ofertas para exportar" }); return; }
+    const headers = ["Título", "Empresa", "Contacto", "Valor", "Probabilidad", "Fecha de cierre", "Etapa", "Notas"];
     const rows = deals.map((d) => {
       const stage = stages?.find((s) => s.id === d.stage_id);
       return [
@@ -229,7 +229,7 @@ export default function DataImportExport() {
       ];
       downloadCSV(headers, sampleRows, "deals_template.csv");
     }
-    toast({ title: "Template downloaded", description: `Use this CSV as a starting point for your ${type} import.` });
+    toast({ title: "Plantilla descargada", description: `Usa este CSV como punto de partida para tu importación de ${type === "contacts" ? "contactos" : "ofertas"}.` });
   };
 
   const fields = importType === "contacts" ? contactFields : dealFields;
@@ -237,12 +237,12 @@ export default function DataImportExport() {
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Import / Export" description="Bulk import contacts and deals from CSV, or export your data." />
+      <PageBanner title="Importar / Exportar" description="Importa contactos y ofertas en bloque desde CSV, o exporta tus datos." />
 
       <Tabs defaultValue="import">
         <TabsList>
-          <TabsTrigger value="import"><Upload className="h-4 w-4 mr-1" /> Import</TabsTrigger>
-          <TabsTrigger value="export"><Download className="h-4 w-4 mr-1" /> Export</TabsTrigger>
+          <TabsTrigger value="import"><Upload className="h-4 w-4 mr-1" /> Importar</TabsTrigger>
+          <TabsTrigger value="export"><Download className="h-4 w-4 mr-1" /> Exportar</TabsTrigger>
         </TabsList>
 
         <TabsContent value="import" className="space-y-6 mt-6">
@@ -250,26 +250,26 @@ export default function DataImportExport() {
             <Select value={importType} onValueChange={(v: any) => { setImportType(v); setCsvData([]); setCsvHeaders([]); setColumnMapping({}); setImportResult(null); }}>
               <SelectTrigger className="w-40"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="contacts">Contacts</SelectItem>
-                <SelectItem value="deals">Deals</SelectItem>
+                <SelectItem value="contacts">Contactos</SelectItem>
+                <SelectItem value="deals">Ofertas</SelectItem>
               </SelectContent>
             </Select>
 
             <input ref={fileRef} type="file" accept=".csv" className="hidden" onChange={handleFileSelect} />
             <Button variant="outline" onClick={() => fileRef.current?.click()}>
-              <FileSpreadsheet className="h-4 w-4 mr-2" /> Choose CSV File
+              <FileSpreadsheet className="h-4 w-4 mr-2" /> Elegir archivo CSV
             </Button>
 
             <Button variant="ghost" size="sm" onClick={() => handleDownloadTemplate(importType)}>
-              <Download className="h-4 w-4 mr-1" /> Download Template
+              <Download className="h-4 w-4 mr-1" /> Descargar plantilla
             </Button>
           </div>
 
           {csvHeaders.length > 0 && (
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Map Columns</CardTitle>
-                <CardDescription>Match your CSV columns to {importType} fields. {csvData.length} rows detected.</CardDescription>
+                <CardTitle className="text-lg">Asignar columnas</CardTitle>
+                <CardDescription>Asocia las columnas de tu CSV a los campos de {importType === "contacts" ? "contactos" : "ofertas"}. Se han detectado {csvData.length} filas.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -277,7 +277,7 @@ export default function DataImportExport() {
                     <div key={field} className="flex items-center gap-2">
                       <span className="text-sm font-medium w-28 capitalize">{field.replace("_", " ")}</span>
                       <Select value={columnMapping[field] || ""} onValueChange={(v) => setColumnMapping({ ...columnMapping, [field]: v })}>
-                        <SelectTrigger className="flex-1"><SelectValue placeholder="Select column..." /></SelectTrigger>
+                        <SelectTrigger className="flex-1"><SelectValue placeholder="Seleccionar columna..." /></SelectTrigger>
                         <SelectContent>
                           {csvHeaders.map((h) => (
                             <SelectItem key={h} value={h}>{h}</SelectItem>
@@ -315,13 +315,13 @@ export default function DataImportExport() {
                     ) : (
                       <AlertCircle className="h-4 w-4 text-orange-500" />
                     )}
-                    <span>{importResult.success} imported successfully{importResult.errors > 0 ? `, ${importResult.errors} errors` : ""}.</span>
+                    <span>{importResult.success} importados correctamente{importResult.errors > 0 ? `, ${importResult.errors} errores` : ""}.</span>
                   </div>
                 )}
 
                 <Button onClick={handleImport} disabled={importing || mappedCount === 0}>
                   {importing ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
-                  Import {csvData.length} {importType}
+                  Importar {csvData.length} {importType === "contacts" ? "contactos" : "ofertas"}
                 </Button>
               </CardContent>
             </Card>
@@ -332,24 +332,24 @@ export default function DataImportExport() {
           <div className="grid gap-4 sm:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Export Contacts</CardTitle>
-                <CardDescription>{contacts?.length || 0} contacts available</CardDescription>
+                <CardTitle className="text-lg">Exportar contactos</CardTitle>
+                <CardDescription>{contacts?.length || 0} contactos disponibles</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button onClick={handleExportContacts} disabled={!contacts?.length}>
-                  <Download className="h-4 w-4 mr-2" /> Download CSV
+                  <Download className="h-4 w-4 mr-2" /> Descargar CSV
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Export Deals</CardTitle>
-                <CardDescription>{deals?.length || 0} deals available</CardDescription>
+                <CardTitle className="text-lg">Exportar ofertas</CardTitle>
+                <CardDescription>{deals?.length || 0} ofertas disponibles</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button onClick={handleExportDeals} disabled={!deals?.length}>
-                  <Download className="h-4 w-4 mr-2" /> Download CSV
+                  <Download className="h-4 w-4 mr-2" /> Descargar CSV
                 </Button>
               </CardContent>
             </Card>

@@ -10,10 +10,10 @@ import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, Calendar, FileText, Pencil, Trash2, Save, X } from "lucide-react";
 
 const typeConfig = {
-  call: { icon: Phone, color: "text-blue-500", bg: "bg-blue-50" },
-  email: { icon: Mail, color: "text-purple-500", bg: "bg-purple-50" },
-  meeting: { icon: Calendar, color: "text-orange-500", bg: "bg-orange-50" },
-  note: { icon: FileText, color: "text-green-500", bg: "bg-green-50" },
+  call: { icon: Phone, color: "text-blue-500", bg: "bg-blue-50", label: "Llamada" },
+  email: { icon: Mail, color: "text-purple-500", bg: "bg-purple-50", label: "Correo" },
+  meeting: { icon: Calendar, color: "text-orange-500", bg: "bg-orange-50", label: "Reunión" },
+  note: { icon: FileText, color: "text-green-500", bg: "bg-green-50", label: "Nota" },
 };
 
 export function ActivityItem({ activity }: { activity: Activity }) {
@@ -79,7 +79,7 @@ export function ActivityItem({ activity }: { activity: Activity }) {
           <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{activity.description}</p>
         )}
         <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-          <span className="capitalize">{activity.type}</span>
+          <span className="capitalize">{config.label}</span>
           {activity.deals && <span>· {activity.deals.title}</span>}
           {activity.contacts && <span>· {activity.contacts.first_name} {activity.contacts.last_name}</span>}
           <span className="ml-auto">{formatRelativeDate(activity.created_at)}</span>

@@ -31,16 +31,16 @@ import { NavLink } from "react-router-dom";
 import { DMark } from "@/components/DMark";
 
 const mainNav = [
-  { title: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
-  { title: "Pipeline", icon: Kanban, to: "/pipeline" },
-  { title: "Contacts", icon: Users, to: "/contacts" },
-  { title: "Companies", icon: Building2, to: "/companies" },
-  { title: "Activities", icon: Activity, to: "/activities" },
-  { title: "Tasks", icon: CheckSquare, to: "/tasks" },
-  { title: "Calendar", icon: CalendarDays, to: "/calendar" },
-  { title: "Forecast", icon: TrendingUp, to: "/forecast" },
-  { title: "Reports", icon: BarChart3, to: "/reports" },
-  { title: "Import/Export", icon: FileSpreadsheet, to: "/data" },
+  { title: "Panel", icon: LayoutDashboard, to: "/dashboard" },
+  { title: "Embudo", icon: Kanban, to: "/pipeline" },
+  { title: "Contactos", icon: Users, to: "/contacts" },
+  { title: "Empresas", icon: Building2, to: "/companies" },
+  { title: "Actividades", icon: Activity, to: "/activities" },
+  { title: "Tareas", icon: CheckSquare, to: "/tasks" },
+  { title: "Calendario", icon: CalendarDays, to: "/calendar" },
+  { title: "Previsión", icon: TrendingUp, to: "/forecast" },
+  { title: "Informes", icon: BarChart3, to: "/reports" },
+  { title: "Importar/Exportar", icon: FileSpreadsheet, to: "/data" },
 ];
 
 export function AppSidebar() {
@@ -103,14 +103,14 @@ export function AppSidebar() {
             <SidebarMenuButton asChild>
               <NavLink to="/settings">
                 <Settings className="h-4 w-4" />
-                <span>Settings</span>
+                <span>Ajustes</span>
               </NavLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={signOut}>
               <LogOut className="h-4 w-4" />
-              <span>Sign out</span>
+              <span>Cerrar sesión</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

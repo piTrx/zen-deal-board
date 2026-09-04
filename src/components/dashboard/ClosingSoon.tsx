@@ -55,7 +55,7 @@ export function ClosingSoon({ since }: { since?: string | null }) {
     <Card>
       <CardHeader className="pb-3">
         <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-          <Clock className="h-4 w-4" /> Coming Soon
+          <Clock className="h-4 w-4" /> Próximamente
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -66,7 +66,7 @@ export function ClosingSoon({ since }: { since?: string | null }) {
             {/* Deals closing soon */}
             {deals && deals.length > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Deals Closing</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ofertas por cerrar</p>
                 {deals.map((d: any) => (
                   <div key={d.id} className="flex items-center justify-between rounded-lg border p-3">
                     <div>
@@ -83,7 +83,7 @@ export function ClosingSoon({ since }: { since?: string | null }) {
             {tasks && tasks.length > 0 && (
               <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                  <CheckSquare className="h-3 w-3" /> Tasks Due
+                  <CheckSquare className="h-3 w-3" /> Tareas pendientes
                 </p>
                 {tasks.map((t: any) => (
                   <div key={t.id} className="flex items-center justify-between rounded-lg border p-3">
@@ -101,7 +101,7 @@ export function ClosingSoon({ since }: { since?: string | null }) {
             )}
 
             {(!deals || deals.length === 0) && (!tasks || tasks.length === 0) && (
-              <p className="text-sm text-muted-foreground">Nothing due in the next 7 days.</p>
+              <p className="text-sm text-muted-foreground">Nada previsto en los próximos 7 días.</p>
             )}
           </>
         )}

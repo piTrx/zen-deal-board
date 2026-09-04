@@ -27,10 +27,10 @@ const NotFound = () => {
   }, [navigate]);
 
   const wittyLines = [
-    "Looks like this deal fell out of the pipeline.",
-    "This page ghosted us harder than a cold lead.",
-    "We searched every stage of the funnel. Nothing.",
-    "Even our best sales rep couldn't close this page.",
+    "Parece que este trato se cayó del pipeline.",
+    "Esta página nos dio plantón como un lead frío.",
+    "Buscamos en cada etapa del embudo. Nada.",
+    "Ni nuestro mejor comercial pudo cerrar esta página.",
   ];
 
   const randomLine = wittyLines[Math.floor(Math.random() * wittyLines.length)];
@@ -49,29 +49,29 @@ const NotFound = () => {
           >
             404
           </h1>
-          <p className="text-xl font-medium text-foreground">Page Not Found</p>
+          <p className="text-xl font-medium text-foreground">Página no encontrada</p>
         </div>
 
         <p className="text-muted-foreground text-lg italic">"{randomLine}"</p>
 
         <p className="text-sm text-muted-foreground">
-          Redirecting to your dashboard in{" "}
+          Redirigiendo a tu panel en{" "}
           <span className="font-semibold text-primary">{countdown}s</span>
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button onClick={() => navigate(-1)} variant="outline" className="gap-2">
             <ArrowLeft className="h-4 w-4" />
-            Go Back
+            Volver
           </Button>
           <Button onClick={() => navigate("/dashboard")} className="gap-2">
             <Home className="h-4 w-4" />
-            Dashboard
+            Panel
           </Button>
         </div>
 
         <p className="text-xs text-muted-foreground/60">
-          Tried to reach: <code className="rounded bg-muted px-1.5 py-0.5">{location.pathname}</code>
+          Intentaste acceder a: <code className="rounded bg-muted px-1.5 py-0.5">{location.pathname}</code>
         </p>
       </div>
     </div>
