@@ -72,11 +72,11 @@ export default function CalendarView() {
   const sidebarItems = getItems(autoSelectedDate);
   const hasSidebarItems = sidebarItems.activities.length > 0 || sidebarItems.deals.length > 0 || sidebarItems.tasks.length > 0;
 
-  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const weekdays = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Calendar">
+      <PageBanner title="Calendario">
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
@@ -143,13 +143,13 @@ export default function CalendarView() {
                       ))}
                       {items.deals.map((d) => (
                         <div key={d.id} className="text-xs mb-1.5">
-                          <Badge className="text-[10px] mr-1 bg-green-500/10 text-green-600 border-green-500/20" variant="outline">close</Badge>
+                          <Badge className="text-[10px] mr-1 bg-green-500/10 text-green-600 border-green-500/20" variant="outline">cierre</Badge>
                           {d.title}
                         </div>
                       ))}
                       {items.tasks.map((t) => (
                         <div key={t.id} className="text-xs mb-1.5">
-                          <Badge className="text-[10px] mr-1 bg-amber-500/10 text-amber-600 border-amber-500/20" variant="outline">task</Badge>
+                          <Badge className="text-[10px] mr-1 bg-amber-500/10 text-amber-600 border-amber-500/20" variant="outline">tarea</Badge>
                           {t.title}
                         </div>
                       ))}
@@ -164,7 +164,7 @@ export default function CalendarView() {
         {/* Sidebar - 1/4 width */}
         <div className="lg:col-span-1 rounded-lg border p-4 space-y-4">
           <div>
-            <p className="text-sm text-muted-foreground">Events for</p>
+            <p className="text-sm text-muted-foreground">Eventos para</p>
             <p className="text-lg font-semibold" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
               {format(autoSelectedDate, "PPP")}
             </p>
@@ -173,13 +173,13 @@ export default function CalendarView() {
           {!hasSidebarItems && (
             <div className="text-sm text-muted-foreground py-8 text-center">
               <CalendarIcon className="h-8 w-8 mx-auto mb-2 opacity-40" />
-              No events on this day.
+              No hay eventos este día.
             </div>
           )}
 
           {sidebarItems.activities.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Activities</h3>
+              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Actividades</h3>
               {sidebarItems.activities.map((a) => (
                 <div key={a.id} className="rounded-md border p-3 space-y-1">
                   <div className="flex items-center gap-2">
@@ -194,7 +194,7 @@ export default function CalendarView() {
 
           {sidebarItems.deals.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Deal Closings</h3>
+              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Cierres de ofertas</h3>
               {sidebarItems.deals.map((d) => (
                 <div key={d.id} className="rounded-md border p-3">
                   <div className="flex items-center gap-2">
@@ -208,7 +208,7 @@ export default function CalendarView() {
 
           {sidebarItems.tasks.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Tasks Due</h3>
+              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Tareas por vencer</h3>
               {sidebarItems.tasks.map((t) => (
                 <div key={t.id} className="rounded-md border p-3">
                   <div className="flex items-center gap-2">

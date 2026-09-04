@@ -30,13 +30,13 @@ export function ActivityItem({ activity }: { activity: Activity }) {
   const handleSave = () => {
     updateActivity.mutate(
       { id: activity.id, title: editTitle, description: editDescription || null, type: editType },
-      { onSuccess: () => { toast({ title: "Activity updated" }); setEditing(false); } }
+      { onSuccess: () => { toast({ title: "Actividad actualizada" }); setEditing(false); } }
     );
   };
 
   const handleDelete = () => {
     deleteActivity.mutate(activity.id, {
-      onSuccess: () => toast({ title: "Activity deleted" }),
+      onSuccess: () => toast({ title: "Actividad eliminada" }),
     });
   };
 
@@ -47,21 +47,21 @@ export function ActivityItem({ activity }: { activity: Activity }) {
           <Select value={editType} onValueChange={(v) => setEditType(v as Activity["type"])}>
             <SelectTrigger className="w-full sm:w-32"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="call">📞 Call</SelectItem>
-              <SelectItem value="email">📧 Email</SelectItem>
-              <SelectItem value="meeting">📅 Meeting</SelectItem>
-              <SelectItem value="note">📝 Note</SelectItem>
+              <SelectItem value="call">📞 Llamada</SelectItem>
+              <SelectItem value="email">📧 Correo</SelectItem>
+              <SelectItem value="meeting">📅 Reunión</SelectItem>
+              <SelectItem value="note">📝 Nota</SelectItem>
             </SelectContent>
           </Select>
-          <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} placeholder="Title" className="flex-1" />
+          <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} placeholder="Título" className="flex-1" />
         </div>
-        <RichTextEditor value={editDescription} onChange={setEditDescription} rows={2} placeholder="Description..." />
+        <RichTextEditor value={editDescription} onChange={setEditDescription} rows={2} placeholder="Descripción..." />
         <div className="flex gap-2">
           <Button size="sm" onClick={handleSave} disabled={updateActivity.isPending}>
-            <Save className="h-3 w-3 mr-1" /> Save
+            <Save className="h-3 w-3 mr-1" /> Guardar
           </Button>
           <Button size="sm" variant="ghost" onClick={() => setEditing(false)}>
-            <X className="h-3 w-3 mr-1" /> Cancel
+            <X className="h-3 w-3 mr-1" /> Cancelar
           </Button>
         </div>
       </div>
@@ -97,12 +97,12 @@ export function ActivityItem({ activity }: { activity: Activity }) {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete activity?</AlertDialogTitle>
-              <AlertDialogDescription>This will permanently delete this activity.</AlertDialogDescription>
+              <AlertDialogTitle>¿Eliminar actividad?</AlertDialogTitle>
+              <AlertDialogDescription>Esto eliminará esta actividad de forma permanente.</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>Eliminar</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

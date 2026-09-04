@@ -29,26 +29,26 @@ export default function Activities() {
     await Promise.all(Array.from(selected).map((id) => deleteActivity.mutateAsync(id)));
     setSelected(new Set());
     setDeleting(false);
-    toast({ title: `${selected.size} activities deleted` });
+    toast({ title: `${selected.size} actividades eliminadas` });
   };
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Activities" description="Track all team interactions.">
+      <PageBanner title="Actividades" description="Registra todas las interacciones del equipo.">
         <Button className="w-full sm:w-auto" onClick={() => setLogOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" /> Log Activity
+          <Plus className="h-4 w-4 mr-2" /> Registrar actividad
         </Button>
       </PageBanner>
 
       <div className="flex gap-3">
         <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v === "all" ? "" : v)}>
-          <SelectTrigger className="w-full sm:w-40"><SelectValue placeholder="All types" /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-40"><SelectValue placeholder="Todos los tipos" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All types</SelectItem>
-            <SelectItem value="call">📞 Calls</SelectItem>
-            <SelectItem value="email">📧 Emails</SelectItem>
-            <SelectItem value="meeting">📅 Meetings</SelectItem>
-            <SelectItem value="note">📝 Notes</SelectItem>
+            <SelectItem value="all">Todos los tipos</SelectItem>
+            <SelectItem value="call">📞 Llamadas</SelectItem>
+            <SelectItem value="email">📧 Correos</SelectItem>
+            <SelectItem value="meeting">📅 Reuniones</SelectItem>
+            <SelectItem value="note">📝 Notas</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -58,10 +58,10 @@ export default function Activities() {
       ) : !activities?.length ? (
         <div className="flex flex-col items-center py-16">
           <ActivityIcon className="h-12 w-12 text-muted-foreground/40 mb-3" />
-          <h3 className="font-semibold text-lg">No activities yet</h3>
-          <p className="text-muted-foreground text-sm mb-4">Start logging calls, emails, and meetings.</p>
+          <h3 className="font-semibold text-lg">Todavía no hay actividades</h3>
+          <p className="text-muted-foreground text-sm mb-4">Empieza a registrar llamadas, correos y reuniones.</p>
           <Button variant="secondary" onClick={() => setLogOpen(true)}>
-            <Plus className="h-4 w-4 mr-2" /> Log activity
+            <Plus className="h-4 w-4 mr-2" /> Registrar actividad
           </Button>
         </div>
       ) : (

@@ -83,24 +83,24 @@ export default function Index() {
   });
 
   const periods: { label: string; value: Period }[] = [
-    { label: "This Week", value: "week" },
-    { label: "This Month", value: "month" },
-    { label: "This Quarter", value: "quarter" },
-    { label: "All Time", value: "all" },
+    { label: "Esta semana", value: "week" },
+    { label: "Este mes", value: "month" },
+    { label: "Este trimestre", value: "quarter" },
+    { label: "Todo el tiempo", value: "all" },
   ];
 
   const statCards = [
-    { label: "Total Deals", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
-    { label: "Pipeline Value", value: formatCurrency(stats?.totalValue || 0), icon: Euro, color: "hsl(170, 50%, 45%)" },
-    { label: "Win Rate", value: `${stats?.winRate || 0}%`, icon: TrendingUp, color: "hsl(262, 60%, 55%)" },
-    { label: "Avg. Cycle", value: stats?.avgCycle ? `${stats.avgCycle} days` : "—", icon: Clock, color: "hsl(14, 98%, 60%)" },
+    { label: "Ofertas totales", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
+    { label: "Valor del embudo", value: formatCurrency(stats?.totalValue || 0), icon: Euro, color: "hsl(170, 50%, 45%)" },
+    { label: "Tasa de éxito", value: `${stats?.winRate || 0}%`, icon: TrendingUp, color: "hsl(262, 60%, 55%)" },
+    { label: "Ciclo medio", value: stats?.avgCycle ? `${stats.avgCycle} días` : "—", icon: Clock, color: "hsl(14, 98%, 60%)" },
   ];
 
   return (
     <div className="space-y-8">
       <PageBanner
-        title={`Welcome back${profile?.full_name ? `, ${profile.full_name}` : user?.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ""}`}
-        description="Here's your pipeline at a glance."
+        title={`Bienvenido de nuevo${profile?.full_name ? `, ${profile.full_name}` : user?.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ""}`}
+        description="Aquí tienes tu embudo de un vistazo."
         avatar={
           <Avatar className="h-12 w-12 md:h-14 md:w-14">
             <AvatarImage src={profile?.avatar_url || ""} className="object-cover" />

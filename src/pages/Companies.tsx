@@ -58,18 +58,18 @@ export default function Companies() {
     await Promise.all(Array.from(selected).map((id) => deleteCompany.mutateAsync(id)));
     setSelected(new Set());
     setDeleting(false);
-    toast({ title: `${selected.size} companies deleted` });
+    toast({ title: `${selected.size} empresas eliminadas` });
   };
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Companies" description="Manage your company accounts.">
+      <PageBanner title="Empresas" description="Gestiona las cuentas de tus empresas.">
         <CreateCompanyDialog />
       </PageBanner>
 
       <div className="relative max-w-sm">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder="Search companies..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+        <Input placeholder="Buscar empresas..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
       </div>
 
       {isLoading ? (
@@ -82,16 +82,16 @@ export default function Companies() {
                 <TableHead className="w-10">
                   <Checkbox checked={selected.size === filtered.length && filtered.length > 0} onCheckedChange={toggleAll} />
                 </TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Industry</TableHead>
-                <TableHead className="hidden sm:table-cell">Website</TableHead>
-                <TableHead className="text-right">Contacts</TableHead>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Sector</TableHead>
+                <TableHead className="hidden sm:table-cell">Sitio web</TableHead>
+                <TableHead className="text-right">Contactos</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground py-8">No companies found.</TableCell>
+                  <TableCell colSpan={5} className="text-center text-muted-foreground py-8">No se han encontrado empresas.</TableCell>
                 </TableRow>
               ) : (
                 filtered.map((company) => (

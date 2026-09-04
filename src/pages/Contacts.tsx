@@ -56,20 +56,20 @@ export default function Contacts() {
     await Promise.all(Array.from(selected).map((id) => deleteContact.mutateAsync(id)));
     setSelected(new Set());
     setDeleting(false);
-    toast({ title: `${selected.size} contacts deleted` });
+    toast({ title: `${selected.size} contactos eliminados` });
   };
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Contacts" description="Manage your contacts and companies.">
+      <PageBanner title="Contactos" description="Gestiona tus contactos y empresas.">
         <Button className="w-full sm:w-auto" onClick={() => setCreateOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" /> Add Contact
+          <Plus className="h-4 w-4 mr-2" /> Añadir contacto
         </Button>
       </PageBanner>
 
       <div className="relative w-full max-w-sm">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input placeholder="Search contacts..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+        <Input placeholder="Buscar contactos..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
       </div>
 
       {isLoading ? (
@@ -77,10 +77,10 @@ export default function Contacts() {
       ) : !contacts?.length ? (
         <div className="flex flex-col items-center py-16">
           <Users className="h-12 w-12 text-muted-foreground/40 mb-3" />
-          <h3 className="font-semibold text-lg">No contacts yet</h3>
-          <p className="text-muted-foreground text-sm mb-4">Add your first contact to get started.</p>
+          <h3 className="font-semibold text-lg">Todavía no hay contactos</h3>
+          <p className="text-muted-foreground text-sm mb-4">Añade tu primer contacto para empezar.</p>
           <Button variant="secondary" onClick={() => setCreateOpen(true)}>
-            <Plus className="h-4 w-4 mr-2" /> Add contact
+            <Plus className="h-4 w-4 mr-2" /> Añadir contacto
           </Button>
         </div>
       ) : (
@@ -91,11 +91,11 @@ export default function Contacts() {
                 <TableHead className="w-10">
                   <Checkbox checked={selected.size === contacts.length && contacts.length > 0} onCheckedChange={toggleAll} />
                 </TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Company</TableHead>
-                <TableHead className="hidden md:table-cell">Position</TableHead>
-                <TableHead className="hidden md:table-cell">Tags</TableHead>
+                <TableHead>Nombre</TableHead>
+                <TableHead>Correo electrónico</TableHead>
+                <TableHead>Empresa</TableHead>
+                <TableHead className="hidden md:table-cell">Cargo</TableHead>
+                <TableHead className="hidden md:table-cell">Etiquetas</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

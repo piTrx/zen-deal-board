@@ -25,35 +25,35 @@ export default function Tasks() {
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Tasks" description="Manage your to-dos and reminders.">
+      <PageBanner title="Tareas" description="Gestiona tus pendientes y recordatorios.">
         <Button className="w-full sm:w-auto" onClick={() => setCreateOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" /> Add Task
+          <Plus className="h-4 w-4 mr-2" /> Añadir tarea
         </Button>
       </PageBanner>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList>
-            <TabsTrigger value="todo">To Do</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
+            <TabsTrigger value="todo">Pendientes</TabsTrigger>
+            <TabsTrigger value="completed">Completadas</TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="relative w-full sm:w-64">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search tasks..."
+            placeholder="Buscar tareas..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-9"
           />
         </div>
         <Select value={priorityFilter} onValueChange={(v) => setPriorityFilter(v === "all" ? "" : v)}>
-          <SelectTrigger className="w-full sm:w-32"><SelectValue placeholder="All priorities" /></SelectTrigger>
+          <SelectTrigger className="w-full sm:w-32"><SelectValue placeholder="Todas las prioridades" /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="high">High</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="low">Low</SelectItem>
+            <SelectItem value="all">Todas</SelectItem>
+            <SelectItem value="high">Alta</SelectItem>
+            <SelectItem value="medium">Media</SelectItem>
+            <SelectItem value="low">Baja</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -63,13 +63,13 @@ export default function Tasks() {
       ) : !filtered?.length ? (
         <div className="flex flex-col items-center py-16">
           <CheckSquare className="h-12 w-12 text-muted-foreground/40 mb-3" />
-          <h3 className="font-semibold text-lg">{tab === "todo" ? "No tasks yet" : "No completed tasks"}</h3>
+          <h3 className="font-semibold text-lg">{tab === "todo" ? "Todavía no hay tareas" : "No hay tareas completadas"}</h3>
           <p className="text-muted-foreground text-sm mb-4">
-            {tab === "todo" ? "Create your first task to get started." : "Complete a task to see it here."}
+            {tab === "todo" ? "Crea tu primera tarea para empezar." : "Completa una tarea para verla aquí."}
           </p>
           {tab === "todo" && (
             <Button variant="secondary" onClick={() => setCreateOpen(true)}>
-              <Plus className="h-4 w-4 mr-2" /> Add task
+              <Plus className="h-4 w-4 mr-2" /> Añadir tarea
             </Button>
           )}
         </div>
