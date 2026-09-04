@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency } from "@/lib/formatters";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { format, startOfMonth, addMonths } from "date-fns";
-import { TrendingUp, DollarSign, Target, BarChart3 } from "lucide-react";
+import { TrendingUp, Euro, Target, BarChart3 } from "lucide-react";
 import { PageBanner } from "@/components/PageBanner";
 
 export default function Forecast() {
@@ -55,7 +55,7 @@ export default function Forecast() {
 
   const summaryCards = [
     { label: "Weighted Forecast", value: formatCurrency(data?.totalWeighted || 0), icon: TrendingUp, color: "hsl(var(--stage-prospect))" },
-    { label: "Total Pipeline", value: formatCurrency(data?.totalPipeline || 0), icon: DollarSign, color: "hsl(var(--stage-won))" },
+    { label: "Total Pipeline", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
     { label: "Deals in Forecast", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
   ];
 
@@ -91,7 +91,7 @@ export default function Forecast() {
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={data?.chartData}>
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)} k€`} />
                 <Tooltip formatter={(v: number) => formatCurrency(v)} />
                 <Bar dataKey="weighted" name="Weighted" fill="hsl(245, 58%, 51%)" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="total" name="Total" fill="hsl(220, 16%, 83%)" radius={[4, 4, 0, 0]} />
