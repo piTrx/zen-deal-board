@@ -99,7 +99,7 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="deal-value">Value ($)</Label>
+              <Label htmlFor="deal-value">Value (€)</Label>
               <Input id="deal-value" type="number" value={value} onChange={(e) => setValue(e.target.value)} placeholder="0" />
             </div>
           </div>

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TrendingUp, DollarSign, Target, Clock } from "lucide-react";
+import { TrendingUp, Euro, Target, Clock } from "lucide-react";
 import { formatCurrency } from "@/lib/formatters";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { ClosingSoon } from "@/components/dashboard/ClosingSoon";
@@ -91,7 +91,7 @@ export default function Index() {
 
   const statCards = [
     { label: "Total Deals", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
-    { label: "Pipeline Value", value: formatCurrency(stats?.totalValue || 0), icon: DollarSign, color: "hsl(170, 50%, 45%)" },
+    { label: "Pipeline Value", value: formatCurrency(stats?.totalValue || 0), icon: Euro, color: "hsl(170, 50%, 45%)" },
     { label: "Win Rate", value: `${stats?.winRate || 0}%`, icon: TrendingUp, color: "hsl(262, 60%, 55%)" },
     { label: "Avg. Cycle", value: stats?.avgCycle ? `${stats.avgCycle} days` : "—", icon: Clock, color: "hsl(14, 98%, 60%)" },
   ];
