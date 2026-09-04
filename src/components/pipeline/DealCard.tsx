@@ -1,6 +1,6 @@
 import { Deal } from "@/hooks/useDeals";
 import { formatCurrency, formatDate } from "@/lib/formatters";
-import { Calendar, DollarSign, GripVertical } from "lucide-react";
+import { Calendar, Euro, GripVertical } from "lucide-react";
 
 interface DealCardProps {
   deal: Deal;
@@ -31,7 +31,7 @@ export function DealCard({ deal, stageColor, onClick }: DealCardProps) {
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
           {deal.value > 0 && (
             <span className="flex items-center gap-1 font-medium text-foreground">
-              <DollarSign className="h-3 w-3" />
+              <Euro className="h-3 w-3" />
               {formatCurrency(deal.value)}
             </span>
           )}
