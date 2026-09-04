@@ -90,7 +90,7 @@ export default function Index() {
   ];
 
   const statCards = [
-    { label: "Ofertas totales", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
+    { label: "Deals totales", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
     { label: "Valor del embudo", value: formatCurrency(stats?.totalValue || 0), icon: Euro, color: "hsl(170, 50%, 45%)" },
     { label: "Tasa de éxito", value: `${stats?.winRate || 0}%`, icon: TrendingUp, color: "hsl(262, 60%, 55%)" },
     { label: "Ciclo medio", value: stats?.avgCycle ? `${stats.avgCycle} días` : "—", icon: Clock, color: "hsl(14, 98%, 60%)" },

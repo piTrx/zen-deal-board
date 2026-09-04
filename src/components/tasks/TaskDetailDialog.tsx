@@ -135,7 +135,7 @@ export function TaskDetailDialog({ task, open, onOpenChange }: TaskDetailDialogP
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Vincular a oferta</Label>
+                <Label>Vincular a deal</Label>
                 <Select value={editDealId} onValueChange={setEditDealId}>
                   <SelectTrigger><SelectValue placeholder="Ninguna" /></SelectTrigger>
                   <SelectContent>

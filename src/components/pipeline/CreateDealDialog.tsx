@@ -58,12 +58,12 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
       },
       {
         onSuccess: () => {
-          toast({ title: "Oferta creada", description: `"${title}" añadida al embudo` });
+          toast({ title: "Deal creado", description: `"${title}" añadido al embudo` });
           onOpenChange(false);
           setTitle(""); setCompanyId(""); setContactId(""); setValue(""); setProbability("50"); setCloseDate(""); setNotes("");
         },
         onError: (err: any) => {
-          toast({ title: "Error", description: "No se pudo crear la oferta. Inténtalo de nuevo.", variant: "destructive" });
+          toast({ title: "Error", description: "No se pudo crear el deal. Inténtalo de nuevo.", variant: "destructive" });
         },
       }
     );
@@ -73,11 +73,11 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Crear nueva oferta</DialogTitle>
+          <DialogTitle>Crear nuevo deal</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="deal-title">Título de la oferta *</Label>
+            <Label htmlFor="deal-title">Título del deal *</Label>
             <Input id="deal-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="p. ej. Licencia Empresarial" required maxLength={200} />
           </div>
 
@@ -148,7 +148,7 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
             <Button type="submit" disabled={createDeal.isPending}>
-              {createDeal.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Crear oferta"}
+              {createDeal.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Crear deal"}
             </Button>
           </div>
         </form>

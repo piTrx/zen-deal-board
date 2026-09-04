@@ -194,7 +194,7 @@ export default function CalendarView() {
 
           {sidebarItems.deals.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Cierres de ofertas</h3>
+              <h3 className="text-xs font-medium uppercase text-muted-foreground tracking-wider">Cierres de deals</h3>
               {sidebarItems.deals.map((d) => (
                 <div key={d.id} className="rounded-md border p-3">
                   <div className="flex items-center gap-2">

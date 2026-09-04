@@ -97,7 +97,7 @@ export function CreateTaskDialog({ open, onOpenChange, defaultDealId, defaultCon
           </div>
           {!defaultDealId && (
             <div className="space-y-2">
-              <Label>Vincular a oferta</Label>
+              <Label>Vincular a deal</Label>
               <Select value={dealId} onValueChange={setDealId}>
                 <SelectTrigger><SelectValue placeholder="Ninguna" /></SelectTrigger>
                 <SelectContent>

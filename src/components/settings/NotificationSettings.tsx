@@ -2,9 +2,9 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 const notificationTypes = [
-  { key: "deal_assigned", label: "Oferta asignada a mí" },
+  { key: "deal_assigned", label: "Deal asignado a mí" },
   { key: "mentions", label: "Alguien me menciona" },
-  { key: "stage_changes", label: "Cambios de etapa de la oferta" },
+  { key: "stage_changes", label: "Cambios de etapa del deal" },
   { key: "close_reminders", label: "Recordatorios de fecha de cierre" },
 ];
 

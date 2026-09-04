@@ -56,7 +56,7 @@ export default function Forecast() {
   const summaryCards = [
     { label: "Previsión ponderada", value: formatCurrency(data?.totalWeighted || 0), icon: TrendingUp, color: "hsl(var(--stage-prospect))" },
     { label: "Embudo total", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
-    { label: "Ofertas en previsión", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
+    { label: "Deals en previsión", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
   ];
 
   return (

@@ -90,12 +90,12 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
         notes: editNotes || null, stage_id: editStageId,
         contact_id: editContactId || null, company_id: editCompanyId || null,
       },
-      { onSuccess: () => { toast({ title: "Oferta actualizada" }); setEditing(false); } }
+      { onSuccess: () => { toast({ title: "Deal actualizado" }); setEditing(false); } }
     );
   };
 
   const handleDelete = () => {
-    deleteDeal.mutate(deal.id, { onSuccess: () => { toast({ title: "Oferta eliminada" }); onOpenChange(false); } });
+    deleteDeal.mutate(deal.id, { onSuccess: () => { toast({ title: "Deal eliminado" }); onOpenChange(false); } });
   };
 
   const formatAuditEntry = (entry: any) => {
@@ -260,11 +260,11 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
 
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" size="sm"><Trash2 className="h-4 w-4 mr-1" /> Eliminar oferta</Button>
+              <Button variant="destructive" size="sm"><Trash2 className="h-4 w-4 mr-1" /> Eliminar deal</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>¿Eliminar oferta?</AlertDialogTitle>
+                <AlertDialogTitle>¿Eliminar deal?</AlertDialogTitle>
                 <AlertDialogDescription>Esto eliminará permanentemente "{deal.title}" y no se puede deshacer.</AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
