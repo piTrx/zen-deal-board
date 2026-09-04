@@ -56,9 +56,9 @@ export default function Reports() {
 
       <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
         {[
-          { label: "Ofertas totales", value: String(totalStats?.totalDeals || 0) },
+          { label: "Deals totales", value: String(totalStats?.totalDeals || 0) },
           { label: "Valor del embudo", value: formatCurrency(totalStats?.totalValue || 0) },
-          { label: "Tamaño medio de oferta", value: formatCurrency(totalStats?.avgValue || 0) },
+          { label: "Tamaño medio de deal", value: formatCurrency(totalStats?.avgValue || 0) },
           { label: "Tasa de éxito", value: `${winRateData?.rate || 0}%` },
         ].map((s) => (
           <Card key={s.label}>
@@ -74,7 +74,7 @@ export default function Reports() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader><CardTitle>Ofertas por etapa</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Deals por etapa</CardTitle></CardHeader>
           <CardContent>
             {stagesLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={260}>
@@ -138,7 +138,7 @@ export default function Reports() {
                     <Cell fill={wonStageColor} />
                     <Cell fill={lostStageColor} />
                   </Pie>
-                  <Tooltip formatter={(v: number, name: string) => [`${v} ofertas`, name]} />
+                  <Tooltip formatter={(v: number, name: string) => [`${v} deals`, name]} />
                   <Legend
                     wrapperStyle={{ fontSize: 12 }}
                     formatter={(value: string, entry: any) => {

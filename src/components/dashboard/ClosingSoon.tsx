@@ -66,7 +66,7 @@ export function ClosingSoon({ since }: { since?: string | null }) {
             {/* Deals closing soon */}
             {deals && deals.length > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Ofertas por cerrar</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Deals por cerrar</p>
                 {deals.map((d: any) => (
                   <div key={d.id} className="flex items-center justify-between rounded-lg border p-3">
                     <div>

@@ -71,7 +71,7 @@ export default function Pipeline() {
       <div className="flex flex-col items-center justify-center py-24">
         <Kanban className="h-16 w-16 text-muted-foreground/40 mb-4" />
         <h2 className="text-2xl font-bold mb-2">Todavía no hay un embudo</h2>
-        <p className="text-muted-foreground mb-6">Crea tu primer embudo para empezar a hacer seguimiento de ofertas.</p>
+        <p className="text-muted-foreground mb-6">Crea tu primer embudo para empezar a hacer seguimiento de deals.</p>
         <Button onClick={handleCreatePipeline} size="lg">
           <Plus className="h-5 w-5 mr-2" /> Crear embudo
         </Button>
@@ -81,9 +81,9 @@ export default function Pipeline() {
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Embudo" description="Arrastra las ofertas entre etapas para actualizar el progreso.">
+      <PageBanner title="Embudo" description="Arrastra los deals entre etapas para actualizar el progreso.">
         <Button className="w-full sm:w-auto" onClick={() => { setCreateStageId(stages?.[0]?.id); setCreateOpen(true); }}>
-          <Plus className="h-4 w-4 mr-2" /> Crear oferta
+          <Plus className="h-4 w-4 mr-2" /> Crear deal
         </Button>
       </PageBanner>
 

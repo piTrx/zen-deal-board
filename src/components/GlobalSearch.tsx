@@ -86,7 +86,7 @@ export function GlobalSearch() {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder="Buscar ofertas, contactos, empresas, tareas..."
+          placeholder="Buscar deals, contactos, empresas, tareas..."
           value={query}
           onValueChange={setQuery}
         />
@@ -100,7 +100,7 @@ export function GlobalSearch() {
             </div>
           )}
           {deals.length > 0 && (
-            <CommandGroup heading="Ofertas">
+            <CommandGroup heading="Deals">
               {deals.map((d) => (
                 <CommandItem key={d.id} value={`deal-${d.id}`} onSelect={() => handleSelect("deals", d.id)}>
                   <Kanban className="mr-2 h-4 w-4" />
