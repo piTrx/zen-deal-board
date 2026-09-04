@@ -43,7 +43,7 @@ export function CreateContactDialog({ open, onOpenChange }: CreateContactDialogP
         const newCompany = await createCompany.mutateAsync({ name: newCompanyName.trim(), created_by: user.id });
         finalCompanyId = newCompany.id;
       } catch {
-        toast({ title: "Error creating company", variant: "destructive" });
+        toast({ title: "Error al crear la empresa", variant: "destructive" });
         return;
       }
     }
@@ -61,7 +61,7 @@ export function CreateContactDialog({ open, onOpenChange }: CreateContactDialogP
       },
       {
         onSuccess: () => {
-          toast({ title: "Contact created", description: `${firstName} ${lastName} added` });
+          toast({ title: "Contacto creado", description: `${firstName} ${lastName} añadido` });
           onOpenChange(false);
           setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setPosition(""); setCompanyId(""); setNewCompanyName(""); setTags("");
         },
@@ -76,37 +76,37 @@ export function CreateContactDialog({ open, onOpenChange }: CreateContactDialogP
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Add Contact</DialogTitle>
+          <DialogTitle>Añadir contacto</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>First Name *</Label>
+              <Label>Nombre *</Label>
               <Input value={firstName} onChange={(e) => setFirstName(e.target.value)} required maxLength={100} />
             </div>
             <div className="space-y-2">
-              <Label>Last Name *</Label>
+              <Label>Apellidos *</Label>
               <Input value={lastName} onChange={(e) => setLastName(e.target.value)} required maxLength={100} />
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label>Correo</Label>
               <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={255} />
             </div>
             <div className="space-y-2">
-              <Label>Phone</Label>
+              <Label>Teléfono</Label>
               <Input value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={30} />
             </div>
           </div>
           <div className="space-y-2">
-            <Label>Position</Label>
-            <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="e.g. VP of Sales" maxLength={100} />
+            <Label>Cargo</Label>
+            <Input value={position} onChange={(e) => setPosition(e.target.value)} placeholder="p. ej. Director de Ventas" maxLength={100} />
           </div>
           <div className="space-y-2">
-            <Label>Company</Label>
+            <Label>Empresa</Label>
             <Select value={companyId} onValueChange={setCompanyId}>
-              <SelectTrigger><SelectValue placeholder="Select existing..." /></SelectTrigger>
+              <SelectTrigger><SelectValue placeholder="Seleccionar existente..." /></SelectTrigger>
               <SelectContent>
                 {companies?.map((c) => (
                   <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
@@ -114,17 +114,17 @@ export function CreateContactDialog({ open, onOpenChange }: CreateContactDialogP
               </SelectContent>
             </Select>
             {!companyId && (
-              <Input value={newCompanyName} onChange={(e) => setNewCompanyName(e.target.value)} placeholder="Or create new company..." className="mt-2" />
+              <Input value={newCompanyName} onChange={(e) => setNewCompanyName(e.target.value)} placeholder="O crear nueva empresa..." className="mt-2" />
             )}
           </div>
           <div className="space-y-2">
-            <Label>Tags (comma-separated)</Label>
-            <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="e.g. VIP, Enterprise" maxLength={255} />
+            <Label>Etiquetas (separadas por comas)</Label>
+            <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="p. ej. VIP, Enterprise" maxLength={255} />
           </div>
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
             <Button type="submit" disabled={createContact.isPending}>
-              {createContact.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Add Contact"}
+              {createContact.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Añadir contacto"}
             </Button>
           </div>
         </form>
