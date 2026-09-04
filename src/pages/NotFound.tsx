@@ -29,7 +29,7 @@ const NotFound = () => {
   const wittyLines = [
     "Parece que este trato se cayó del pipeline.",
     "Esta página nos dio plantón como un lead frío.",
-    "Buscamos en cada etapa del embudo. Nada.",
+    "Buscamos en cada etapa del pipeline. Nada.",
     "Ni nuestro mejor comercial pudo cerrar esta página.",
   ];
 

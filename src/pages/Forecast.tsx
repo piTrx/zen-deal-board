@@ -55,13 +55,13 @@ export default function Forecast() {
 
   const summaryCards = [
     { label: "Previsión ponderada", value: formatCurrency(data?.totalWeighted || 0), icon: TrendingUp, color: "hsl(var(--stage-prospect))" },
-    { label: "Embudo total", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
-    { label: "Deals en previsión", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
+    { label: "Pipeline total", value: formatCurrency(data?.totalPipeline || 0), icon: Euro, color: "hsl(var(--stage-won))" },
+    { label: "Ofertas en previsión", value: String(data?.totalDeals || 0), icon: Target, color: "hsl(var(--stage-qualified))" },
   ];
 
   return (
     <div className="space-y-6">
-      <PageBanner title="Previsión" description="Proyecciones de ingresos basadas en tu embudo." />
+      <PageBanner title="Previsión" description="Proyecciones de ingresos basadas en tu pipeline." />
 
       <div className="grid gap-4 sm:grid-cols-3">
         {summaryCards.map((s) => (

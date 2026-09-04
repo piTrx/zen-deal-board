@@ -44,7 +44,7 @@ export function KanbanColumn({ stage, deals, onDrop, onDealClick, onAddDeal }: K
         {deals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <Kanban className="h-8 w-8 text-muted-foreground/40 mb-2" />
-            <p className="text-sm text-muted-foreground/60">Aún no hay deals</p>
+            <p className="text-sm text-muted-foreground/60">Aún no hay ofertas</p>
           </div>
         ) : (
           deals.map((deal) => (
@@ -57,7 +57,7 @@ export function KanbanColumn({ stage, deals, onDrop, onDealClick, onAddDeal }: K
           className="w-full mt-2 text-muted-foreground hover:text-foreground"
           onClick={() => onAddDeal(stage.id)}
         >
-          <Plus className="h-4 w-4 mr-1" /> Añadir deal
+          <Plus className="h-4 w-4 mr-1" /> Añadir oferta
         </Button>
       </div>
     </div>

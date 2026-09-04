@@ -11,13 +11,13 @@ export default function Settings() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-bold">Ajustes</h1>
-        <p className="text-muted-foreground mt-1">Gestiona tu cuenta y la configuración del embudo.</p>
+        <p className="text-muted-foreground mt-1">Gestiona tu cuenta y la configuración del pipeline.</p>
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
         <TabsList className="flex flex-wrap h-auto">
           <TabsTrigger value="profile">Perfil</TabsTrigger>
-          <TabsTrigger value="pipeline">Embudo</TabsTrigger>
+          <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
           <TabsTrigger value="team">Equipo</TabsTrigger>
           <TabsTrigger value="notifications">Notificaciones</TabsTrigger>
           <TabsTrigger value="templates">Plantillas de correo</TabsTrigger>

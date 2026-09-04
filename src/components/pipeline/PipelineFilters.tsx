@@ -12,7 +12,7 @@ export function PipelineFilters({ search, onSearchChange }: PipelineFiltersProps
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Buscar deals..."
+          placeholder="Buscar ofertas..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           className="pl-9 w-full sm:w-64"

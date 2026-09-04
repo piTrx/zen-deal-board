@@ -37,13 +37,13 @@ export function MiniPipelineChart() {
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-sm font-medium text-muted-foreground">Resumen del embudo</CardTitle>
+        <CardTitle className="text-sm font-medium text-muted-foreground">Resumen del pipeline</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
           <Skeleton className="h-48 w-full" />
         ) : !data || data.length === 0 ? (
-          <p className="text-sm text-muted-foreground">Crea un embudo para ver el gráfico.</p>
+          <p className="text-sm text-muted-foreground">Crea un pipeline para ver el gráfico.</p>
         ) : (
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data}>
