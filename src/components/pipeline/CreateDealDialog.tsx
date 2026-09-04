@@ -58,12 +58,12 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
       },
       {
         onSuccess: () => {
-          toast({ title: "Deal created", description: `"${title}" added to pipeline` });
+          toast({ title: "Oferta creada", description: `"${title}" añadida al embudo` });
           onOpenChange(false);
           setTitle(""); setCompanyId(""); setContactId(""); setValue(""); setProbability("50"); setCloseDate(""); setNotes("");
         },
         onError: (err: any) => {
-          toast({ title: "Error", description: "Failed to create deal. Please try again.", variant: "destructive" });
+          toast({ title: "Error", description: "No se pudo crear la oferta. Inténtalo de nuevo.", variant: "destructive" });
         },
       }
     );
@@ -73,17 +73,17 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Create New Deal</DialogTitle>
+          <DialogTitle>Crear nueva oferta</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="deal-title">Deal Title *</Label>
-            <Input id="deal-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Enterprise License" required maxLength={200} />
+            <Label htmlFor="deal-title">Título de la oferta *</Label>
+            <Input id="deal-title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="p. ej. Licencia Empresarial" required maxLength={200} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Stage</Label>
+              <Label>Etapa</Label>
               <Select value={stageId} onValueChange={setStageId}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -99,16 +99,16 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="deal-value">Value (€)</Label>
+              <Label htmlFor="deal-value">Valor (€)</Label>
               <Input id="deal-value" type="number" value={value} onChange={(e) => setValue(e.target.value)} placeholder="0" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Company</Label>
+              <Label>Empresa</Label>
               <Select value={companyId} onValueChange={setCompanyId}>
-                <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                 <SelectContent>
                   {companies?.map((c) => (
                     <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
@@ -117,9 +117,9 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Contact</Label>
+              <Label>Contacto</Label>
               <Select value={contactId} onValueChange={setContactId}>
-                <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder="Seleccionar..." /></SelectTrigger>
                 <SelectContent>
                   {contacts?.map((c) => (
                     <SelectItem key={c.id} value={c.id}>{c.first_name} {c.last_name}</SelectItem>
@@ -131,24 +131,24 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="deal-probability">Probability (%)</Label>
+              <Label htmlFor="deal-probability">Probabilidad (%)</Label>
               <Input id="deal-probability" type="number" min="0" max="100" value={probability} onChange={(e) => setProbability(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="deal-close-date">Close Date</Label>
+              <Label htmlFor="deal-close-date">Fecha de cierre</Label>
               <Input id="deal-close-date" type="date" value={closeDate} onChange={(e) => setCloseDate(e.target.value)} />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="deal-notes">Notes</Label>
-            <Textarea id="deal-notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Additional details..." rows={3} maxLength={2000} />
+            <Label htmlFor="deal-notes">Notas</Label>
+            <Textarea id="deal-notes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Detalles adicionales..." rows={3} maxLength={2000} />
           </div>
 
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
             <Button type="submit" disabled={createDeal.isPending}>
-              {createDeal.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create Deal"}
+              {createDeal.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : "Crear oferta"}
             </Button>
           </div>
         </form>
