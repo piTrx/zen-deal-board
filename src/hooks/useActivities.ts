@@ -58,10 +58,13 @@ export function useCreateActivity() {
     mutationFn: async (activity: {
       deal_id?: string | null;
       contact_id?: string | null;
+      company_id?: string | null;
       user_id: string;
       type: ActivityType;
       title: string;
       description?: string | null;
+      recipient?: string | null;
+      occurred_at?: string;
     }) => {
       const { data, error } = await supabase.from("activities").insert(activity).select().single();
       if (error) throw error;
