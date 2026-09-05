@@ -1,8 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plug, ExternalLink } from "lucide-react";
+import { Plug, ExternalLink, MessageCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { NavLink } from "react-router-dom";
 
 const connectors = [
   { id: "hubspot", name: "HubSpot", description: "Plataforma CRM para ventas, marketing y atención al cliente." },
@@ -29,22 +30,35 @@ export function ConnectorSettings() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {connectors.map((c) => (
-          <Card key={c.id} className="flex flex-col justify-between">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-base">{c.name}</CardTitle>
-                <Badge variant="outline" className="text-xs">Disponible</Badge>
-              </div>
-              <CardDescription className="text-xs">{c.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <Button variant="outline" size="sm" className="w-full" onClick={() => handleConnect(c.name)}>
-                <Plug className="h-3.5 w-3.5 mr-1" /> Conectar
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+        {connectors.map((c) => {
+          const isTelegram = c.id === "telegram";
+          return (
+            <Card key={c.id} className="flex flex-col justify-between">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base">{c.name}</CardTitle>
+                  <Badge variant={isTelegram ? "default" : "outline"} className="text-xs">
+                    {isTelegram ? "Conectado" : "Disponible"}
+                  </Badge>
+                </div>
+                <CardDescription className="text-xs">{c.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                {isTelegram ? (
+                  <Button variant="outline" size="sm" className="w-full" asChild>
+                    <NavLink to="/telegram">
+                      <MessageCircle className="h-3.5 w-3.5 mr-1" /> Abrir bandeja <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                    </NavLink>
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="sm" className="w-full" onClick={() => handleConnect(c.name)}>
+                    <Plug className="h-3.5 w-3.5 mr-1" /> Conectar
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       <div className="flex items-start gap-2 rounded-md border border-muted p-3 text-sm text-muted-foreground">
