@@ -16,36 +16,52 @@ export type Database = {
     Tables: {
       activities: {
         Row: {
+          company_id: string | null
           contact_id: string | null
           created_at: string
           deal_id: string | null
           description: string | null
           id: string
+          occurred_at: string
+          recipient: string | null
           title: string
           type: Database["public"]["Enums"]["activity_type"]
           user_id: string
         }
         Insert: {
+          company_id?: string | null
           contact_id?: string | null
           created_at?: string
           deal_id?: string | null
           description?: string | null
           id?: string
+          occurred_at?: string
+          recipient?: string | null
           title: string
           type: Database["public"]["Enums"]["activity_type"]
           user_id: string
         }
         Update: {
+          company_id?: string | null
           contact_id?: string | null
           created_at?: string
           deal_id?: string | null
           description?: string | null
           id?: string
+          occurred_at?: string
+          recipient?: string | null
           title?: string
           type?: Database["public"]["Enums"]["activity_type"]
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "activities_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "activities_contact_id_fkey"
             columns: ["contact_id"]

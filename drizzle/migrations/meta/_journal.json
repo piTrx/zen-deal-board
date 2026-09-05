@@ -50,6 +50,13 @@
       "when": 1788624632074,
       "tag": "0006_0006_restrict_telegram_messages_read_to_admins",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788627707201,
+      "tag": "0007_add_communication_fields_to_activities",
+      "breakpoints": true
     }
   ]
 }
