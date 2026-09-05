@@ -57,6 +57,13 @@
       "when": 1788627707201,
       "tag": "0007_add_communication_fields_to_activities",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788631506606,
+      "tag": "0008_create_deal_categories",
+      "breakpoints": true
     }
   ]
 }
