@@ -43,6 +43,13 @@
       "when": 1788622906745,
       "tag": "0005_add_notes_to_contacts",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788624632074,
+      "tag": "0006_0006_restrict_telegram_messages_read_to_admins",
+      "breakpoints": true
     }
   ]
 }
