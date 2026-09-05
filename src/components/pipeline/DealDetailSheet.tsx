@@ -1,3 +1,4 @@
+import { activityTypes, activityTypeConfig, getActivityConfig, ActivityType } from "@/lib/activityTypes";
 import { Deal, useUpdateDeal, useDeleteDeal } from "@/hooks/useDeals";
 import { useActivities, useCreateActivity } from "@/hooks/useActivities";
 import { useContacts } from "@/hooks/useContacts";
@@ -71,7 +72,7 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
   const dealActivities = activities?.filter((a) => a.deal_id === deal.id) || [];
   const currentStage = stages.find((s) => s.id === deal.stage_id);
 
-  const handleQuickActivity = (type: "call" | "email" | "meeting" | "note") => {
+  const handleQuickActivity = (type: ActivityType) => {
     if (!user || !activityTitle.trim()) {
       toast({ title: "Introduce un título", variant: "destructive" });
       return;
@@ -202,10 +203,14 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
               <Input placeholder="Título de la actividad..." value={activityTitle} onChange={(e) => setActivityTitle(e.target.value)} className="flex-1" />
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button size="sm" variant="outline" onClick={() => handleQuickActivity("call")}><Phone className="h-3 w-3 mr-1" /> Llamada</Button>
-              <Button size="sm" variant="outline" onClick={() => handleQuickActivity("email")}><Mail className="h-3 w-3 mr-1" /> Correo</Button>
-              <Button size="sm" variant="outline" onClick={() => handleQuickActivity("meeting")}><Calendar className="h-3 w-3 mr-1" /> Reunión</Button>
-              <Button size="sm" variant="outline" onClick={() => handleQuickActivity("note")}><FileText className="h-3 w-3 mr-1" /> Nota</Button>
+              {activityTypes.map((t) => {
+                const Icon = activityTypeConfig[t].icon;
+                return (
+                  <Button key={t} size="sm" variant="outline" onClick={() => handleQuickActivity(t)}>
+                    <Icon className="h-3 w-3 mr-1" /> {activityTypeConfig[t].label}
+                  </Button>
+                );
+              })}
             </div>
           </div>
 
@@ -221,10 +226,10 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
                 {dealActivities.map((a) => (
                   <div key={a.id} className="flex gap-3 text-sm">
                     <div className="mt-1">
-                      {a.type === "call" && <Phone className="h-4 w-4 text-blue-500" />}
-                      {a.type === "email" && <Mail className="h-4 w-4 text-purple-500" />}
-                      {a.type === "meeting" && <Calendar className="h-4 w-4 text-orange-500" />}
-                      {a.type === "note" && <FileText className="h-4 w-4 text-green-500" />}
+                      {(() => {
+                        const Icon = getActivityConfig(a.type).icon;
+                        return <Icon className={`h-4 w-4 ${getActivityConfig(a.type).color}`} />;
+                      })()}
                     </div>
                     <div>
                       <p className="font-medium">{a.title}</p>

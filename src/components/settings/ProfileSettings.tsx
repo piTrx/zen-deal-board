@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Camera, Building2 } from "lucide-react";
 import { sanitizeErrorMessage } from "@/lib/sanitize";
 import { useQueryClient } from "@tanstack/react-query";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SUPPORTED_CURRENCIES, useCurrency, useUpdateCurrency } from "@/hooks/useCurrency";
 
 export function ProfileSettings() {
   const { user } = useAuth();
@@ -21,6 +23,8 @@ export function ProfileSettings() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  const { data: currency } = useCurrency();
+  const updateCurrency = useUpdateCurrency();
 
   useEffect(() => {
     if (!user) return;
@@ -135,6 +139,26 @@ export function ProfileSettings() {
         <div className="space-y-2">
           <Label>Empresa</Label>
           <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={100} placeholder="p. ej. Acme S.A." />
+        </div>
+        <div className="space-y-2">
+          <Label>Moneda</Label>
+          <p className="text-xs text-muted-foreground -mt-1">Se aplica a todos los importes de tu cuenta y de tu equipo.</p>
+          <Select
+            value={currency || "EUR"}
+            onValueChange={(v) =>
+              updateCurrency.mutate(v, {
+                onSuccess: () => toast({ title: "Moneda actualizada" }),
+                onError: (err: any) => toast({ title: "Error", description: sanitizeErrorMessage(err.message), variant: "destructive" }),
+              })
+            }
+          >
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {SUPPORTED_CURRENCIES.map((c) => (
+                <SelectItem key={c.code} value={c.code}>{c.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="space-y-2">
           <Label>Logo de la empresa</Label>

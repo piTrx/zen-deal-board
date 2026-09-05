@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie, Legend } from "recharts";
-import { formatCurrency } from "@/lib/formatters";
+import { formatCurrency, formatCompactCurrency } from "@/lib/formatters";
 import { PageBanner } from "@/components/PageBanner";
 
 export default function Reports() {
@@ -99,7 +99,7 @@ export default function Reports() {
             {stagesLoading ? <Skeleton className="h-64 w-full" /> : (
               <ResponsiveContainer width="100%" height={260}>
                 <BarChart data={stageData} layout="vertical">
-                  <XAxis type="number" tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)} k€`} />
+                  <XAxis type="number" tick={{ fontSize: 12 }} tickFormatter={(v) => formatCompactCurrency(v)} />
                   <YAxis type="category" dataKey="name" tick={{ fontSize: 12 }} width={90} />
                   <Tooltip formatter={(v: number) => formatCurrency(v)} />
                   <Bar dataKey="value" radius={[0, 4, 4, 0]}>

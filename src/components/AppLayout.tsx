@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { useCurrencySync } from "@/hooks/useCurrency";
 import { useOnboardingStatus } from "@/hooks/useOnboardingStatus";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -15,6 +16,7 @@ export function AppLayout() {
   const { session, user, loading } = useAuth();
   const { data: onboardingStatus, isLoading: onboardingLoading } = useOnboardingStatus();
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
+  useCurrencySync();
 
   if (loading || onboardingLoading) {
     return (

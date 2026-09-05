@@ -68,23 +68,23 @@ export function CreateTaskDialog({ open, onOpenChange, defaultDealId, defaultCon
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
-        <DialogHeader><DialogTitle>Create Task</DialogTitle></DialogHeader>
+        <DialogHeader><DialogTitle>Crear tarea</DialogTitle></DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label>Title *</Label>
             <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Follow up with client" required maxLength={200} />
           </div>
           <div className="space-y-2">
-            <Label>Description</Label>
+            <Label>Descripción</Label>
             <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} maxLength={2000} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Due Date</Label>
+              <Label>Fecha de vencimiento</Label>
               <Input type="datetime-local" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label>Priority</Label>
+              <Label>Prioridad</Label>
               <Select value={priority} onValueChange={setPriority}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
