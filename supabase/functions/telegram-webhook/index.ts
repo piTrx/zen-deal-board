@@ -39,6 +39,7 @@ Deno.serve(async (req) => {
 
   const expectedSecret = await deriveTelegramWebhookSecret(TELEGRAM_API_KEY);
   const actualSecret = req.headers.get("X-Telegram-Bot-Api-Secret-Token");
+  console.log("incoming update, secret header present:", Boolean(actualSecret), "match:", safeEqual(actualSecret, expectedSecret));
   if (!safeEqual(actualSecret, expectedSecret)) {
     return new Response("Unauthorized", { status: 401, headers: corsHeaders });
   }
@@ -55,6 +56,7 @@ Deno.serve(async (req) => {
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
   const update = await req.json();
   const message = update.message ?? update.edited_message;
+  console.log("update_id:", update.update_id, "chat_id:", message?.chat?.id);
 
   if (!message?.chat?.id || typeof update.update_id !== "number") {
     return new Response(JSON.stringify({ ok: true, ignored: true }), {
@@ -78,6 +80,7 @@ Deno.serve(async (req) => {
   );
 
   if (error) {
+    console.error("insert failed:", error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
