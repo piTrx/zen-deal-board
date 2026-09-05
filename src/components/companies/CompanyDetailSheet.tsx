@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { CommunicationActions } from "@/components/communications/CommunicationActions";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, X, Save, Trash2, Globe, Factory, Users, Calendar, Clock } from "lucide-react";
 import { format } from "date-fns";
@@ -133,9 +134,19 @@ export function CompanyDetailSheet({ company, open, onOpenChange }: CompanyDetai
             ) : (
               <div className="space-y-2">
                 {linkedContacts.map((c) => (
-                  <div key={c.id} className="rounded-lg border p-3 text-sm">
-                    <p className="font-medium">{c.first_name} {c.last_name}</p>
-                    {c.email && <p className="text-xs text-muted-foreground">{c.email}</p>}
+                  <div key={c.id} className="rounded-lg border p-3 text-sm space-y-2">
+                    <div>
+                      <p className="font-medium">{c.first_name} {c.last_name}</p>
+                      {c.email && <p className="text-xs text-muted-foreground">{c.email}</p>}
+                    </div>
+                    <CommunicationActions
+                      contactId={c.id}
+                      companyId={company.id}
+                      email={c.email}
+                      phone={c.phone}
+                      contactName={`${c.first_name} ${c.last_name}`}
+                      subjectHint={company.name}
+                    />
                   </div>
                 ))}
               </div>
