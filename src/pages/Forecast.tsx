@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/formatters";
+import { formatCurrency, formatCompactCurrency } from "@/lib/formatters";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { format, startOfMonth, addMonths } from "date-fns";
 import { TrendingUp, Euro, Target, BarChart3 } from "lucide-react";
@@ -91,7 +91,7 @@ export default function Forecast() {
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={data?.chartData}>
                 <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${(v / 1000).toFixed(0)} k€`} />
+                <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => formatCompactCurrency(v)} />
                 <Tooltip formatter={(v: number) => formatCurrency(v)} />
                 <Bar dataKey="weighted" name="Ponderado" fill="hsl(245, 58%, 51%)" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="total" name="Total" fill="hsl(220, 16%, 83%)" radius={[4, 4, 0, 0]} />
