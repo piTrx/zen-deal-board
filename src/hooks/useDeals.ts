@@ -22,6 +22,8 @@ export interface Deal {
   profiles?: { id: string; full_name: string | null; avatar_url: string | null } | null;
 }
 
+export type DealUpdate = Omit<Deal, "id" | "companies" | "contacts" | "profiles" | "created_by" | "created_at" | "updated_at">;
+
 export function useDeals(pipelineId: string | undefined) {
   const queryClient = useQueryClient();
 
