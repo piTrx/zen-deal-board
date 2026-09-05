@@ -179,6 +179,26 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
 
           <Separator />
 
+          {/* Communication channels */}
+          <div>
+            <h4 className="text-sm font-semibold mb-2">Contactar</h4>
+            {dealContact ? (
+              <CommunicationActions
+                contactId={dealContact.id}
+                companyId={deal.company_id}
+                dealId={deal.id}
+                email={dealContact.email}
+                phone={dealContact.phone}
+                contactName={`${dealContact.first_name} ${dealContact.last_name}`}
+                subjectHint={deal.title}
+              />
+            ) : (
+              <p className="text-sm text-muted-foreground">Asocia un contacto a esta oferta para poder escribirle o llamarle.</p>
+            )}
+          </div>
+
+
+
           {/* Tasks Section */}
           <div>
             <div className="flex items-center justify-between mb-3">
