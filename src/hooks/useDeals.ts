@@ -83,7 +83,7 @@ export function useCreateDeal() {
 export function useUpdateDeal() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<DealUpdate>) => {
       const { data, error } = await supabase.from("deals").update(updates).eq("id", id).select().single();
       if (error) throw error;
       return data;
