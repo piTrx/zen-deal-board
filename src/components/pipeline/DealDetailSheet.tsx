@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { TaskItem } from "@/components/tasks/TaskItem";
+import { CommunicationActions } from "@/components/communications/CommunicationActions";
 import { CreateTaskDialog } from "@/components/tasks/CreateTaskDialog";
 import { formatCurrency, formatDate, formatRelativeDate } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -71,6 +72,7 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
 
   const dealActivities = activities?.filter((a) => a.deal_id === deal.id) || [];
   const currentStage = stages.find((s) => s.id === deal.stage_id);
+  const dealContact = allContacts?.find((c) => c.id === deal.contact_id);
 
   const handleQuickActivity = (type: ActivityType) => {
     if (!user || !activityTitle.trim()) {
@@ -178,6 +180,26 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
           )}
 
           <Separator />
+
+          {/* Communication channels */}
+          <div>
+            <h4 className="text-sm font-semibold mb-2">Contactar</h4>
+            {dealContact ? (
+              <CommunicationActions
+                contactId={dealContact.id}
+                companyId={deal.company_id}
+                dealId={deal.id}
+                email={dealContact.email}
+                phone={dealContact.phone}
+                contactName={`${dealContact.first_name} ${dealContact.last_name}`}
+                subjectHint={deal.title}
+              />
+            ) : (
+              <p className="text-sm text-muted-foreground">Asocia un contacto a esta oferta para poder escribirle o llamarle.</p>
+            )}
+          </div>
+
+
 
           {/* Tasks Section */}
           <div>

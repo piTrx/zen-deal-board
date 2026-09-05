@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { TaskItem } from "@/components/tasks/TaskItem";
+import { CommunicationActions } from "@/components/communications/CommunicationActions";
 import { CreateTaskDialog } from "@/components/tasks/CreateTaskDialog";
 import { formatRelativeDate } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -97,6 +98,19 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
         </div>
 
         <div className="px-6 py-5 space-y-4">
+          <div>
+            <h4 className="text-sm font-semibold mb-2">Contactar</h4>
+            <CommunicationActions
+              contactId={contact.id}
+              companyId={contact.company_id}
+              email={contact.email}
+              phone={contact.phone}
+              contactName={`${contact.first_name} ${contact.last_name}`}
+            />
+          </div>
+
+          <Separator />
+
           {editing ? (
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

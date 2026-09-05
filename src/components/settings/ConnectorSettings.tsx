@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plug, ExternalLink, MessageCircle, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { NavLink } from "react-router-dom";
+import { communicationProviders } from "@/lib/communicationProviders";
 
 const connectors = [
   { id: "hubspot", name: "HubSpot", description: "Plataforma CRM para ventas, marketing y atención al cliente." },
@@ -61,10 +62,41 @@ export function ConnectorSettings() {
         })}
       </div>
 
+      <div>
+        <h3 className="text-sm font-semibold">Canales de comunicación (fase 2)</h3>
+        <p className="text-sm text-muted-foreground mt-1">
+          Hoy los botones de WhatsApp, email y llamada abren la app del dispositivo y te permiten registrar la interacción
+          como actividad. El envío y la recepción automáticos requieren contratar y configurar estos servicios:
+        </p>
+        <div className="mt-3 space-y-3">
+          {communicationProviders.map((p) => (
+            <Card key={p.id}>
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between gap-2">
+                  <CardTitle className="text-base">{p.name}</CardTitle>
+                  <Badge variant="outline" className="text-xs shrink-0">Pendiente de configurar</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0 text-xs text-muted-foreground space-y-2">
+                <div>
+                  <p className="font-medium text-foreground">Aportará:</p>
+                  <ul className="list-disc pl-4">{p.capabilities.map((c) => <li key={c}>{c}</li>)}</ul>
+                </div>
+                <div>
+                  <p className="font-medium text-foreground">Necesitarás:</p>
+                  <ul className="list-disc pl-4">{p.requiredSecrets.map((s) => <li key={s}>{s}</li>)}</ul>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
       <div className="flex items-start gap-2 rounded-md border border-muted p-3 text-sm text-muted-foreground">
         <ExternalLink className="h-4 w-4 mt-0.5 shrink-0" />
         <span>Los conectores se gestionan a través de la plataforma de integraciones de Lovable. Haz clic en "Conectar" en cualquier servicio para empezar.</span>
       </div>
+
     </div>
   );
 }
