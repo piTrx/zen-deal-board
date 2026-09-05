@@ -163,6 +163,7 @@ export type Database = {
       }
       deal_categories: {
         Row: {
+          archived: boolean
           color: string
           created_at: string
           created_by: string
@@ -172,6 +173,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          archived?: boolean
           color?: string
           created_at?: string
           created_by: string
@@ -181,6 +183,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          archived?: boolean
           color?: string
           created_at?: string
           created_by?: string
@@ -190,6 +193,42 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      deal_category_links: {
+        Row: {
+          category_id: string
+          created_at: string
+          deal_id: string
+          id: string
+        }
+        Insert: {
+          category_id: string
+          created_at?: string
+          deal_id: string
+          id?: string
+        }
+        Update: {
+          category_id?: string
+          created_at?: string
+          deal_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deal_category_links_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "deal_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "deal_category_links_deal_id_fkey"
+            columns: ["deal_id"]
+            isOneToOne: false
+            referencedRelation: "deals"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       deals: {
         Row: {
@@ -692,6 +731,10 @@ export type Database = {
           status: string
           team_name: string
         }[]
+      }
+      seed_default_deal_categories: {
+        Args: { p_user_id: string }
+        Returns: undefined
       }
       seed_default_pipeline: { Args: { p_user_id: string }; Returns: string }
     }
