@@ -29,6 +29,13 @@
       "when": 1788598830301,
       "tag": "0003_add_activity_types_and_team_currency",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1788622847840,
+      "tag": "0004_add_telegram_messages",
+      "breakpoints": true
     }
   ]
 }
