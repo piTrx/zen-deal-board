@@ -7,10 +7,13 @@ export interface Activity {
   id: string;
   deal_id: string | null;
   contact_id: string | null;
+  company_id: string | null;
   user_id: string;
   type: ActivityType;
   title: string;
   description: string | null;
+  recipient: string | null;
+  occurred_at: string;
   created_at: string;
   deals?: { id: string; title: string } | null;
   contacts?: { id: string; first_name: string; last_name: string } | null;
