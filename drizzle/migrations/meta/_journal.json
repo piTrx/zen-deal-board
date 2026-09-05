@@ -36,6 +36,13 @@
       "when": 1788622847840,
       "tag": "0004_add_telegram_messages",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788622906745,
+      "tag": "0005_add_notes_to_contacts",
+      "breakpoints": true
     }
   ]
 }
