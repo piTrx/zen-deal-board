@@ -1,3 +1,4 @@
+import { getActivityConfig } from "@/lib/activityTypes";
 import { useState, useEffect } from "react";
 import { Contact, useUpdateContact, useDeleteContact } from "@/hooks/useContacts";
 import { useActivities } from "@/hooks/useActivities";
@@ -192,7 +193,7 @@ export function ContactDetailSheet({ contact, open, onOpenChange }: ContactDetai
                 {contactActivities.map((a) => (
                   <div key={a.id} className="text-sm">
                     <p className="font-medium">{a.title}</p>
-                    <p className="text-xs text-muted-foreground">{{ call: "Llamada", email: "Correo", meeting: "Reunión", note: "Nota" }[a.type]} · {formatRelativeDate(a.created_at)}</p>
+                    <p className="text-xs text-muted-foreground">{getActivityConfig(a.type).label} · {formatRelativeDate(a.created_at)}</p>
                   </div>
                 ))}
               </div>

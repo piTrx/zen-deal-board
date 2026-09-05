@@ -1,3 +1,4 @@
+import { activityTypes, activityTypeConfig, ActivityType } from "@/lib/activityTypes";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreateActivity } from "@/hooks/useActivities";
@@ -23,7 +24,7 @@ export function LogActivityDialog({ open, onOpenChange, defaultDealId, defaultCo
   const createActivity = useCreateActivity();
   const { toast } = useToast();
 
-  const [type, setType] = useState<"call" | "email" | "meeting" | "note">("note");
+  const [type, setType] = useState<ActivityType>("note");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
@@ -64,10 +65,9 @@ export function LogActivityDialog({ open, onOpenChange, defaultDealId, defaultCo
               <Select value={type} onValueChange={(v: any) => setType(v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="call">📞 Llamada</SelectItem>
-                  <SelectItem value="email">📧 Correo</SelectItem>
-                  <SelectItem value="meeting">📅 Reunión</SelectItem>
-                  <SelectItem value="note">📝 Nota</SelectItem>
+                  {activityTypes.map((t) => (
+                    <SelectItem key={t} value={t}>{activityTypeConfig[t].emoji} {activityTypeConfig[t].label}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

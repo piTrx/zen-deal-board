@@ -1,3 +1,4 @@
+import { activityTypes, activityTypeConfig } from "@/lib/activityTypes";
 import { useState } from "react";
 import { useActivities, useDeleteActivity } from "@/hooks/useActivities";
 import { ActivityItem } from "@/components/activities/ActivityItem";
@@ -45,10 +46,9 @@ export default function Activities() {
           <SelectTrigger className="w-full sm:w-40"><SelectValue placeholder="Todos los tipos" /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos los tipos</SelectItem>
-            <SelectItem value="call">📞 Llamadas</SelectItem>
-            <SelectItem value="email">📧 Correos</SelectItem>
-            <SelectItem value="meeting">📅 Reuniones</SelectItem>
-            <SelectItem value="note">📝 Notas</SelectItem>
+            {activityTypes.map((t) => (
+              <SelectItem key={t} value={t}>{activityTypeConfig[t].emoji} {activityTypeConfig[t].labelPlural}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

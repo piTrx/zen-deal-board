@@ -1,3 +1,4 @@
+import { ActivityType } from "@/lib/activityTypes";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect } from "react";
@@ -7,7 +8,7 @@ export interface Activity {
   deal_id: string | null;
   contact_id: string | null;
   user_id: string;
-  type: "call" | "email" | "meeting" | "note";
+  type: ActivityType;
   title: string;
   description: string | null;
   created_at: string;
@@ -55,7 +56,7 @@ export function useCreateActivity() {
       deal_id?: string | null;
       contact_id?: string | null;
       user_id: string;
-      type: "call" | "email" | "meeting" | "note";
+      type: ActivityType;
       title: string;
       description?: string | null;
     }) => {
@@ -72,7 +73,7 @@ export function useCreateActivity() {
 export function useUpdateActivity() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...updates }: { id: string; title?: string; description?: string | null; type?: "call" | "email" | "meeting" | "note" }) => {
+    mutationFn: async ({ id, ...updates }: { id: string; title?: string; description?: string | null; type?: ActivityType }) => {
       const { data, error } = await supabase.from("activities").update(updates).eq("id", id).select().single();
       if (error) throw error;
       return data;

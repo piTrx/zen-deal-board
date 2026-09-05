@@ -1,3 +1,4 @@
+import { activityTypes, activityTypeConfig, getActivityConfig } from "@/lib/activityTypes";
 import { useState } from "react";
 import { Activity, useUpdateActivity, useDeleteActivity } from "@/hooks/useActivities";
 import { formatRelativeDate } from "@/lib/formatters";
@@ -9,15 +10,10 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, Calendar, FileText, Pencil, Trash2, Save, X } from "lucide-react";
 
-const typeConfig = {
-  call: { icon: Phone, color: "text-blue-500", bg: "bg-blue-50", label: "Llamada" },
-  email: { icon: Mail, color: "text-purple-500", bg: "bg-purple-50", label: "Correo" },
-  meeting: { icon: Calendar, color: "text-orange-500", bg: "bg-orange-50", label: "Reunión" },
-  note: { icon: FileText, color: "text-green-500", bg: "bg-green-50", label: "Nota" },
-};
+
 
 export function ActivityItem({ activity }: { activity: Activity }) {
-  const config = typeConfig[activity.type];
+  const config = getActivityConfig(activity.type);
   const Icon = config.icon;
   const updateActivity = useUpdateActivity();
   const deleteActivity = useDeleteActivity();
@@ -47,10 +43,9 @@ export function ActivityItem({ activity }: { activity: Activity }) {
           <Select value={editType} onValueChange={(v) => setEditType(v as Activity["type"])}>
             <SelectTrigger className="w-full sm:w-32"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem value="call">📞 Llamada</SelectItem>
-              <SelectItem value="email">📧 Correo</SelectItem>
-              <SelectItem value="meeting">📅 Reunión</SelectItem>
-              <SelectItem value="note">📝 Nota</SelectItem>
+              {activityTypes.map((t) => (
+                <SelectItem key={t} value={t}>{activityTypeConfig[t].emoji} {activityTypeConfig[t].label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Input value={editTitle} onChange={(e) => setEditTitle(e.target.value)} placeholder="Título" className="flex-1" />
