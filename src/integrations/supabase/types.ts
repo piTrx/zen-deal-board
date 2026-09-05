@@ -364,6 +364,7 @@ export type Database = {
           company: string | null
           company_logo_url: string | null
           created_at: string
+          currency: string
           full_name: string | null
           id: string
           updated_at: string
@@ -374,6 +375,7 @@ export type Database = {
           company?: string | null
           company_logo_url?: string | null
           created_at?: string
+          currency?: string
           full_name?: string | null
           id?: string
           updated_at?: string
@@ -384,6 +386,7 @@ export type Database = {
           company?: string | null
           company_logo_url?: string | null
           created_at?: string
+          currency?: string
           full_name?: string | null
           id?: string
           updated_at?: string
@@ -534,6 +537,7 @@ export type Database = {
         Row: {
           created_at: string
           created_by: string
+          currency: string
           id: string
           name: string
           updated_at: string
@@ -541,6 +545,7 @@ export type Database = {
         Insert: {
           created_at?: string
           created_by: string
+          currency?: string
           id?: string
           name: string
           updated_at?: string
@@ -548,6 +553,7 @@ export type Database = {
         Update: {
           created_at?: string
           created_by?: string
+          currency?: string
           id?: string
           name?: string
           updated_at?: string
@@ -592,7 +598,13 @@ export type Database = {
       seed_default_pipeline: { Args: { p_user_id: string }; Returns: string }
     }
     Enums: {
-      activity_type: "call" | "email" | "meeting" | "note"
+      activity_type:
+        | "call"
+        | "email"
+        | "meeting"
+        | "note"
+        | "whatsapp"
+        | "visit"
       app_role: "admin" | "manager" | "rep"
     }
     CompositeTypes: {
@@ -721,7 +733,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      activity_type: ["call", "email", "meeting", "note"],
+      activity_type: ["call", "email", "meeting", "note", "whatsapp", "visit"],
       app_role: ["admin", "manager", "rep"],
     },
   },
