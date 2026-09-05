@@ -161,8 +161,39 @@ export type Database = {
           },
         ]
       }
+      deal_categories: {
+        Row: {
+          color: string
+          created_at: string
+          created_by: string
+          id: string
+          name: string
+          position: number
+          updated_at: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          created_by: string
+          id?: string
+          name: string
+          position?: number
+          updated_at?: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          name?: string
+          position?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       deals: {
         Row: {
+          category_id: string | null
           close_date: string | null
           company_id: string | null
           contact_id: string | null
@@ -179,6 +210,7 @@ export type Database = {
           value: number | null
         }
         Insert: {
+          category_id?: string | null
           close_date?: string | null
           company_id?: string | null
           contact_id?: string | null
@@ -195,6 +227,7 @@ export type Database = {
           value?: number | null
         }
         Update: {
+          category_id?: string | null
           close_date?: string | null
           company_id?: string | null
           contact_id?: string | null
@@ -211,6 +244,13 @@ export type Database = {
           value?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "deals_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "deal_categories"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "deals_company_id_fkey"
             columns: ["company_id"]
