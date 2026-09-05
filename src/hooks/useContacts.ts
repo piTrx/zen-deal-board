@@ -10,11 +10,14 @@ export interface Contact {
   position: string | null;
   company_id: string | null;
   tags: string[];
+  notes: string | null;
   created_by: string;
   created_at: string;
   updated_at: string;
   companies?: { id: string; name: string } | null;
 }
+
+export type ContactUpdate = Omit<Contact, "id" | "companies" | "created_by" | "created_at" | "updated_at">;
 
 export function useContacts(search?: string) {
   return useQuery({
@@ -57,7 +60,7 @@ export function useCreateContact() {
 export function useUpdateContact() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<ContactUpdate>) => {
       const { data, error } = await supabase.from("contacts").update(updates).eq("id", id).select().single();
       if (error) throw error;
       return data;

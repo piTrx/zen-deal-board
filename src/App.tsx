@@ -22,6 +22,7 @@ import Tasks from "./pages/Tasks";
 import CalendarView from "./pages/CalendarView";
 import AcceptInvite from "./pages/AcceptInvite";
 import OAuthConsent from "./pages/OAuthConsent";
+import Telegram from "./pages/Telegram";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +52,7 @@ const App = () => (
                 <Route path="/data" element={<DataImportExport />} />
                 <Route path="/tasks" element={<Tasks />} />
                 <Route path="/calendar" element={<CalendarView />} />
+                <Route path="/telegram" element={<Telegram />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

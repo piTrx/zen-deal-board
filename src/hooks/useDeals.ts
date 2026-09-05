@@ -22,6 +22,8 @@ export interface Deal {
   profiles?: { id: string; full_name: string | null; avatar_url: string | null } | null;
 }
 
+export type DealUpdate = Omit<Deal, "id" | "companies" | "contacts" | "profiles" | "created_by" | "created_at" | "updated_at">;
+
 export function useDeals(pipelineId: string | undefined) {
   const queryClient = useQueryClient();
 
@@ -81,7 +83,7 @@ export function useCreateDeal() {
 export function useUpdateDeal() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<DealUpdate>) => {
       const { data, error } = await supabase.from("deals").update(updates).eq("id", id).select().single();
       if (error) throw error;
       return data;

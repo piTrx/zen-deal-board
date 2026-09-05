@@ -101,6 +101,7 @@ export type Database = {
           first_name: string
           id: string
           last_name: string
+          notes: string | null
           phone: string | null
           position: string | null
           tags: string[] | null
@@ -114,6 +115,7 @@ export type Database = {
           first_name: string
           id?: string
           last_name: string
+          notes?: string | null
           phone?: string | null
           position?: string | null
           tags?: string[] | null
@@ -127,6 +129,7 @@ export type Database = {
           first_name?: string
           id?: string
           last_name?: string
+          notes?: string | null
           phone?: string | null
           position?: string | null
           tags?: string[] | null
@@ -557,6 +560,45 @@ export type Database = {
           id?: string
           name?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      telegram_messages: {
+        Row: {
+          chat_id: number
+          chat_title: string | null
+          created_at: string
+          first_name: string | null
+          last_name: string | null
+          raw_update: Json
+          text: string | null
+          update_id: number
+          user_id: number | null
+          username: string | null
+        }
+        Insert: {
+          chat_id: number
+          chat_title?: string | null
+          created_at?: string
+          first_name?: string | null
+          last_name?: string | null
+          raw_update: Json
+          text?: string | null
+          update_id: number
+          user_id?: number | null
+          username?: string | null
+        }
+        Update: {
+          chat_id?: number
+          chat_title?: string | null
+          created_at?: string
+          first_name?: string | null
+          last_name?: string | null
+          raw_update?: Json
+          text?: string | null
+          update_id?: number
+          user_id?: number | null
+          username?: string | null
         }
         Relationships: []
       }
