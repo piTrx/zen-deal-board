@@ -104,7 +104,7 @@ export function TeamSettings() {
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 space-y-1">
-              <Label htmlFor="invite-email">Email</Label>
+              <Label htmlFor="invite-email">Correo electrónico</Label>
               <Input
                 id="invite-email"
                 type="email"
@@ -119,9 +119,9 @@ export function TeamSettings() {
               <Select value={inviteRole} onValueChange={(v) => setInviteRole(v as AppRole)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="admin">Admin</SelectItem>
-                  <SelectItem value="manager">Manager</SelectItem>
-                  <SelectItem value="rep">Rep</SelectItem>
+                  <SelectItem value="admin">Administrador</SelectItem>
+                  <SelectItem value="manager">Responsable</SelectItem>
+                  <SelectItem value="rep">Comercial</SelectItem>
                 </SelectContent>
               </Select>
             </div>

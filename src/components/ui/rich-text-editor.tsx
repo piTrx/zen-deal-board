@@ -34,8 +34,8 @@ export function RichTextEditor({ value, onChange, rows = 3, placeholder }: RichT
   return (
     <Tabs defaultValue="write" className="w-full">
       <TabsList className="h-8">
-        <TabsTrigger value="write" className="text-xs">Write</TabsTrigger>
-        <TabsTrigger value="preview" className="text-xs">Preview</TabsTrigger>
+        <TabsTrigger value="write" className="text-xs">Escribir</TabsTrigger>
+        <TabsTrigger value="preview" className="text-xs">Vista previa</TabsTrigger>
       </TabsList>
       <TabsContent value="write" className="mt-2">
         <Textarea
