@@ -63,20 +63,26 @@ export function ConnectorSettings() {
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold">Canales de comunicación (fase 2)</h3>
+        <h3 className="text-sm font-semibold">Canales de comunicación</h3>
         <p className="text-sm text-muted-foreground mt-1">
-          Hoy los botones de WhatsApp, email y llamada abren la app del dispositivo y te permiten registrar la interacción
-          como actividad. El envío y la recepción automáticos requieren contratar y configurar estos servicios:
+          WhatsApp ya está conectado con Twilio (sandbox): puedes enviar y recibir mensajes desde la ficha de una oferta y
+          cada mensaje queda registrado como actividad. El correo y la telefonía siguen abriendo la app del dispositivo y
+          requieren contratar estos servicios:
         </p>
         <div className="mt-3 space-y-3">
-          {communicationProviders.map((p) => (
+          {communicationProviders.map((p) => {
+            const isWhatsApp = p.channel === "whatsapp";
+            return (
             <Card key={p.id}>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between gap-2">
                   <CardTitle className="text-base">{p.name}</CardTitle>
-                  <Badge variant="outline" className="text-xs shrink-0">Pendiente de configurar</Badge>
+                  <Badge variant={isWhatsApp ? "default" : "outline"} className="text-xs shrink-0">
+                    {isWhatsApp ? "Conectado (sandbox)" : "Pendiente de configurar"}
+                  </Badge>
                 </div>
               </CardHeader>
+
               <CardContent className="pt-0 text-xs text-muted-foreground space-y-2">
                 <div>
                   <p className="font-medium text-foreground">Aportará:</p>
