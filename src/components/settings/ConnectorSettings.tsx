@@ -85,16 +85,18 @@ export function ConnectorSettings() {
 
               <CardContent className="pt-0 text-xs text-muted-foreground space-y-2">
                 <div>
-                  <p className="font-medium text-foreground">Aportará:</p>
+                  <p className="font-medium text-foreground">{isWhatsApp ? "Ya puedes:" : "Aportará:"}</p>
                   <ul className="list-disc pl-4">{p.capabilities.map((c) => <li key={c}>{c}</li>)}</ul>
                 </div>
                 <div>
-                  <p className="font-medium text-foreground">Necesitarás:</p>
+                  <p className="font-medium text-foreground">{isWhatsApp ? "Ten en cuenta:" : "Necesitarás:"}</p>
                   <ul className="list-disc pl-4">{p.requiredSecrets.map((s) => <li key={s}>{s}</li>)}</ul>
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
+
         </div>
       </div>
 

@@ -25,20 +25,21 @@ export const communicationProviders: CommunicationProvider[] = [
   {
     id: "whatsapp_cloud",
     channel: "whatsapp",
-    name: "WhatsApp Business (Twilio o WhatsApp Cloud API)",
+    name: "WhatsApp Business (Twilio)",
     capabilities: [
-      "Enviar mensajes desde el CRM sin salir de la ficha",
-      "Recibir mensajes entrantes vía webhook",
-      "Registrar automáticamente cada mensaje como actividad",
+      "Enviar mensajes desde la ficha de la oferta sin salir del CRM",
+      "Recibir las respuestas del cliente en la misma conversación",
+      "Cada mensaje se registra automáticamente como actividad de WhatsApp",
     ],
     requiredSecrets: [
-      "Conector Twilio (TWILIO_API_KEY) o WhatsApp Business",
-      "Número de WhatsApp verificado por el proveedor",
-      "Plantillas de mensaje aprobadas para iniciar conversación",
+      "Estamos en el sandbox de Twilio: el cliente debe unirse enviando el código de acceso al número del sandbox",
+      "Para escribir fuera de las 24 h desde su último mensaje hace falta una plantilla aprobada",
+      "Para producción, un número de WhatsApp verificado a tu nombre",
     ],
     plannedEndpoints: ["whatsapp-send", "whatsapp-webhook"],
     status: "not_configured",
   },
+
   {
     id: "email_sync",
     channel: "email",
