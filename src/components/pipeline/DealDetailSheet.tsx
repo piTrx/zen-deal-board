@@ -18,6 +18,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { TaskItem } from "@/components/tasks/TaskItem";
 import { CommunicationActions } from "@/components/communications/CommunicationActions";
+import { WhatsAppThread } from "@/components/communications/WhatsAppThread";
+
 import { CreateTaskDialog } from "@/components/tasks/CreateTaskDialog";
 import { formatCurrency, formatDate, formatRelativeDate } from "@/lib/formatters";
 import { useToast } from "@/hooks/use-toast";
@@ -198,6 +200,23 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
               <p className="text-sm text-muted-foreground">Asocia un contacto a esta oferta para poder escribirle o llamarle.</p>
             )}
           </div>
+
+          {dealContact && (
+            <>
+              <Separator />
+              <WhatsAppThread
+                contactId={dealContact.id}
+                companyId={deal.company_id}
+                dealId={deal.id}
+                phone={dealContact.phone}
+                contactName={`${dealContact.first_name} ${dealContact.last_name}`}
+              />
+            </>
+          )}
+
+          <Separator />
+
+
 
 
 
