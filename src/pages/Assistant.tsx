@@ -169,8 +169,8 @@ export default function Assistant() {
             {status.state === "checking" ? "Comprobando tu modelo…" : "El asistente no puede responder"}
           </AlertTitle>
           <AlertDescription className="text-sm">
-            {status.error}
-            {status.state !== "checking" && (
+            {status.state === "down" ? status.error : "Dame un momento mientras compruebo la conexión."}
+            {status.state === "down" && (
               <>
                 {" "}
                 Revisa los pasos en{" "}
