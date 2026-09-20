@@ -6,7 +6,6 @@ import { TeamSettings } from "@/components/settings/TeamSettings";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { EmailTemplateSettings } from "@/components/settings/EmailTemplateSettings";
 import { ConnectorSettings } from "@/components/settings/ConnectorSettings";
-import { DealCategorySettings } from "@/components/settings/DealCategorySettings";
 import { AiSettings } from "@/components/settings/AiSettings";
 
 export default function Settings() {
@@ -24,7 +23,6 @@ export default function Settings() {
         <TabsList className="flex flex-wrap h-auto">
           <TabsTrigger value="profile">Perfil</TabsTrigger>
           <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
-          <TabsTrigger value="categories">Categorías</TabsTrigger>
           <TabsTrigger value="team">Equipo</TabsTrigger>
           <TabsTrigger value="notifications">Notificaciones</TabsTrigger>
           <TabsTrigger value="templates">Plantillas de correo</TabsTrigger>
@@ -34,7 +32,6 @@ export default function Settings() {
 
         <TabsContent value="profile"><ProfileSettings /></TabsContent>
         <TabsContent value="pipeline"><PipelineSettings /></TabsContent>
-        <TabsContent value="categories"><DealCategorySettings /></TabsContent>
         <TabsContent value="team"><TeamSettings /></TabsContent>
         <TabsContent value="notifications"><NotificationSettings /></TabsContent>
         <TabsContent value="templates"><EmailTemplateSettings /></TabsContent>
