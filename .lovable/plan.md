@@ -6,7 +6,7 @@ Que el CRM hable con un modelo de lenguaje que se ejecuta en tu propio ordenador
 
 ## Qué verás en el CRM
 
-- **Nueva pestaña "IA" en Ajustes**: dirección de Ollama (por defecto `http://localhost:11434`),选择 del modelo (se rellena solo con los modelos que tienes instalados), botón **Probar conexión** y un aviso claro cuando Ollama no esté disponible, con los pasos para arreglarlo.
+- **Nueva pestaña "IA" en Ajustes**: dirección de Ollama (por defecto `http://localhost:11434`), selector de modelo (se rellena solo con los modelos que tienes instalados), botón **Probar conexión** y un aviso claro cuando Ollama no esté disponible, con los pasos para arreglarlo.
 - **Nueva sección "Asistente" en el menú lateral**: un chat donde escribes preguntas del tipo *"¿qué ofertas llevan más de dos semanas sin actividad?"* o *"resume la situación de la oferta X"*. Las respuestas llegan de forma progresiva (se ven mientras se escriben) y puedes detenerlas.
 - **Botones en la ficha de una oferta**: **Resumir** (situación, última actividad, riesgo y siguiente paso) y **Redactar seguimiento** (texto listo para copiar a WhatsApp o email, que puedes guardar como actividad).
 
