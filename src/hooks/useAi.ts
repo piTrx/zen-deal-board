@@ -14,8 +14,7 @@ import { listModels, pingOllama } from "@/lib/ai/ollama";
 export type AiStatus =
   | { state: "checking" }
   | { state: "ready" }
-  | { state: "down"; error: string; hints: string[] }
-  | { state: "model_missing"; error: string; hints: string[] };
+  | { state: "down"; error: string; hints: string[] };
 
 /**
  * Configuración del asistente y estado de la conexión con el modelo.

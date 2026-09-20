@@ -69,7 +69,7 @@ export function DealAiActions({ deal, activities, contactName, stageName }: Deal
   const disabledReason =
     status.state === "checking"
       ? "Comprobando la conexión con el modelo…"
-      : status.state === "down" || status.state === "model_missing"
+      : status.state === "down"
       ? status.error
       : "";
 
