@@ -19,6 +19,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { TaskItem } from "@/components/tasks/TaskItem";
 import { CommunicationActions } from "@/components/communications/CommunicationActions";
 import { WhatsAppThread } from "@/components/communications/WhatsAppThread";
+import { DealAiActions } from "@/components/ai/DealAiActions";
 
 import { CreateTaskDialog } from "@/components/tasks/CreateTaskDialog";
 import { formatCurrency, formatDate, formatRelativeDate } from "@/lib/formatters";
@@ -210,6 +211,18 @@ export function DealDetailSheet({ deal, open, onOpenChange, stages }: DealDetail
                 dealId={deal.id}
                 phone={dealContact.phone}
                 contactName={`${dealContact.first_name} ${dealContact.last_name}`}
+              />
+            </>
+          )}
+
+          {dealContact && (
+            <>
+              <Separator />
+              <DealAiActions
+                deal={deal}
+                activities={(activities ?? []).filter((a) => a.deal_id === deal.id)}
+                contactName={`${dealContact.first_name} ${dealContact.last_name}`}
+                stageName={currentStage?.name}
               />
             </>
           )}

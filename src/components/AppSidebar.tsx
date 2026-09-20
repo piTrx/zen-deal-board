@@ -15,6 +15,7 @@ import {
   CheckSquare,
   CalendarDays,
   MessageCircle,
+  Bot,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -40,6 +41,7 @@ const mainNav = [
   { title: "Tareas", icon: CheckSquare, to: "/tasks" },
   { title: "Calendario", icon: CalendarDays, to: "/calendar" },
   { title: "Telegram", icon: MessageCircle, to: "/telegram" },
+  { title: "Asistente", icon: Bot, to: "/assistant" },
   { title: "Previsión", icon: TrendingUp, to: "/forecast" },
   { title: "Informes", icon: BarChart3, to: "/reports" },
   { title: "Importar/Exportar", icon: FileSpreadsheet, to: "/data" },
