@@ -25,7 +25,12 @@ export default function Pipeline() {
   const [search, setSearch] = useState("");
   const [createOpen, setCreateOpen] = useState(false);
   const [createStageId, setCreateStageId] = useState<string | undefined>();
-  const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [selectedDealSnapshot, setSelectedDeal] = useState<Deal | null>(null);
+  // Mantiene el panel de detalle sincronizado con los datos recargados
+  const selectedDeal = useMemo(() => {
+    if (!selectedDealSnapshot) return null;
+    return deals?.find((d) => d.id === selectedDealSnapshot.id) ?? selectedDealSnapshot;
+  }, [deals, selectedDealSnapshot]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Open deal from search param
