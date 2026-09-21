@@ -57,8 +57,14 @@ export default function Index() {
       const { data: stages } = await supabase.from("pipeline_stages").select("id, name").in("name", ["Won", "Lost"]);
       const wonId = stages?.find((s: any) => s.name === "Won")?.id;
       const lostId = stages?.find((s: any) => s.name === "Lost")?.id;
-      let wonQuery = supabase.from("deals").select("*", { count: "exact", head: true }).eq("stage_id", wonId || "");
-      let lostQuery = supabase.from("deals").select("*", { count: "exact", head: true }).eq("stage_id", lostId || "");
+      let wonQuery = supabase
+        .from("deals")
+        .select("*", { count: "exact", head: true })
+        .eq("stage_id", wonId || "");
+      let lostQuery = supabase
+        .from("deals")
+        .select("*", { count: "exact", head: true })
+        .eq("stage_id", lostId || "");
       if (since) {
         wonQuery = wonQuery.gte("created_at", since);
         lostQuery = lostQuery.gte("created_at", since);
@@ -91,9 +97,19 @@ export default function Index() {
 
   const statCards = [
     { label: "Ofertas totales", value: String(stats?.totalDeals || 0), icon: Target, color: "hsl(210, 70%, 55%)" },
-    { label: "Valor del pipeline", value: formatCurrency(stats?.totalValue || 0), icon: Euro, color: "hsl(170, 50%, 45%)" },
+    {
+      label: "Valor del pipeline",
+      value: formatCurrency(stats?.totalValue || 0),
+      icon: Euro,
+      color: "hsl(170, 50%, 45%)",
+    },
     { label: "Tasa de éxito", value: `${stats?.winRate || 0}%`, icon: TrendingUp, color: "hsl(262, 60%, 55%)" },
-    { label: "Ciclo medio", value: stats?.avgCycle ? `${stats.avgCycle} días` : "—", icon: Clock, color: "hsl(14, 98%, 60%)" },
+    {
+      label: "Ciclo medio",
+      value: stats?.avgCycle ? `${stats.avgCycle} días` : "—",
+      icon: Clock,
+      color: "hsl(14, 98%, 60%)",
+    },
   ];
 
   return (
@@ -117,7 +133,9 @@ export default function Index() {
             </SelectTrigger>
             <SelectContent>
               {periods.map((p) => (
-                <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
+                <SelectItem key={p.value} value={p.value}>
+                  {p.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -147,7 +165,9 @@ export default function Index() {
               <stat.icon className="h-4 w-4" style={{ color: stat.color }} />
             </CardHeader>
             <CardContent>
-              {isLoading ? <Skeleton className="h-7 w-20" /> : (
+              {isLoading ? (
+                <Skeleton className="h-7 w-20" />
+              ) : (
                 <div className="text-xl font-semibold">{stat.value}</div>
               )}
             </CardContent>
