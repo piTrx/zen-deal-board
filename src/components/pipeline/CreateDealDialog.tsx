@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCreateDeal } from "@/hooks/useDeals";
 import { useCompanies, useCreateCompany } from "@/hooks/useCompanies";
@@ -39,6 +39,13 @@ export function CreateDealDialog({ open, onOpenChange, pipelineId, stages, defau
   const [probability, setProbability] = useState("50");
   const [closeDate, setCloseDate] = useState("");
   const [notes, setNotes] = useState("");
+
+  // Sincroniza la etapa con la columna desde la que se abre el formulario
+  useEffect(() => {
+    if (open) {
+      setStageId(defaultStageId || stages[0]?.id || "");
+    }
+  }, [open, defaultStageId, stages]);
 
   // Inline creation
   const [companyFormOpen, setCompanyFormOpen] = useState(false);
