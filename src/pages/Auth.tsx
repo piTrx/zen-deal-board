@@ -213,7 +213,39 @@ export default function Auth() {
               {fieldErrors.email && <p className="text-xs text-destructive">{fieldErrors.email}</p>}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Contraseña</Label>
+                {isLogin && (
+                  <button
+                    type="button"
+                    className="text-xs text-primary hover:underline"
+                    onClick={async () => {
+                      const parsed = z.string().trim().email().safeParse(email);
+                      if (!parsed.success) {
+                        toast({
+                          title: "Introduce tu correo",
+                          description: "Escribe tu correo electrónico arriba y vuelve a pulsar aquí.",
+                          variant: "destructive",
+                        });
+                        return;
+                      }
+                      const { error } = await supabase.auth.resetPasswordForEmail(parsed.data, {
+                        redirectTo: `${window.location.origin}/reset-password`,
+                      });
+                      if (error) {
+                        toast({ title: "Error", description: sanitizeErrorMessage(error.message), variant: "destructive" });
+                      } else {
+                        toast({
+                          title: "Revisa tu correo",
+                          description: "Te hemos enviado un enlace para crear una nueva contraseña.",
+                        });
+                      }
+                    }}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </button>
+                )}
+              </div>
               <Input
                 id="password"
                 type="password"
