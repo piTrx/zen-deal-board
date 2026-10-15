@@ -1,482 +1,122 @@
-import { useState, useEffect, useCallback, useRef } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, TrendingUp } from "lucide-react";
-import logoDiamond from "@/assets/logo-diamond.png";
-import heroDealImg from "@/assets/hero-deal.jpg";
-import jamieAvatar from "@/assets/jamie-avatar.jpg";
-import avatarAR from "@/assets/avatar-ar.png.asset.json";
-import avatarKL from "@/assets/avatar-kl.png.asset.json";
-import avatarMJ from "@/assets/avatar-mj.png.asset.json";
+import { LoginPanel } from "@/components/auth/LoginPanel";
+import { A1Logo } from "@/components/A1Mark";
+import authBgAsset from "@/assets/auth-bg.jpg.asset.json";
+import {
+  Kanban, Users, CheckSquare, LayoutDashboard, Activity, CalendarDays, ShieldCheck, LifeBuoy, Building2,
+} from "lucide-react";
 
-import { DMark } from "@/components/DMark";
-
-function FadedGrid({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={`absolute inset-0 h-full w-full ${className}`}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-          <path d="M 80 0 L 0 0 0 80" fill="none" stroke="currentColor" strokeWidth="0.5" />
-        </pattern>
-        <linearGradient id="grid-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="white" stopOpacity="0.8" />
-          <stop offset="60%" stopColor="white" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="white" stopOpacity="0" />
-        </linearGradient>
-        <mask id="grid-mask">
-          <rect width="100%" height="100%" fill="url(#grid-fade)" />
-        </mask>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grid)" mask="url(#grid-mask)" />
-    </svg>
-  );
-}
-
-function Pill({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-      {children}
-    </span>
-  );
-}
-
-const DEAL_NOTIFICATIONS = [
-  { company: "Arcline", amount: "€48,000", time: "justo ahora" },
-  { company: "Vantage Co", amount: "€32,500", time: "hace 2m" },
-  { company: "Helix Labs", amount: "€67,200", time: "hace 5m" },
-  { company: "Northpeak", amount: "€21,000", time: "hace 8m" },
-  { company: "Stratos Inc", amount: "€55,800", time: "hace 12m" },
+const features = [
+  { icon: Kanban, title: "Pipeline y oportunidades" },
+  { icon: Users, title: "Contactos y empresas" },
+  { icon: CheckSquare, title: "Tareas y seguimiento" },
 ];
 
-function StackedNotifications() {
-  const [visibleQueue, setVisibleQueue] = useState([0, 1, 2]);
-  const [incomingIdx, setIncomingIdx] = useState<number | null>(null);
-  const [phase, setPhase] = useState<"idle" | "pre" | "animating">("idle");
-  const nextRef = useRef(3);
-  const animationTimeoutRef = useRef<number | null>(null);
-  const cycleIntervalRef = useRef<number | null>(null);
-  const rafRef = useRef<number | null>(null);
+const blocks = [
+  { icon: Kanban, title: "Gestionar pipeline", text: "Mueve cada oportunidad entre las etapas definidas por tu equipo y consulta su estado." },
+  { icon: Building2, title: "Centralizar información", text: "Contactos, empresas y notas de cada cliente reunidos en una misma ficha." },
+  { icon: CheckSquare, title: "Organizar el trabajo", text: "Tareas con fecha, actividades registradas y calendario para planificar el día." },
+];
 
-  useEffect(() => {
-    const startCycle = () => {
-      const nextIdx = nextRef.current % DEAL_NOTIFICATIONS.length;
-      nextRef.current += 1;
-
-      setIncomingIdx(nextIdx);
-      setPhase("pre");
-
-      rafRef.current = requestAnimationFrame(() => {
-        rafRef.current = requestAnimationFrame(() => {
-          setPhase("animating");
-        });
-      });
-
-      animationTimeoutRef.current = window.setTimeout(() => {
-        setVisibleQueue((prev) => [nextIdx, prev[0], prev[1]]);
-        setIncomingIdx(null);
-        setPhase("idle");
-      }, 1680);
-    };
-
-    cycleIntervalRef.current = window.setInterval(startCycle, 4000);
-
-    return () => {
-      if (cycleIntervalRef.current !== null) {
-        window.clearInterval(cycleIntervalRef.current);
-      }
-      if (animationTimeoutRef.current !== null) {
-        window.clearTimeout(animationTimeoutRef.current);
-      }
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, []);
-
-  const cards = incomingIdx === null ? visibleQueue : [...visibleQueue, incomingIdx];
-
-  const getCardStyle = (notifIdx: number) => {
-    const currentPos = visibleQueue.indexOf(notifIdx);
-    const isIncoming = notifIdx === incomingIdx;
-
-    if (phase === "idle") {
-      if (currentPos === 0) return { yOffset: 0, scale: 0.88, opacity: 1, zIndex: 1, blur: 0 };
-      if (currentPos === 1) return { yOffset: 14, scale: 0.94, opacity: 1, zIndex: 2, blur: 0 };
-      return { yOffset: 28, scale: 1, opacity: 1, zIndex: 3, blur: 0 };
-    }
-
-    if (phase === "pre") {
-      if (isIncoming) return { yOffset: 0, scale: 0.88, opacity: 0, zIndex: 1, blur: 0 };
-      if (currentPos === 0) return { yOffset: 0, scale: 0.88, opacity: 1, zIndex: 1, blur: 0 };
-      if (currentPos === 1) return { yOffset: 14, scale: 0.94, opacity: 1, zIndex: 2, blur: 0 };
-      return { yOffset: 28, scale: 1, opacity: 1, zIndex: 4, blur: 0 };
-    }
-
-    if (isIncoming) return { yOffset: 0, scale: 0.88, opacity: 1, zIndex: 1, blur: 0 };
-    if (currentPos === 0) return { yOffset: 14, scale: 0.94, opacity: 1, zIndex: 2, blur: 0 };
-    if (currentPos === 1) return { yOffset: 28, scale: 1, opacity: 1, zIndex: 3, blur: 0 };
-    return { yOffset: 60, scale: 1.04, opacity: 0, zIndex: 4, blur: 8 };
-  };
-
-  return (
-    <div className="relative h-[110px]" style={{ width: '100%', minWidth: 340 }}>
-      {cards.map((notifIdx) => {
-        const { company, amount, time } = DEAL_NOTIFICATIONS[notifIdx];
-        const { yOffset, scale, opacity, zIndex, blur } = getCardStyle(notifIdx);
-        const shouldTransition = phase === "animating";
-
-        return (
-          <div
-            key={notifIdx}
-            className="absolute bottom-0 left-0 right-0 origin-bottom rounded-xl border border-border bg-card shadow-lg overflow-hidden"
-            style={{
-              zIndex,
-              opacity,
-              filter: `blur(${blur}px)`,
-              transform: `translateY(-${yOffset}px) scale(${scale})`,
-              transition: shouldTransition
-                ? "transform 1680ms cubic-bezier(0.22, 1, 0.36, 1), opacity 1680ms cubic-bezier(0.22, 1, 0.36, 1), filter 1680ms cubic-bezier(0.22, 1, 0.36, 1)"
-                : "none",
-            }}
-          >
-            <div className="flex relative">
-              {/* Orange left bar — inset & rounded */}
-              <div className="absolute left-1.5 top-2 bottom-2 w-1 rounded-full bg-orange-500" />
-              <div className="min-w-0 p-3 pl-6">
-                  <p className="text-[11px] text-muted-foreground">Trato cerrado · Ganado · {time}</p>
-                  <p className="truncate text-sm font-semibold">{company} — {amount}</p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const inside = [
+  { icon: LayoutDashboard, title: "Dashboard", text: "Resumen de oportunidades, contactos, empresas y tareas pendientes." },
+  { icon: Kanban, title: "Pipeline comercial", text: "Tablero por etapas con las oportunidades de tu equipo." },
+  { icon: Activity, title: "Actividad reciente", text: "Llamadas, correos, reuniones y mensajes registrados." },
+  { icon: CalendarDays, title: "Agenda y tareas", text: "Próximas tareas y calendario de seguimiento." },
+];
 
 export default function Landing() {
   const { session, loading } = useAuth();
-  const logo = logoDiamond;
-  
-  const [showNav, setShowNav] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setShowNav(window.scrollY > 100);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   if (!loading && session) return <Navigate to="/dashboard" replace />;
 
   return (
-    <div className="force-light min-h-screen bg-background text-foreground antialiased">
+    <div className="force-light min-h-screen bg-background text-foreground">
+      <a href="#acceso" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-card focus:px-3 focus:py-2">
+        Ir al acceso
+      </a>
 
-      {/* Nav — appears on scroll */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 lg:px-20 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300 ${showNav ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
-        <div className="flex items-center gap-1.5">
-          <DMark className="h-7 w-7 text-foreground" />
-          <span className="font-bold text-lg tracking-tight text-foreground">
-            Dealflow
-          </span>
+      <header className="sticky top-0 z-30 border-b border-border bg-card/90 backdrop-blur">
+        <div className="flex h-16 w-full items-center justify-between px-4 sm:px-8 lg:px-12">
+          <Link to="/" aria-label="A1 CRM, inicio"><A1Logo /></Link>
+          <nav aria-label="Principal" className="flex items-center gap-1 sm:gap-4">
+            <a href="#acceso" className="inline-flex items-center gap-1.5 rounded-md px-2 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+              <ShieldCheck className="h-4 w-4" aria-hidden="true" /><span className="hidden sm:inline">Acceso seguro</span>
+            </a>
+            <a href="#ayuda" className="inline-flex items-center gap-1.5 rounded-md px-2 py-2 text-sm font-medium text-muted-foreground hover:text-foreground">
+              <LifeBuoy className="h-4 w-4" aria-hidden="true" /><span className="hidden sm:inline">Ayuda</span>
+            </a>
+          </nav>
         </div>
-        <div className="flex items-center gap-3">
-          <Link to="/auth">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-              Iniciar sesión
-            </Button>
-          </Link>
-          <Link to="/auth">
-            <Button size="sm" className="bg-foreground text-background hover:bg-foreground/90 rounded-full px-5">
-              Empezar ahora
-            </Button>
-          </Link>
-        </div>
-      </nav>
+      </header>
 
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden bg-white">
-        <FadedGrid className="text-foreground/[0.04]" />
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-10 pb-20 md:pt-16 md:pb-32">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left — Copy */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <DMark className="h-9 w-9 text-foreground" />
-                <span className="font-bold text-xl tracking-tight text-foreground">Dealflow</span>
-              </div>
-              <h1 className="font-sans text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.08] mb-6 text-balance">
-                Cierra más tratos<br />con menos trabajo tedioso
+      <main>
+        <section className="relative overflow-hidden" aria-labelledby="hero-title">
+          <img src={authBgAsset.url} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
+          <div className="relative grid w-full gap-10 px-4 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.2fr_minmax(0,440px)] lg:items-center lg:gap-16 lg:px-12 lg:py-24">
+            <div className="max-w-2xl space-y-6">
+              <h1 id="hero-title" className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl xl:text-6xl">
+                Accede a tu espacio de trabajo comercial
               </h1>
-              <p className="text-lg text-muted-foreground max-w-lg mb-10 leading-relaxed">
-                Dealflow es un CRM de un solo inquilino que tu equipo realmente usará. Haz seguimiento de tratos, prevé ingresos y dedica tiempo a vender, no a rellenar campos.
+              <p className="text-lg leading-relaxed text-muted-foreground">
+                Desde aquí podrás consultar contactos y empresas, hacer seguimiento de oportunidades,
+                organizar tus tareas y revisar tu actividad diaria.
               </p>
-              <div className="flex flex-col sm:flex-row items-start gap-4">
-                <Link to="/auth">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold px-8 h-12">
-                    Empieza gratis
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </Link>
-                
-              </div>
+              <ul className="grid gap-3 sm:grid-cols-3">
+                {features.map((f) => (
+                  <li key={f.title} className="flex items-center gap-3 rounded-xl border border-border bg-card/80 p-3">
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <f.icon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="text-sm font-medium">{f.title}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Right — Hero image with deal UI overlay */}
-            <div className="relative">
-              <div className="rounded-2xl aspect-[4/3] overflow-hidden relative">
-                <img src={heroDealImg} alt="Dos profesionales cerrando un trato" className="w-full h-full object-cover" />
-                {/* Gradient overlay for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
-              </div>
-              {/* Floating stacked notifications — bottom right */}
-              <div className="absolute -bottom-6 -right-4 hidden md:block">
-                <StackedNotifications />
-              </div>
-              {/* Pipeline value card — top left */}
-              <div className="absolute -top-3 -left-3 rounded-2xl border border-border bg-card shadow-lg p-4 pb-4 hidden md:block w-[216px]">
-                {/* Mini sparkline chart — smooth curves */}
-                <svg viewBox="0 0 160 52" className="w-full h-12 mb-2">
-                  <defs>
-                    <linearGradient id="pipe-grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="hsl(170 50% 45%)" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="hsl(170 50% 45%)" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M0 44 C18 40, 28 38, 42 40 S65 30, 82 32 S105 20, 120 22 S142 14, 155 12 L155 52 L0 52 Z" fill="url(#pipe-grad)" />
-                  <path d="M0 44 C18 40, 28 38, 42 40 S65 30, 82 32 S105 20, 120 22 S142 14, 155 12" fill="none" stroke="hsl(170 50% 45%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="155" cy="12" r="3.5" fill="hsl(170 50% 45%)" />
-                </svg>
-                <div>
-                  <p className="text-xs text-muted-foreground">Valor del pipeline</p>
-                  <p className="text-lg font-semibold">€284,500</p>
-                </div>
-              </div>
+            <div id="acceso" className="scroll-mt-24">
+              <LoginPanel postAuthUrl={window.location.origin} />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── Features ─── */}
-      <section className="relative z-[2] overflow-hidden rounded-t-[2rem] -mt-8 bg-surface-mint">
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-20 pb-28 md:pt-28 md:pb-36">
-          <div className="max-w-7xl mx-auto">
-            <Pill>Diseñado para equipos de ventas de alto contacto</Pill>
-            <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight mb-16 max-w-lg mt-5 text-balance">
-              Todo lo que necesitas. Nada que no.
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {/* Card 1 — 5-minute setup */}
-              {/* Card 1 — 5-minute setup */}
-              <div className="group">
-                <div className="rounded-tl-[2rem] rounded-tr-lg rounded-bl-lg rounded-br-[2rem] p-8 mb-5 aspect-[4/3] flex items-center justify-center overflow-hidden bg-surface-mint-strong">
-                  <svg viewBox="0 0 280 200" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Three step cards — evenly spaced */}
-                    <rect x="20" y="25" width="75" height="75" rx="12" fill="white" />
-                    <rect x="44" y="42" width="28" height="28" rx="7" fill="hsl(170,30%,88%)" />
-                    <rect x="49" y="50" width="18" height="4" rx="2" fill="hsl(170,15%,15%)" opacity="0.5" />
-                    <rect x="49" y="58" width="10" height="4" rx="2" fill="hsl(170,15%,15%)" opacity="0.25" />
-                    <text x="57" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Importar</text>
-
-                    <rect x="103" y="25" width="75" height="75" rx="12" fill="white" />
-                    <rect x="118" y="48" width="45" height="6" rx="3" fill="hsl(170,30%,88%)" />
-                    <rect x="118" y="48" width="30" height="6" rx="3" fill="hsl(170,15%,15%)" opacity="0.25" />
-                    <rect x="118" y="60" width="45" height="6" rx="3" fill="hsl(170,30%,88%)" />
-                    <rect x="118" y="60" width="38" height="6" rx="3" fill="hsl(170,15%,15%)" opacity="0.15" />
-                    <text x="140" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Configurar</text>
-
-                    <rect x="186" y="25" width="75" height="75" rx="12" fill="white" />
-                    <circle cx="223" cy="55" r="14" fill="hsl(170,30%,88%)" />
-                    <path d="M216 55 L221 60 L231 50" stroke="hsl(170,15%,15%)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <text x="223" y="92" fill="hsl(170,15%,15%)" fontSize="10" fontWeight="600" fontFamily="sans-serif" textAnchor="middle">Listo</text>
-
-                    {/* Bottom pipeline bar */}
-                    <rect x="40" y="120" width="200" height="50" rx="12" fill="white" />
-                    <rect x="56" y="136" width="50" height="8" rx="4" fill="hsl(170,15%,15%)" opacity="0.7" />
-                    <rect x="112" y="136" width="35" height="8" rx="4" fill="hsl(170,15%,15%)" opacity="0.35" />
-                    <rect x="153" y="136" width="25" height="8" rx="4" fill="hsl(170,15%,15%)" opacity="0.15" />
-                    <rect x="56" y="152" width="120" height="4" rx="2" fill="hsl(170,30%,88%)" />
-                  </svg>
-                </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">Configuración en 5 minutos</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">Importa contactos, define tus etapas y empieza a hacer seguimiento. Sin consultores ni configuraciones interminables.</p>
-              </div>
-
-              {/* Card 2 — Team-first design */}
-              <div className="group">
-                <div className="rounded-tl-[2rem] rounded-tr-lg rounded-bl-lg rounded-br-[2rem] p-8 mb-5 aspect-[4/3] flex items-center justify-center overflow-hidden bg-surface-mint-strong">
-                  <svg viewBox="0 0 280 200" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <clipPath id="av1"><circle cx="70" cy="38" r="24" /></clipPath>
-                      <clipPath id="av2"><circle cx="140" cy="38" r="24" /></clipPath>
-                      <clipPath id="av3"><circle cx="210" cy="38" r="24" /></clipPath>
-                    </defs>
-                    {/* Avatars — bigger */}
-                    <circle cx="70" cy="38" r="27" fill="white" />
-                    <circle cx="140" cy="38" r="27" fill="white" />
-                    <circle cx="210" cy="38" r="27" fill="white" />
-                    <image href={avatarAR.url} x="46" y="14" width="48" height="48" clipPath="url(#av1)" preserveAspectRatio="xMidYMid slice" />
-                    <image href={avatarKL.url} x="116" y="14" width="48" height="48" clipPath="url(#av2)" preserveAspectRatio="xMidYMid slice" />
-                    <image href={avatarMJ.url} x="186" y="14" width="48" height="48" clipPath="url(#av3)" preserveAspectRatio="xMidYMid slice" />
-
-                    {/* Deal cards — 2 pairs close together */}
-                    <rect x="55" y="82" width="75" height="36" rx="8" fill="white" />
-                    <rect x="67" y="92" width="40" height="5" rx="2.5" fill="hsl(170,15%,15%)" opacity="0.6" />
-                    <rect x="67" y="102" width="24" height="5" rx="2.5" fill="hsl(170,15%,15%)" opacity="0.2" />
-
-                    <rect x="138" y="82" width="75" height="36" rx="8" fill="white" />
-                    <rect x="150" y="92" width="44" height="5" rx="2.5" fill="hsl(170,15%,15%)" opacity="0.6" />
-                    <rect x="150" y="102" width="30" height="5" rx="2.5" fill="hsl(170,15%,15%)" opacity="0.2" />
-
-                    {/* Row 2 — same positions */}
-                    <rect x="55" y="126" width="75" height="32" rx="8" fill="white" opacity="0.6" />
-                    <rect x="138" y="126" width="75" height="32" rx="8" fill="white" opacity="0.6" />
-
-                    {/* Bottom card — centered, with room */}
-                    <rect x="93" y="166" width="82" height="26" rx="8" fill="white" opacity="0.35" />
-                  </svg>
-                </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">Diseño pensado para equipos</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">Ve quién trabaja en qué, detecta tratos estancados y mantén a todos avanzando, sin microgestión.</p>
-              </div>
-
-              {/* Card 3 — Forecasts */}
-              <div className="group">
-                <div className="rounded-tl-[2rem] rounded-tr-lg rounded-bl-lg rounded-br-[2rem] p-8 mb-5 aspect-[4/3] flex items-center justify-center overflow-hidden bg-surface-mint-strong">
-                  <svg viewBox="0 0 280 190" className="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    {/* Grid lines */}
-                    <line x1="50" y1="30" x2="260" y2="30" stroke="hsl(170 30% 76%)" strokeWidth="0.5" />
-                    <line x1="50" y1="65" x2="260" y2="65" stroke="hsl(170 30% 76%)" strokeWidth="0.5" />
-                    <line x1="50" y1="100" x2="260" y2="100" stroke="hsl(170 30% 76%)" strokeWidth="0.5" />
-                    <line x1="50" y1="135" x2="260" y2="135" stroke="hsl(170 30% 76%)" strokeWidth="0.5" />
-
-                    {/* Y-axis labels */}
-                    <text x="44" y="34" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="end" opacity="0.5">80 k€</text>
-                    <text x="44" y="69" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="end" opacity="0.5">60 k€</text>
-                    <text x="44" y="104" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="end" opacity="0.5">40 k€</text>
-                    <text x="44" y="139" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="end" opacity="0.5">20 k€</text>
-
-                    {/* Bars — bottoms at y=155 baseline, moved down from trend line */}
-                    <rect x="65" y="108" width="22" height="47" rx="4" fill="white" opacity="0.6" />
-                    <rect x="100" y="92" width="22" height="63" rx="4" fill="white" opacity="0.65" />
-                    <rect x="135" y="78" width="22" height="77" rx="4" fill="white" opacity="0.7" />
-                    <rect x="170" y="62" width="22" height="93" rx="4" fill="white" opacity="0.75" />
-                    <rect x="205" y="48" width="22" height="107" rx="4" fill="white" opacity="0.85" />
-                    <rect x="240" y="34" width="22" height="121" rx="4" fill="white" />
-
-                    {/* Trend line — pulled higher away from bar tops */}
-                    <path d="M76 100 C106 82, 121 74, 146 66 S181 50, 216 38 S241 24, 251 20" stroke="hsl(170,15%,15%)" strokeWidth="2" strokeLinecap="round" strokeDasharray="5 4" opacity="0.45" />
-                    <circle cx="251" cy="20" r="4" fill="hsl(170,15%,15%)" opacity="0.55" />
-
-                    {/* X-axis labels */}
-                    <text x="76" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Ene</text>
-                    <text x="111" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Feb</text>
-                    <text x="146" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Mar</text>
-                    <text x="181" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Abr</text>
-                    <text x="216" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">May</text>
-                    <text x="251" y="168" fill="hsl(170,15%,15%)" fontSize="9" fontWeight="600" fontFamily="sans-serif" textAnchor="middle" opacity="0.5">Jun</text>
-                  </svg>
-                </div>
-                <h3 className="font-sans font-semibold text-lg mb-2">Previsiones fiables</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">Pipeline ponderado y puntuación de probabilidad en las que puedes confiar sin contratar a un especialista en rev-ops.</p>
-              </div>
-            </div>
+        <section className="w-full px-4 py-14 sm:px-8 lg:px-12" aria-label="Qué puedes hacer">
+          <div className="grid gap-5 md:grid-cols-3">
+            {blocks.map((b) => (
+              <article key={b.title} className="rounded-2xl border border-border bg-card p-6">
+                <b.icon className="mb-4 h-6 w-6 text-primary" aria-hidden="true" />
+                <h2 className="mb-2 text-lg font-semibold">{b.title}</h2>
+                <p className="text-sm leading-relaxed text-muted-foreground">{b.text}</p>
+              </article>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── Social proof ─── */}
-      <section className="relative z-[3] overflow-hidden bg-white rounded-t-[2rem] -mt-8">
-        <FadedGrid className="text-foreground/[0.03]" />
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-20 pb-28 md:pt-28 md:pb-36">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              {/* Stats */}
-              <div>
-                <Pill>Primeros resultados</Pill>
-                <h2 className="font-sans text-3xl md:text-4xl font-bold tracking-tight mb-10 mt-5 text-balance">
-                  Los equipos que usan su CRM cierran más.
-                </h2>
-                <div className="grid grid-cols-2 gap-8">
-                  {[
-                    { stat: "34%", label: "Mayor velocidad de cierre" },
-                    { stat: "2.4×", label: "Más actividades registradas" },
-                    { stat: "< 5 min", label: "Tiempo medio de configuración" },
-                    { stat: "91%", label: "Uso activo semanal" },
-                  ].map((item) => (
-                    <div key={item.label}>
-                      <p className="font-sans text-3xl md:text-4xl font-bold text-primary mb-1">
-                        {item.stat}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{item.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <section className="w-full bg-secondary/60 px-4 py-14 sm:px-8 lg:px-12" aria-labelledby="inside-title">
+          <h2 id="inside-title" className="mb-8 text-2xl font-bold sm:text-3xl">Qué encontrarás dentro de A1 CRM</h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {inside.map((i) => (
+              <article key={i.title} className="rounded-2xl bg-card p-6 shadow-sm">
+                <i.icon className="mb-3 h-5 w-5 text-primary" aria-hidden="true" />
+                <h3 className="mb-1 font-semibold">{i.title}</h3>
+                <p className="text-sm text-muted-foreground">{i.text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-              {/* Testimonial */}
-              <div className="rounded-2xl border border-border bg-card p-8 md:p-10 shadow-sm flex gap-6">
-                <div className="w-1 rounded-full bg-primary flex-shrink-0" />
-                <div>
-                  <div className="mb-5">
-                    <svg className="h-7 w-7 text-foreground/20" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
-                  <p className="text-lg text-foreground leading-relaxed mb-8 text-balance">
-                    Probamos tres CRMs antes de Dealflow. Es el primero que mi equipo no abandonó a la segunda semana.
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <img src={jamieAvatar} alt="Jamie Reeves" className="h-10 w-10 rounded-full object-cover" />
-                    <div>
-                      <p className="text-sm font-semibold">Jamie Reeves</p>
-                      <p className="text-xs text-muted-foreground">VP de Ventas, Arcline Systems</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <section id="ayuda" className="w-full scroll-mt-20 px-4 py-14 sm:px-8 lg:px-12" aria-labelledby="help-title">
+          <h2 id="help-title" className="mb-4 text-2xl font-bold">Ayuda</h2>
+          <ul className="max-w-3xl space-y-3 text-sm text-muted-foreground">
+            <li><strong className="text-foreground">¿Olvidaste tu contraseña?</strong> Pulsa el enlace del formulario de acceso y te enviaremos un enlace de recuperación.</li>
+            <li><strong className="text-foreground">¿Te han invitado?</strong> Abre el enlace de invitación recibido o <Link to="/auth" className="font-medium text-primary hover:underline">crea tu cuenta aquí</Link> con el mismo correo.</li>
+            <li><strong className="text-foreground">¿Sin acceso?</strong> Pide a un administrador de tu equipo que te envíe una invitación.</li>
+          </ul>
+        </section>
+      </main>
 
-      {/* ─── Final CTA ─── */}
-      <section className="relative bg-foreground overflow-hidden rounded-t-[2rem] -mt-8 z-[4]">
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 py-20 md:py-28">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-sans text-3xl md:text-5xl font-bold tracking-tight mb-5 text-background text-balance">
-              Tu pipeline merece algo mejor que una hoja de cálculo.
-            </h2>
-            <p className="text-background/60 text-lg mb-10 max-w-xl mx-auto text-balance">
-              Gratis para equipos pequeños. Listo en minutos. Sin procesos de compra complicados.
-            </p>
-            <Link to="/auth">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full text-base font-semibold px-10 h-12">
-                Empieza a cerrar tratos
-                <ArrowRight className="h-4 w-4 ml-1" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-foreground border-t border-background/10 px-6 md:px-12 lg:px-20 py-10">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-between gap-8">
-          <div className="flex items-center gap-1.5">
-            <DMark className="h-6 w-6 text-background" />
-            <span className="font-bold text-sm tracking-tight text-background">Dealflow</span>
-          </div>
-          <div className="flex gap-8 text-sm text-background/50">
-            <Link to="/auth" className="hover:text-background transition-colors">Iniciar sesión</Link>
-            <a href="mailto:hello@dealflow.com" className="hover:text-background transition-colors">Contacto</a>
-          </div>
-          <p className="text-xs text-background/40">© {new Date().getFullYear()} Dealflow</p>
-        </div>
+      <footer className="border-t border-border px-4 py-6 text-sm text-muted-foreground sm:px-8 lg:px-12">
+        © {new Date().getFullYear()} A1 CRM · Uso interno
       </footer>
     </div>
   );
