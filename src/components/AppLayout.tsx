@@ -13,7 +13,7 @@ import { EmailNotConfirmed } from "./EmailNotConfirmed";
 import { Loader2 } from "lucide-react";
 
 export function AppLayout() {
-  const { session, user, loading } = useAuth();
+  const { session, user, loading, recovery } = useAuth();
   const { data: onboardingStatus, isLoading: onboardingLoading } = useOnboardingStatus();
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   useCurrencySync();
@@ -27,6 +27,8 @@ export function AppLayout() {
   }
 
   if (!session) return <Navigate to="/auth" replace />;
+
+  if (recovery) return <Navigate to="/reset-password" replace />;
 
   if (user && !user.email_confirmed_at && !user.confirmed_at) {
     return <EmailNotConfirmed />;

@@ -16,6 +16,7 @@ function markRecovery() {
 }
 export function clearRecoveryFlag() {
   try { sessionStorage.removeItem(RECOVERY_KEY); } catch { /* noop */ }
+  if (typeof window !== "undefined") window.dispatchEvent(new Event("a1-recovery-change"));
 }
 function readRecovery(): boolean {
   try {

@@ -6,7 +6,7 @@ import { A1Logo } from "@/components/A1Mark";
 import authBgAsset from "@/assets/auth-bg.jpg.asset.json";
 
 export default function Auth() {
-  const { session, loading } = useAuth();
+  const { session, loading, recovery } = useAuth();
 
   if (loading) {
     return (
@@ -20,6 +20,7 @@ export default function Auth() {
   const safeNext = nextParam && nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : null;
   const postAuthUrl = safeNext ? window.location.origin + safeNext : window.location.origin;
 
+  if (session && recovery) return <Navigate to="/reset-password" replace />;
   if (session) {
     if (safeNext) return <Navigate to={safeNext} replace />;
     const pendingInvite = sessionStorage.getItem("pending_invite");
