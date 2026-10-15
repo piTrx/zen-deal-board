@@ -29,7 +29,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { NavLink } from "react-router-dom";
-import { DMark } from "@/components/DMark";
+import { A1Mark } from "@/components/A1Mark";
 
 const mainNav = [
   { title: "Panel", icon: LayoutDashboard, to: "/dashboard" },
@@ -57,17 +57,17 @@ export function AppSidebar() {
     enabled: !!user,
   });
 
-  const appName = profile?.company || "Dealflow";
+  const appName = profile?.company || "A1 CRM";
   const companyLogo = profile?.company_logo_url;
 
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
-        <NavLink to="/" className="flex items-center gap-2">
+        <NavLink to="/dashboard" className="flex items-center gap-2">
           {companyLogo ? (
             <img src={companyLogo} alt={`${appName} logo`} className="h-7 w-7 object-contain" />
           ) : (
-            <DMark className="h-7 w-7 text-sidebar-foreground" />
+            <A1Mark className="h-7 w-7 text-xs" />
           )}
           <span className="text-lg font-bold tracking-tight text-sidebar-foreground">
             {appName}
