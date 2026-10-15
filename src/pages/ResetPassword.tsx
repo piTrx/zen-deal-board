@@ -1,128 +1,88 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth, clearRecoveryFlag } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
-import { sanitizeErrorMessage } from "@/lib/sanitize";
-import { DMark } from "@/components/DMark";
+import { Loader2, ShieldCheck } from "lucide-react";
+import { A1Logo } from "@/components/A1Mark";
+import { NewPasswordForm } from "@/components/auth/NewPasswordForm";
+
+type State = "checking" | "recovery" | "signed-in" | "invalid";
 
 export default function ResetPassword() {
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [ready, setReady] = useState(false);
-  const [invalidLink, setInvalidLink] = useState(false);
+  const { session, loading, recovery } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [waited, setWaited] = useState(false);
 
+  // Damos margen a que el cliente procese el enlace del correo.
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash.includes("type=recovery")) {
-      setReady(true);
-      return;
-    }
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") setReady(true);
-    });
-    const timer = setTimeout(() => {
-      setReady((r) => {
-        if (!r) setInvalidLink(true);
-        return r;
-      });
-    }, 4000);
-    return () => {
-      subscription.unsubscribe();
-      clearTimeout(timer);
-    };
+    const t = setTimeout(() => setWaited(true), 3000);
+    return () => clearTimeout(t);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password.length < 8) {
-      toast({ title: "Error", description: "La contraseña debe tener al menos 8 caracteres.", variant: "destructive" });
-      return;
-    }
-    if (password !== confirm) {
-      toast({ title: "Error", description: "Las contraseñas no coinciden.", variant: "destructive" });
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const { error } = await supabase.auth.updateUser({ password });
-      if (error) throw error;
-      toast({ title: "Contraseña actualizada", description: "Ya puedes entrar con tu nueva contraseña." });
-      navigate("/dashboard", { replace: true });
-    } catch (error: any) {
-      toast({ title: "Error", description: sanitizeErrorMessage(error.message || "Unknown error"), variant: "destructive" });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  let state: State = "checking";
+  if (session && recovery) state = "recovery";
+  else if (!loading && waited) state = session ? "signed-in" : "invalid";
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-background">
-      <div className="w-full max-w-sm">
-        <div className="flex items-center gap-2 mb-8 justify-center">
-          <DMark className="h-9 w-9" />
-          <span className="font-bold text-xl tracking-tight">Dealflow</span>
-        </div>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background p-5 sm:p-6">
+      <div className="w-full max-w-md space-y-8">
+        <div className="flex justify-center"><Link to="/" aria-label="A1 CRM, inicio"><A1Logo /></Link></div>
 
-        {invalidLink ? (
-          <div className="text-center space-y-4">
-            <h1 className="text-2xl font-semibold">Enlace no válido</h1>
-            <p className="text-sm text-muted-foreground">
-              Este enlace ha caducado o ya se ha usado. Pide uno nuevo desde la pantalla de acceso.
-            </p>
-            <Button className="w-full" onClick={() => navigate("/auth", { replace: true })}>
-              Volver a iniciar sesión
-            </Button>
-          </div>
-        ) : !ready ? (
-          <div className="flex justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        ) : (
-          <>
-            <h1 className="text-2xl font-semibold mb-1">Crea una nueva contraseña</h1>
-            <p className="text-sm text-muted-foreground mb-8">
-              Elige una contraseña de al menos 8 caracteres.
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="new-password">Nueva contraseña</Label>
-                <Input
-                  id="new-password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                  maxLength={128}
-                />
+        <section className="rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8" aria-live="polite">
+          {state === "checking" && (
+            <div className="flex flex-col items-center gap-3 py-6 text-sm text-muted-foreground">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" aria-hidden="true" />
+              Comprobando el enlace…
+            </div>
+          )}
+
+          {state === "recovery" && (
+            <>
+              <div className="mb-6 flex items-start gap-3">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                <div>
+                  <h1 className="text-xl font-semibold">Crea una nueva contraseña</h1>
+                  <p className="text-sm text-muted-foreground">Para {session?.user.email}.</p>
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password">Repite la contraseña</Label>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={8}
-                  maxLength={128}
-                />
+              <NewPasswordForm
+                idPrefix="reset-pw"
+                submitLabel="Guardar contraseña"
+                onSuccess={() => {
+                  clearRecoveryFlag();
+                  toast({ title: "Contraseña actualizada", description: "Ya puedes entrar con tu nueva contraseña." });
+                  navigate("/dashboard", { replace: true });
+                }}
+              />
+            </>
+          )}
+
+          {state === "signed-in" && (
+            <div className="space-y-4">
+              <h1 className="text-xl font-semibold">Ya has iniciado sesión</h1>
+              <p className="text-sm text-muted-foreground">
+                Este enlace no corresponde a una recuperación activa. Puedes cambiar tu contraseña en
+                Ajustes → Perfil → Seguridad de la cuenta.
+              </p>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Button asChild><Link to="/settings#seguridad">Ir a Seguridad de la cuenta</Link></Button>
+                <Button asChild variant="outline"><Link to="/dashboard">Ir al panel</Link></Button>
               </div>
-              <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Guardar contraseña"}
-              </Button>
-            </form>
-          </>
-        )}
+            </div>
+          )}
+
+          {state === "invalid" && (
+            <div className="space-y-4">
+              <h1 className="text-xl font-semibold">Enlace no válido</h1>
+              <p className="text-sm text-muted-foreground">
+                El enlace ha caducado o ya se ha usado. Pide uno nuevo con «¿Olvidaste tu contraseña?» en la pantalla de acceso.
+              </p>
+              <Button asChild className="w-full"><Link to="/auth">Volver a iniciar sesión</Link></Button>
+            </div>
+          )}
+        </section>
       </div>
     </div>
   );

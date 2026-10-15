@@ -27,8 +27,8 @@ const inside = [
 ];
 
 export default function Landing() {
-  const { session, loading } = useAuth();
-  if (!loading && session) return <Navigate to="/dashboard" replace />;
+  const { session, loading, recovery } = useAuth();
+  if (!loading && session) return <Navigate to={recovery ? "/reset-password" : "/dashboard"} replace />;
 
   return (
     <div className="force-light min-h-screen bg-background text-foreground">

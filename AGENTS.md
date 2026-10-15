@@ -1,0 +1,1 @@
+- Password recovery is tracked by a token-free sessionStorage marker in AuthContext (`recovery`), which routes to /reset-password; why: the recovery session can be created before the reset page mounts or on another route.
