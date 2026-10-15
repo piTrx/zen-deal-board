@@ -6,7 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Camera, Building2 } from "lucide-react";
+import { Loader2, Camera, Building2, ShieldCheck } from "lucide-react";
+import { NewPasswordForm } from "@/components/auth/NewPasswordForm";
+import { clearRecoveryFlag } from "@/contexts/AuthContext";
 import { sanitizeErrorMessage } from "@/lib/sanitize";
 import { useQueryClient } from "@tanstack/react-query";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -201,6 +203,23 @@ export function ProfileSettings() {
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : "Guardar cambios"}
         </Button>
       </div>
+
+      <section id="seguridad" aria-labelledby="security-title" className="scroll-mt-20 space-y-4 rounded-xl border border-border bg-card p-5">
+        <div className="flex items-start gap-3">
+          <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+          <div>
+            <h2 id="security-title" className="font-semibold">Seguridad de la cuenta</h2>
+            <p className="text-sm text-muted-foreground">Establecer nueva contraseña para {user?.email}.</p>
+          </div>
+        </div>
+        <NewPasswordForm
+          idPrefix="profile-pw"
+          onSuccess={() => {
+            clearRecoveryFlag();
+            toast({ title: "Contraseña actualizada", description: "La próxima vez entra con tu nueva contraseña." });
+          }}
+        />
+      </section>
     </div>
   );
 }
