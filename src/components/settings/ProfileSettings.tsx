@@ -29,6 +29,12 @@ export function ProfileSettings() {
   const updateCurrency = useUpdateCurrency();
 
   useEffect(() => {
+    if (window.location.hash === "#seguridad") {
+      setTimeout(() => document.getElementById("seguridad")?.scrollIntoView({ behavior: "smooth", block: "start" }), 300);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!user) return;
     supabase.from("profiles").select("*").eq("user_id", user.id).single().then(({ data }) => {
       if (data) {
